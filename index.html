@@ -813,7 +813,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
         <p style="font-size:12px;color:rgba(255,255,255,0.42);line-height:1.6;margin-bottom:14px;">Fill the details below. A ticket number will be generated automatically and WhatsApp will open with a ready-to-send bilingual message to the owner.</p>
         <div class="ai-bar" style="margin:0 0 14px 0;background:rgba(37,211,102,0.08);border-color:rgba(37,211,102,0.22);">
           <div class="ai-result" style="color:rgba(255,255,255,0.62);">
-            AI mic listens for Telugu, English, or Hindi. Type or speak naturally — the owner draft will always show English + Telugu.
+            Use the mic or type the issue. Works best in Chrome. Telugu-first voice input is enabled; English/Hindi typing is also supported. Owner draft will always show English + Telugu.
           </div>
         </div>
         <div class="p-row">
@@ -827,13 +827,19 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
         <div class="p-field">
           <p class="p-label">Issue</p>
           <div class="mic-wrap">
-            <textarea class="p-ta" id="w-issue" placeholder="మీ సమస్యను టైప్ చేయండి లేదా mic నొక్కి మాట్లాడండి... Example: Signal రావడం లేదు / No signal" style="flex:1;margin-top:0;" oninput="updateWaTranslationPreview()"></textarea>
+            <textarea class="p-ta" id="w-issue" placeholder="మీ సమస్యను టైప్ చేయండి లేదా మైక్ నొక్కి మాట్లాడండి... Example: Signal రావడం లేదు / No signal" style="flex:1;margin-top:0;" oninput="updateWaTranslationPreview()"></textarea>
             <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
               <button class="mic-btn" id="mic-btn-w" onclick="toggleWaMic()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
-              <span class="mic-lbl" id="mic-status-w">AI mic</span>
+              <span class="mic-lbl" id="mic-status-w">mic</span>
             </div>
           </div>
-          <p style="font-size:10px;color:rgba(255,255,255,0.34);line-height:1.5;margin-top:6px;">Speak in Telugu, Hindi, or English. The draft to owner will be converted into English + Telugu only.</p>
+          <p style="font-size:10px;color:rgba(255,255,255,0.34);line-height:1.5;margin-top:6px;">Speak in Telugu first. If mic does not capture correctly, type in Telugu/English/Hindi or tap a quick issue below.</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Signal రావడం లేదు')">No Signal</button>
+            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Channels రావడం లేదు')">Channels</button>
+            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Set box పని చేయడం లేదు')">Set Box</button>
+            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Internet slow గా ఉంది')">Internet Slow</button>
+          </div>
         </div>
         <div class="ai-bar" style="margin-top:6px;">
           <div class="ai-result" id="w-translate-preview">AI preview appears after you type or speak the issue.</div>
@@ -1280,7 +1286,10 @@ function submitComplaint(){
   const name=document.getElementById('c-name').value.trim();const desc=document.getElementById('c-issue').value.trim();
   if(!name||!desc){alert('Please enter name and describe the issue.');return;}
   const id='CMP-'+nextCid++;
-  complaints.unshift({id,name,acct:document.getElementById('c-phone').value||'N/A',addr:document.getElementById('c-addr').value||'N/A',stbtype:document.getElementById('c-stbtype').value||'N/A',stbnum:document.getElementById('c-stbnum').value||'N/A',cat:document.getElementById('c-cat').value||'Other',pri:document.getElementById('c-pri').value||'Medium',desc,desc_te:window._lastSummaryTe||'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,assign:''});
+  const ticket={id,name,acct:document.getElementById('c-phone').value||'N/A',addr:document.getElementById('c-addr').value||'N/A',stbtype:document.getElementById('c-stbtype').value||'N/A',stbnum:document.getElementById('c-stbnum').value||'N/A',cat:document.getElementById('c-cat').value||'Other',pri:document.getElementById('c-pri').value||'Medium',desc,desc_te:window._lastSummaryTe||'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
+  complaints.unshift(ticket);
+  saveComplaintsToStorage();
+  addTicketToFirestore(ticket);
   const cf=document.getElementById('cust-confirm');cf.style.display='block';
   cf.innerHTML=`<div class="success-box"><p>Complaint registered: ${id}</p><p>${lang==='te'?'మీ ఫిర్యాదు నమోదైంది. మా బృందానికి WhatsApp అలర్ట్ పంపబడుతుంది.':'Complaint logged. Our team will be WhatsApp-alerted and will contact you the same day.'}</p></div>`;
   ['c-name','c-phone','c-addr','c-stbnum','c-issue'].forEach(x=>document.getElementById(x).value='');document.getElementById('c-stbtype').value='';document.getElementById('c-cat').value='';document.getElementById('c-pri').value='';
@@ -1298,9 +1307,10 @@ function submitInquiry(){
 function quickCB(){const n=document.getElementById('qname').value.trim();if(!n){alert('Please enter your name.');return;}document.getElementById('qok').style.display='block';['qname','qphone','qissue'].forEach(x=>document.getElementById(x).value='');}
 
 function togglePw(){const i=document.getElementById('lp');const b=document.getElementById('eye-btn');i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'SHOW':'HIDE';}
-function doLogin(){
-  const u=document.getElementById('lu').value.trim().toLowerCase();const p=document.getElementById('lp').value;
-  if(OWNERS[u]&&OWNERS[u]===p){
+async function doLogin(){
+  const rawU=document.getElementById('lu').value.trim();const u=rawU.toLowerCase();const p=document.getElementById('lp').value;
+  const firebaseOk=await firebaseOwnerLogin(rawU,p);
+  if(firebaseOk || (OWNERS[u]&&OWNERS[u]===p)){
     document.getElementById('ow-av').textContent=u.slice(0,2).toUpperCase();
     document.getElementById('ow-name').textContent=u.charAt(0).toUpperCase()+u.slice(1);
     showPP('owner');renderOwner();populateSTB();
@@ -1312,6 +1322,7 @@ function doLogin(){
   }
 }
 function doLogout(){
+  firebaseOwnerLogout();
   showPP('customer');
   document.body.classList.remove('owner-mode');
   document.getElementById('pkg-edit-toggle-btn').style.removeProperty('display');
@@ -1338,7 +1349,7 @@ function renderOwner(){
   document.getElementById('new-alerts').innerHTML=complaints.filter(c=>c.isNew).map(c=>`<div class="alert-row"><span>New: <b>${c.id}</b> — ${c.name} | ${c.cat} ${bP(c.pri)}</span><button class="btn-p" style="font-size:10px;padding:3px 8px;" onclick="dismiss('${c.id}')">Dismiss</button></div>`).join('');
   document.getElementById('owner-list').innerHTML=complaints.map(c=>`<div class="ticket-item" onclick="openDetail('${c.id}')"><div class="t-av">${ini(c.name)}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${c.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${c.id}</p>${c.isNew?'<span class="badge b-new">New</span>':''}${c.bcSent?'<span class="badge" style="background:#E7FFDB;color:#27500A;">WA</span>':''}${c.resSent?'<span class="badge b-res">Resolved</span>':''}</div><p style="font-size:11px;color:rgba(255,255,255,0.3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${c.stbtype} · ${c.cat} — ${c.desc.slice(0,50)}…</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">${bS(c.status)}${bP(c.pri)}</div></div>`).join('');
 }
-function dismiss(id){const c=complaints.find(x=>x.id===id);if(c)c.isNew=false;renderOwner();}
+function dismiss(id){const c=complaints.find(x=>x.id===id);if(c){c.isNew=false;updateTicketInFirestore(id,{isNew:false});saveComplaintsToStorage();}renderOwner();}
 
 function renderInquiries(){
   document.getElementById('iq-tot').textContent=inquiries.length;
@@ -1480,12 +1491,12 @@ function sendBroadcast(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;
   const sel=contacts.filter(a=>{const el=document.getElementById('chk-'+a.id);return el&&el.checked;});
   if(!sel.length){alert('Select at least one team member.');return;}
-  c.bcSent=true;waLog.unshift({type:'broadcast',id:c.id,name:c.name,to:sel.map(a=>a.name),msg:bWA(c),time:new Date().toLocaleString()});
+  c.bcSent=true;updateTicketInFirestore(c.id,{bcSent:true});saveComplaintsToStorage();waLog.unshift({type:'broadcast',id:c.id,name:c.name,to:sel.map(a=>a.name),msg:bWA(c),time:new Date().toLocaleString()});
   document.getElementById('bc-status').textContent='Sent to: '+sel.map(a=>a.name).join(', ');
   const btn=document.getElementById('bc-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send via WhatsApp';},2000);renderOwner();
 }
 function sendResolved(){
-  const c=complaints.find(x=>x.id===activeId);if(!c)return;c.resSent=true;c.status='Resolved';const msg=bRes(c);
+  const c=complaints.find(x=>x.id===activeId);if(!c)return;c.resSent=true;c.status='Resolved';updateTicketInFirestore(c.id,{resSent:true,status:'Resolved'});saveComplaintsToStorage();const msg=bRes(c);
   waLog.unshift({type:'resolved',id:c.id,name:c.name,to:[c.name+'('+c.acct+')'],msg,time:new Date().toLocaleString()});
   document.getElementById('res-status').textContent='WhatsApp sent';
   const btn=document.getElementById('res-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send WhatsApp to customer';},2000);
@@ -1495,6 +1506,8 @@ function closeDetail(){document.getElementById('detail-panel').style.display='no
 function saveDetail(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;c.status=document.getElementById('dp-status').value;c.assign=document.getElementById('dp-assign').value;
   const note=document.getElementById('dp-note').value.trim();if(note)c.notes.push(note);
+  updateTicketInFirestore(c.id,{status:c.status,assign:c.assign,notes:c.notes});
+  saveComplaintsToStorage();
   document.getElementById('dp-notes-log').innerHTML=c.notes.map(n=>`<div class="mbox" style="font-size:11px;color:rgba(255,255,255,0.4);">${n}</div>`).join('');
   if(c.status==='Resolved')showResolved(c);renderOwner();
 }
@@ -1503,7 +1516,9 @@ function toggleRaise(){const f=document.getElementById('raise-form');f.style.dis
 function saveRaise(){
   const name=document.getElementById('r-name').value.trim();const desc=document.getElementById('r-desc').value.trim();if(!name||!desc){alert('Name and description required.');return;}
   const id='CMP-'+nextCid++;
-  complaints.unshift({id,name,acct:document.getElementById('r-acct').value||'N/A',addr:document.getElementById('r-addr').value||'N/A',stbtype:document.getElementById('r-stbtype').value||'N/A',stbnum:document.getElementById('r-stbnum').value||'N/A',cat:document.getElementById('r-cat').value||'Other',pri:document.getElementById('r-pri').value||'Medium',desc,desc_te:'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,assign:''});
+  const ticket={id,name,acct:document.getElementById('r-acct').value||'N/A',addr:document.getElementById('r-addr').value||'N/A',stbtype:document.getElementById('r-stbtype').value||'N/A',stbnum:document.getElementById('r-stbnum').value||'N/A',cat:document.getElementById('r-cat').value||'Other',pri:document.getElementById('r-pri').value||'Medium',desc,desc_te:'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
+  complaints.unshift(ticket);
+  addTicketToFirestore(ticket);
   ['r-name','r-acct','r-addr','r-stbnum','r-desc'].forEach(x=>document.getElementById(x).value='');toggleRaise();saveComplaintsToStorage();renderOwner();
 }
 
@@ -1707,7 +1722,7 @@ function openWhatsAppUs(){
   const cf=document.getElementById('wa-form-confirm');
   if(cf){cf.style.display='none';cf.innerHTML='';}
   const status=document.getElementById('mic-status-w');
-  if(status) status.textContent='AI mic';
+  if(status) status.textContent='mic';
   updateWaTranslationPreview();
 }
 
@@ -1720,50 +1735,104 @@ function autoSpeechLang(text){
   return 'te-IN';
 }
 
-function toggleWaMic(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert('Voice input requires Chrome browser.');return;}
+function setWaQuickIssue(text){
+  const el=document.getElementById('w-issue');
+  if(!el) return;
+  el.value=text;
+  updateWaTranslationPreview();
+}
+
+function setWaMicState(text,isRecording){
   const btn=document.getElementById('mic-btn-w');
   const status=document.getElementById('mic-status-w');
-  const issueEl=document.getElementById('w-issue');
-  if(waMicActive){
-    if(waMicRec)waMicRec.stop();
-    waMicActive=false;
-    btn.classList.remove('recording');
-    status.textContent='AI mic';
+  if(btn) btn.classList.toggle('recording',!!isRecording);
+  if(status) status.textContent=text || 'mic';
+}
+
+function toggleWaMic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){
+    alert('Voice input is not supported in this browser. Please use Chrome or type your issue.');
     return;
   }
-  waMicActive=true;
-  btn.classList.add('recording');
-  status.textContent='AI listening';
-  const r=new SR();
-  waMicRec=r;
-  r.continuous=false;
-  r.interimResults=true;
-  r.lang=autoSpeechLang(issueEl.value);
-  let finalText=issueEl.value.trim()?issueEl.value.trim()+' ':'';
-  r.onresult=e=>{
-    let interim='';
-    for(let i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal) finalText+=e.results[i][0].transcript;
-      else interim=e.results[i][0].transcript;
+  const issueEl=document.getElementById('w-issue');
+  if(!issueEl) return;
+
+  if(waMicActive){
+    try{ if(waMicRec) waMicRec.stop(); }catch(e){}
+    waMicActive=false;
+    setWaMicState('mic',false);
+    return;
+  }
+
+  const languages=['te-IN','en-IN','hi-IN'];
+  const langNames={'te-IN':'Telugu','en-IN':'English','hi-IN':'Hindi'};
+  let langIndex=0;
+  let baseText=issueEl.value.trim();
+
+  function startRecognition(){
+    const r=new SR();
+    waMicRec=r;
+    waMicActive=true;
+    r.continuous=false;
+    r.interimResults=true;
+    r.maxAlternatives=1;
+    r.lang=languages[langIndex];
+    let finalText=baseText ? baseText+' ' : '';
+    let gotResult=false;
+    setWaMicState('listening '+langNames[r.lang],true);
+
+    r.onresult=e=>{
+      gotResult=true;
+      let interim='';
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        const transcript=e.results[i][0].transcript || '';
+        if(e.results[i].isFinal) finalText+=transcript;
+        else interim=transcript;
+      }
+      issueEl.value=(finalText+interim).trim();
+      setWaMicState(interim?'capturing':'captured',true);
+      updateWaTranslationPreview();
+    };
+
+    r.onerror=ev=>{
+      const recoverable=['no-speech','audio-capture','network','not-allowed','service-not-allowed'];
+      if(ev && ev.error==='not-allowed'){
+        waMicActive=false;
+        setWaMicState('allow mic',false);
+        alert('Microphone permission is blocked. Please allow microphone access or type the issue.');
+        return;
+      }
+      // Try next language only when there was no captured text.
+      if(!gotResult && langIndex<languages.length-1 && recoverable.includes(ev.error)){
+        try{ r.abort(); }catch(e){}
+        langIndex++;
+        setTimeout(startRecognition,150);
+      }else{
+        waMicActive=false;
+        setWaMicState('type issue',false);
+      }
+    };
+
+    r.onend=()=>{
+      // If nothing was captured, try next language automatically.
+      if(waMicActive && !gotResult && langIndex<languages.length-1){
+        langIndex++;
+        setTimeout(startRecognition,150);
+        return;
+      }
+      waMicActive=false;
+      setWaMicState('mic',false);
+      updateWaTranslationPreview();
+    };
+
+    try{ r.start(); }
+    catch(e){
+      waMicActive=false;
+      setWaMicState('try again',false);
     }
-    issueEl.value=(finalText+interim).trim();
-    status.textContent=interim?'detecting':'captured';
-    updateWaTranslationPreview();
-  };
-  r.onerror=()=>{
-    waMicActive=false;
-    btn.classList.remove('recording');
-    status.textContent='try typing';
-  };
-  r.onend=()=>{
-    waMicActive=false;
-    btn.classList.remove('recording');
-    status.textContent='AI mic';
-    updateWaTranslationPreview();
-  };
-  r.start();
+  }
+  startRecognition();
 }
 
 function detectIssueLang(text){
@@ -1775,13 +1844,13 @@ function normalizeIssue(text){return (text||'').toLowerCase().trim();}
 function issueFlags(text){
   const t=normalizeIssue(text);
   return {
-    noSignal:/no signal|signal problem|signal not|సిగ్నల్|सिग्नल|signal nahi|सिगनल/.test(t),
-    internet:/internet|broadband|wifi|wi-fi|slow|speed|ఇంటర్నెట్|వైఫై|धीमा|इंटरनेट|नेट/.test(t),
-    channels:/channel|channels|missing|not coming|చానెల్|చానెల్స్|चैनल/.test(t),
-    remote:/remote|రిమోట్|रिमोट/.test(t),
-    billing:/bill|billing|payment|charge|బిల్|చార్జ్|भुगतान|बिल/.test(t),
-    setbox:/set box|setup box|stb|box|సెట్|बॉक्स/.test(t),
-    outage:/outage|not working|down|పని చేయడం లేదు|काम नहीं|बंद/.test(t)
+    noSignal:/no signal|signal problem|signal not|signal ra|signal rav|ravatledu|raavatledu|ravadam ledu|సిగ్నల్|సిగ్నల్ రావడం లేదు|सिग्नल|signal nahi|सिगनल/.test(t),
+    internet:/internet|broadband|wifi|wi-fi|slow|speed|net slow|internet slow|ఇంటర్నెట్|వైఫై|నెమ్మదిగా|धीमा|इंटरनेट|नेट/.test(t),
+    channels:/channel|channels|missing|not coming|channel ravatledu|channels ravatledu|చానెల్|చానెల్స్|चैनल/.test(t),
+    remote:/remote|remote working ledu|రిమోట్|रिमोट/.test(t),
+    billing:/bill|billing|payment|charge|బిల్|చార్జ్|భారం|भुगतान|बिल/.test(t),
+    setbox:/set box|setup box|setbox|stb|box|box working ledu|సెట్|బాక్స్|बॉक्स/.test(t),
+    outage:/outage|not working|working ledu|work avvatledu|down|పని చేయడం లేదు|काम नहीं|बंद/.test(t)
   };
 }
 function translateIssueToEnglishTelugu(text){
@@ -1842,6 +1911,7 @@ function submitWhatsAppComplaint(){
   const ticket={id,name,acct:phone,addr:'Submitted via WhatsApp Us form',stbtype,stbnum,cat:'WhatsApp complaint',pri:'Medium',desc:converted.english,desc_te:converted.telugu,issueOriginal:issue,issueEnglish:converted.english,issueTelugu:converted.telugu,issueInputLang:converted.lang,status:'Open',notes:['Ticket raised from WhatsApp Us form'],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
   complaints.unshift(ticket);
   saveComplaintsToStorage();
+  addTicketToFirestore(ticket);
   if(typeof renderOwner==='function') renderOwner();
   const msg=buildOwnerComplaintMsg(ticket);
   const ownerWa=(contactInfo.wa||'919393933473').replace(/\D/g,'');
@@ -1858,11 +1928,74 @@ function sendCustomerAck(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;
   const msg=buildCustomerAckMsg(c);
   c.ackSent=true;
+  updateTicketInFirestore(c.id,{ackSent:true});
+  saveComplaintsToStorage();
   waLog.unshift({type:'acknowledgement',id:c.id,name:c.name,to:[c.name+' ('+c.acct+')'],msg,time:new Date().toLocaleString()});
   saveComplaintsToStorage();
   const status=document.getElementById('ack-status'); if(status) status.textContent='Acknowledgement opened in WhatsApp';
   renderOwner();
   window.open(waLink(c.acct,msg),'_blank');
+}
+
+
+
+// ── FIREBASE / FIRESTORE LIVE SYNC ─────────────────────────────
+let firebaseReady=false;
+let firebaseTicketsUnsub=null;
+
+function toFirestoreTicket(ticket){
+  return Object.assign({}, ticket, {
+    createdAt: (window.fb && window.fb.serverTimestamp) ? window.fb.serverTimestamp() : new Date().toISOString(),
+    updatedAt: (window.fb && window.fb.serverTimestamp) ? window.fb.serverTimestamp() : new Date().toISOString()
+  });
+}
+function fromFirestoreDoc(d){
+  const x=d.data();
+  return Object.assign({id:d.id,notes:[],status:'Open',pri:'Medium',cat:'WhatsApp complaint',isNew:false,bcSent:false,resSent:false,ackSent:false,assign:''}, x, {id:d.id});
+}
+async function addTicketToFirestore(ticket){
+  try{
+    if(!window.fb || !window.firebaseDB) return;
+    await window.fb.setDoc(window.fb.doc(window.firebaseDB,'tickets',ticket.id), toFirestoreTicket(ticket));
+  }catch(e){console.warn('Firestore ticket save failed:', e);}
+}
+async function updateTicketInFirestore(id, patch){
+  try{
+    if(!window.fb || !window.firebaseDB || !id) return;
+    await window.fb.setDoc(window.fb.doc(window.firebaseDB,'tickets',id), Object.assign({}, patch, {
+      updatedAt: window.fb.serverTimestamp ? window.fb.serverTimestamp() : new Date().toISOString()
+    }), {merge:true});
+  }catch(e){console.warn('Firestore ticket update failed:', e);}
+}
+function startFirebaseSync(){
+  if(firebaseTicketsUnsub || !window.fb || !window.firebaseDB) return;
+  firebaseReady=true;
+  try{
+    const q=window.fb.query(window.fb.collection(window.firebaseDB,'tickets'), window.fb.orderBy('createdAt','desc'));
+    firebaseTicketsUnsub=window.fb.onSnapshot(q,(snap)=>{
+      const cloudTickets=snap.docs.map(fromFirestoreDoc);
+      if(cloudTickets.length){
+        complaints=cloudTickets;
+        const maxId=complaints.reduce((m,c)=>{const n=parseInt(String(c.id||'').replace(/\D/g,''),10);return Number.isFinite(n)?Math.max(m,n):m;},1003);
+        nextCid=Math.max(nextCid,maxId+1);
+        saveComplaintsToStorage();
+        if(document.getElementById('pp-owner')?.style.display!=='none') renderOwner();
+      }
+    },(err)=>console.warn('Firestore listener failed:',err));
+  }catch(e){console.warn('Firestore sync start failed:',e);}
+}
+async function firebaseOwnerLogin(username,password){
+  try{
+    if(!window.fb || !window.firebaseAuth || !username.includes('@')) return false;
+    await window.fb.signInWithEmailAndPassword(window.firebaseAuth,username,password);
+    return true;
+  }catch(e){
+    console.warn('Firebase login failed:',e);
+    return false;
+  }
+}
+async function firebaseOwnerLogout(){
+  try{if(window.fb && window.firebaseAuth) await window.fb.signOut(window.firebaseAuth);}catch(e){}
 }
 
 // ── LOCAL STORAGE FOR TICKETS + POSTERS ─────────────────────────
@@ -1900,6 +2033,33 @@ renderPostsPublic();
   const wa=document.getElementById('pub-wa-link'); if(wa){wa.textContent=contactInfo.phone+' →';wa.href='#';wa.onclick=function(){openWhatsAppUs();return false;};}
   const hwa=document.getElementById('hero-wa-btn'); if(hwa) hwa.href='https://wa.me/'+contactInfo.wa;
 })();
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getFirestore, collection, doc, setDoc, addDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDHxINPcDdlLPW8XbL3FLwsDcarYtfFgbw",
+  authDomain: "cable-tv-website.firebaseapp.com",
+  projectId: "cable-tv-website",
+  storageBucket: "cable-tv-website.firebasestorage.app",
+  messagingSenderId: "467165193975",
+  appId: "1:467165193975:web:37398fcf6ce7cb19a395f2",
+  measurementId: "G-TM3CFZZFZE"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+window.firebaseDB = db;
+window.firebaseAuth = auth;
+window.fb = { collection, doc, setDoc, addDoc, onSnapshot, serverTimestamp, query, orderBy, signInWithEmailAndPassword, signOut, onAuthStateChanged };
+
+if(typeof window.startFirebaseSync === 'function') window.startFirebaseSync();
+onAuthStateChanged(auth,()=>{ if(typeof window.startFirebaseSync === 'function') window.startFirebaseSync(); });
 </script>
 
 <!-- SCROLL PROGRESS BAR -->
