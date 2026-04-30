@@ -811,12 +811,9 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           <button class="btn-p" onclick="showPP('customer')" style="font-size:10px;">← Back</button>
         </div>
         <p style="font-size:12px;color:rgba(255,255,255,0.42);line-height:1.6;margin-bottom:14px;">Fill the details below. A ticket number will be generated automatically and WhatsApp will open with a ready-to-send bilingual message to the owner.</p>
-        <div class="p-field" style="margin-bottom:14px;">
-          <p class="p-label">Voice language</p>
-          <div class="lang-sw" style="background:#111;">
-            <button class="ltab active" id="wlang-en" onclick="setWaLang('en',this)">English</button>
-            <button class="ltab" id="wlang-te" onclick="setWaLang('te',this)">తెలుగు</button>
-            <button class="ltab" id="wlang-hi" onclick="setWaLang('hi',this)">हिन्दी</button>
+        <div class="ai-bar" style="margin:0 0 14px 0;background:rgba(37,211,102,0.08);border-color:rgba(37,211,102,0.22);">
+          <div class="ai-result" style="color:rgba(255,255,255,0.62);">
+            AI mic listens for Telugu, English, or Hindi. Type or speak naturally — the owner draft will always show English + Telugu.
           </div>
         </div>
         <div class="p-row">
@@ -830,16 +827,16 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
         <div class="p-field">
           <p class="p-label">Issue</p>
           <div class="mic-wrap">
-            <textarea class="p-ta" id="w-issue" placeholder="Type or speak the issue in English, Telugu, or Hindi..." style="flex:1;margin-top:0;"></textarea>
+            <textarea class="p-ta" id="w-issue" placeholder="మీ సమస్యను టైప్ చేయండి లేదా mic నొక్కి మాట్లాడండి... Example: Signal రావడం లేదు / No signal" style="flex:1;margin-top:0;" oninput="updateWaTranslationPreview()"></textarea>
             <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
               <button class="mic-btn" id="mic-btn-w" onclick="toggleWaMic()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
-              <span class="mic-lbl" id="mic-status-w">mic</span>
+              <span class="mic-lbl" id="mic-status-w">AI mic</span>
             </div>
           </div>
-          <p style="font-size:10px;color:rgba(255,255,255,0.28);line-height:1.5;margin-top:6px;">Final WhatsApp draft will include English + Telugu issue text only.</p>
+          <p style="font-size:10px;color:rgba(255,255,255,0.34);line-height:1.5;margin-top:6px;">Speak in Telugu, Hindi, or English. The draft to owner will be converted into English + Telugu only.</p>
         </div>
         <div class="ai-bar" style="margin-top:6px;">
-          <div class="ai-result" id="w-translate-preview">Translation preview appears after you type or speak the issue.</div>
+          <div class="ai-result" id="w-translate-preview">AI preview appears after you type or speak the issue.</div>
         </div>
         <button class="p-submit" onclick="submitWhatsAppComplaint()" style="background:#25D366;box-shadow:0 4px 16px rgba(37,211,102,.25);">Create Ticket & Open WhatsApp</button>
         <div id="wa-form-confirm" style="display:none;margin-top:12px;"></div>
@@ -1447,12 +1444,12 @@ function saveContactInfo(){
   const em=document.getElementById('pub-email'); if(em) em.textContent=contactInfo.email;
   const ad=document.getElementById('pub-addr'); if(ad) ad.textContent=contactInfo.addr;
   const hr=document.getElementById('pub-hours'); if(hr) hr.textContent=contactInfo.hours;
-  const wa=document.getElementById('pub-wa-link'); if(wa){wa.textContent=contactInfo.phone+' →';wa.href='https://wa.me/'+contactInfo.wa;}
+  const wa=document.getElementById('pub-wa-link'); if(wa){wa.textContent=contactInfo.phone+' →';wa.href='#';wa.onclick=function(){openWhatsAppUs();return false;};}
   const hwa=document.getElementById('hero-wa-btn'); if(hwa) hwa.href='https://wa.me/'+contactInfo.wa;
   const hwaW=document.getElementById('hero-wa-widget'); if(hwaW) hwaW.href='https://wa.me/'+contactInfo.wa;
   const hwaNum=document.querySelector('.hero-wa-num'); if(hwaNum) hwaNum.textContent=contactInfo.phone;
   const hwaLNum=document.getElementById('hero-left-wa-num'); if(hwaLNum) hwaLNum.textContent=contactInfo.phone;
-  const hwaL=document.getElementById('hero-left-wa'); if(hwaL) hwaL.href='https://wa.me/'+contactInfo.wa;
+  const hwaL=document.getElementById('hero-left-wa'); if(hwaL){hwaL.href='#';hwaL.onclick=function(){openWhatsAppUs();return false;};}
   document.getElementById('contact-edit-form').style.display='none';
   document.getElementById('contact-edit-btn').textContent='Edit';
   renderContactPreview();
@@ -1701,7 +1698,6 @@ function renderPostsPublic(){
 
 
 // ── WHATSAPP US STRUCTURED COMPLAINT + MULTI-LANGUAGE VOICE ─────────────────
-let waLang='en';
 let waMicRec=null;
 let waMicActive=false;
 
@@ -1710,15 +1706,19 @@ function openWhatsAppUs(){
   populateSTB();
   const cf=document.getElementById('wa-form-confirm');
   if(cf){cf.style.display='none';cf.innerHTML='';}
+  const status=document.getElementById('mic-status-w');
+  if(status) status.textContent='AI mic';
   updateWaTranslationPreview();
 }
 
-function setWaLang(l,el){
-  waLang=l;
-  document.querySelectorAll('#wlang-en,#wlang-te,#wlang-hi').forEach(b=>b.classList.remove('active'));
-  if(el) el.classList.add('active');
+function autoSpeechLang(text){
+  // Default to Telugu because most customers are Telugu-speaking.
+  // If the user already typed Hindi/English-looking text, shift the speech engine hint.
+  if(/[ऀ-ॿ]/.test(text||'')) return 'hi-IN';
+  if(/[ఀ-౿]/.test(text||'')) return 'te-IN';
+  if(/[a-zA-Z]/.test(text||'')) return 'en-IN';
+  return 'te-IN';
 }
-function waLangCode(){return waLang==='te'?'te-IN':(waLang==='hi'?'hi-IN':'en-IN');}
 
 function toggleWaMic(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -1726,9 +1726,21 @@ function toggleWaMic(){
   const btn=document.getElementById('mic-btn-w');
   const status=document.getElementById('mic-status-w');
   const issueEl=document.getElementById('w-issue');
-  if(waMicActive){if(waMicRec)waMicRec.stop();waMicActive=false;btn.classList.remove('recording');status.textContent='mic';return;}
-  waMicActive=true;btn.classList.add('recording');status.textContent='…';
-  const r=new SR();waMicRec=r;r.continuous=false;r.interimResults=true;r.lang=waLangCode();
+  if(waMicActive){
+    if(waMicRec)waMicRec.stop();
+    waMicActive=false;
+    btn.classList.remove('recording');
+    status.textContent='AI mic';
+    return;
+  }
+  waMicActive=true;
+  btn.classList.add('recording');
+  status.textContent='AI listening';
+  const r=new SR();
+  waMicRec=r;
+  r.continuous=false;
+  r.interimResults=true;
+  r.lang=autoSpeechLang(issueEl.value);
   let finalText=issueEl.value.trim()?issueEl.value.trim()+' ':'';
   r.onresult=e=>{
     let interim='';
@@ -1737,11 +1749,20 @@ function toggleWaMic(){
       else interim=e.results[i][0].transcript;
     }
     issueEl.value=(finalText+interim).trim();
-    status.textContent=interim?'hearing':'got it';
+    status.textContent=interim?'detecting':'captured';
     updateWaTranslationPreview();
   };
-  r.onerror=()=>{waMicActive=false;btn.classList.remove('recording');status.textContent='error';};
-  r.onend=()=>{waMicActive=false;btn.classList.remove('recording');status.textContent='mic';updateWaTranslationPreview();};
+  r.onerror=()=>{
+    waMicActive=false;
+    btn.classList.remove('recording');
+    status.textContent='try typing';
+  };
+  r.onend=()=>{
+    waMicActive=false;
+    btn.classList.remove('recording');
+    status.textContent='AI mic';
+    updateWaTranslationPreview();
+  };
   r.start();
 }
 
@@ -1785,9 +1806,10 @@ function updateWaTranslationPreview(){
   const issueEl=document.getElementById('w-issue');
   if(!el||!issueEl) return;
   const issue=issueEl.value.trim();
-  if(!issue){el.textContent='Translation preview appears after you type or speak the issue.';return;}
+  if(!issue){el.textContent='AI preview appears after you type or speak the issue.';return;}
   const t=translateIssueToEnglishTelugu(issue);
-  el.innerHTML=`<span class="badge b-new" style="margin-right:4px;">English</span> ${t.english}<br><span class="badge b-cat" style="margin-right:4px;margin-top:6px;">Telugu</span> <span style="font-family:'Noto Sans Telugu',sans-serif;">${t.telugu}</span>`;
+  const d=t.lang==='te'?'Telugu':(t.lang==='hi'?'Hindi':'English');
+  el.innerHTML=`<span class="badge b-pend" style="margin-right:4px;">Detected: ${d}</span><br><span class="badge b-new" style="margin-right:4px;margin-top:6px;">English</span> ${t.english}<br><span class="badge b-cat" style="margin-right:4px;margin-top:6px;">Telugu</span> <span style="font-family:'Noto Sans Telugu',sans-serif;">${t.telugu}</span>`;
 }
 function buildOwnerComplaintMsg(c){
   const en=c.issueEnglish||c.desc||'';
@@ -1875,7 +1897,7 @@ renderPostsPublic();
   const em=document.getElementById('pub-email'); if(em) em.textContent=contactInfo.email;
   const ad=document.getElementById('pub-addr'); if(ad) ad.textContent=contactInfo.addr;
   const hr=document.getElementById('pub-hours'); if(hr) hr.textContent=contactInfo.hours;
-  const wa=document.getElementById('pub-wa-link'); if(wa){wa.textContent=contactInfo.phone+' →';wa.href='https://wa.me/'+contactInfo.wa;}
+  const wa=document.getElementById('pub-wa-link'); if(wa){wa.textContent=contactInfo.phone+' →';wa.href='#';wa.onclick=function(){openWhatsAppUs();return false;};}
   const hwa=document.getElementById('hero-wa-btn'); if(hwa) hwa.href='https://wa.me/'+contactInfo.wa;
 })();
 </script>
