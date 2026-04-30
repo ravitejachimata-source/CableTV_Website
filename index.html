@@ -663,23 +663,32 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
         <div><p class="c-label">Support Hours</p><p class="c-val" id="public-hours">Mon – Sun · 8 AM to 10 PM</p></div>
       </div>
       <div class="public-contact-actions">
-        <a class="btn-primary" id="public-wa-link" href="https://wa.me/919393933473" target="_blank">WhatsApp Us</a>
+        <button class="btn-primary" id="public-wa-link" onclick="toggleWhatsAppForm()" type="button">WhatsApp Us</button>
         <button class="btn-outline" onclick="openPortal('customer')">File Complaint</button>
+      </div>
+      <div class="quick-form" id="wa-contact-form" style="display:none;margin-top:18px;padding:22px;box-shadow:none;">
+        <p class="qf-title" style="font-size:18px;">WhatsApp Message</p>
+        <p class="qf-sub">Fill details and send a structured WhatsApp complaint.</p>
+        <input class="qf-input" id="wa-name" placeholder="Customer name">
+        <input class="qf-input" id="wa-phone" placeholder="Phone number">
+        <select class="qf-input" id="wa-stbtype" style="appearance:auto;">
+          <option value="">Select set top box type</option>
+        </select>
+        <input class="qf-input" id="wa-stbnum" placeholder="Set top box number">
+        <input class="qf-input" id="wa-issue" placeholder="Issue / problem">
+        <button class="qf-submit" onclick="sendWhatsAppContact()">Send WhatsApp Message</button>
+        <p id="waok" style="display:none;text-align:center;margin-top:12px;font-size:13px;color:var(--green);font-weight:600;"></p>
       </div>
     </div>
 
     <div class="quick-form">
       <p class="qf-title">Quick Callback Request</p>
       <p class="qf-sub">Leave your number — we'll call you back within 2 hours.</p>
-      <input class="qf-input" id="qname" placeholder="Customer name">
+      <input class="qf-input" id="qname" placeholder="Your name">
       <input class="qf-input" id="qphone" placeholder="Phone number">
-      <select class="qf-input" id="qstbtype" style="appearance:auto;">
-        <option value="">Select set top box type</option>
-      </select>
-      <input class="qf-input" id="qstbnum" placeholder="Set top box number">
       <input class="qf-input" id="qissue" placeholder="Briefly describe your issue">
-      <button class="qf-submit" onclick="quickCB()">Raise Ticket on WhatsApp</button>
-      <p id="qok" style="display:none;text-align:center;margin-top:12px;font-size:13px;color:var(--green);font-weight:600;"></p>
+      <button class="qf-submit" onclick="quickCB()">Request Callback</button>
+      <p id="qok" style="display:none;text-align:center;margin-top:12px;font-size:13px;color:var(--green);font-weight:600;">✓ Received! We will call you within 2 hours.</p>
     </div>
   </div>
 </section>
@@ -1108,7 +1117,7 @@ const LL={en:{name:'Full name',phone:'Phone number',addr:'Address',stbtype:'Set 
 
 function setLang(l,el){lang=l;document.querySelectorAll('#lb-en,#lb-te').forEach(b=>b.classList.remove('active'));el.classList.add('active');Object.keys(LL[l]).forEach(k=>{const e=document.getElementById('L-'+k);if(e)e.textContent=LL[l][k];});}
 
-function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype','qstbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
+function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype','wa-stbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
 function populatePkgDropdowns(){['i-pkg','nc-pkg'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.innerHTML=packages.map(p=>`<option>${p.name} — ₹${p.price}/mo</option>`).join('');});}
 
 function renderPackages(){
@@ -1220,29 +1229,48 @@ function submitInquiry(){
 function quickCB(){
   const name=document.getElementById('qname').value.trim();
   const phone=document.getElementById('qphone').value.trim();
-  const stbType=document.getElementById('qstbtype').value.trim()||'Not provided';
-  const stbNum=document.getElementById('qstbnum').value.trim()||'Not provided';
   const issue=document.getElementById('qissue').value.trim();
+  if(!name||!phone){alert('Please enter your name and phone number.');return;}
+  const qok=document.getElementById('qok');
+  qok.style.display='block';
+  qok.innerHTML='✓ Received! We will call you within 2 hours.';
+  ['qname','qphone','qissue'].forEach(x=>document.getElementById(x).value='');
+}
+
+function toggleWhatsAppForm(){
+  const form=document.getElementById('wa-contact-form');
+  if(!form)return;
+  form.style.display=form.style.display==='none'?'block':'none';
+  populateSTB();
+  if(form.style.display==='block') form.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function sendWhatsAppContact(){
+  const name=document.getElementById('wa-name').value.trim();
+  const phone=document.getElementById('wa-phone').value.trim();
+  const stbType=document.getElementById('wa-stbtype').value.trim()||'Not provided';
+  const stbNum=document.getElementById('wa-stbnum').value.trim()||'Not provided';
+  const issue=document.getElementById('wa-issue').value.trim();
   if(!name||!phone||!issue){alert('Please enter customer name, phone number, and issue.');return;}
 
   const id='CMP-'+nextCid++;
   const ticket={
-    id,name,acct:phone,addr:'Submitted from Contact / WhatsApp form',stbtype:stbType,stbnum:stbNum,
+    id,name,acct:phone,addr:'Submitted from WhatsApp Us form',stbtype:stbType,stbnum:stbNum,
     cat:'Customer WhatsApp request',pri:'Medium',desc:issue,desc_te:'',status:'Open',
-    notes:['Ticket raised from public Contact section'],date:new Date().toISOString().slice(0,10),
+    notes:['Ticket raised from public WhatsApp Us button'],date:new Date().toISOString().slice(0,10),
     isNew:true,bcSent:false,resSent:false,assign:''
   };
   complaints.unshift(ticket);
 
-  const msg='*NSR Master Channel — Complaint Received*\n\n*Complaint No:* '+id+'\n*Customer Name:* '+name+'\n*Phone Number:* '+phone+'\n*Set Top Box Type:* '+stbType+'\n*Set Top Box Number:* '+stbNum+'\n*Issue:* '+issue+'\n\nYour complaint has been received. Our team will contact you shortly.\n\n_NSR Master Channel_';
+  const msg='*NSR Master Channel — New Complaint*\n\n*Complaint No:* '+id+'\n*Customer Name:* '+name+'\n*Phone Number:* '+phone+'\n*Set Box Name:* '+stbType+'\n*Set Box Number:* '+stbNum+'\n*Issue:* '+issue+'\n\nYour complaint has been received. Our team will contact you shortly.\n\n_NSR Master Channel_';
   const waNumber=String(contactInfo.wa||'919393933473').replace(/\D/g,'');
   window.open('https://wa.me/'+waNumber+'?text='+encodeURIComponent(msg),'_blank');
 
-  const qok=document.getElementById('qok');
-  qok.style.display='block';
-  qok.innerHTML='✓ Complaint received! Your complaint number is <b>'+id+'</b>. WhatsApp message is ready to send.';
-  ['qname','qphone','qstbnum','qissue'].forEach(x=>document.getElementById(x).value='');
-  document.getElementById('qstbtype').value='';
+  const waok=document.getElementById('waok');
+  waok.style.display='block';
+  waok.innerHTML='✓ Complaint received! Your complaint number is <b>'+id+'</b>. WhatsApp message is ready to send.';
+  ['wa-name','wa-phone','wa-stbnum','wa-issue'].forEach(x=>document.getElementById(x).value='');
+  document.getElementById('wa-stbtype').value='';
   if(typeof renderOwner==='function') renderOwner();
   saveAppState();
 }
@@ -1398,7 +1426,7 @@ function renderPublicContactInfo(){
   if(email)email.textContent=contactInfo.email;
   if(addr)addr.textContent=contactInfo.addr;
   if(hours)hours.textContent=contactInfo.hours;
-  if(wa)wa.href='https://wa.me/'+String(contactInfo.wa||'').replace(/\D/g,'');
+  if(wa)wa.dataset.wa='https://wa.me/'+String(contactInfo.wa||'').replace(/\D/g,'');
 }
 function saveContactInfo(){
   contactInfo.phone=document.getElementById('ce-phone').value.trim()||contactInfo.phone;
