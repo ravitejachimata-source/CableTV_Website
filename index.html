@@ -58,6 +58,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:66px;display:flex;ali
 .btn-primary:hover{background:var(--red2);transform:translateY(-1px);}
 .btn-outline{background:transparent;color:var(--ink);padding:15px 30px;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:.5px;text-decoration:none;border:1.5px solid var(--border);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
 .btn-outline:hover{border-color:var(--ink);}
+.btn-wa-hero{background:#fff;color:#1a1a1a;padding:15px 24px;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:.3px;text-decoration:none;border:1.5px solid rgba(37,211,102,0.4);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;display:inline-flex;align-items:center;gap:9px;box-shadow:0 2px 12px rgba(37,211,102,0.15);}
+.btn-wa-hero:hover{border-color:#25D366;background:#f0fff4;transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,0.25);}
 .hero-right{background:var(--red);height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 @media(max-width:900px){.hero-right{height:320px;}}
 .hero-pattern{position:absolute;inset:0;opacity:0.07;}
@@ -291,13 +293,31 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .poster-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
 .poster-placeholder p{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);}
 .poster-owner-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;gap:8px;}
-.owner-mode .poster-slot:hover .poster-owner-overlay{display:flex;}
-.owner-mode .poster-slot .poster-placeholder p::after{content:' (click to upload)';}
+/* Poster controls are managed only inside Owner > Info tab. Front page only previews posters. */
+.owner-mode .poster-slot:hover .poster-owner-overlay{display:none;}
+.owner-mode .poster-slot .poster-placeholder p::after{content:'';}
 .poster-owner-overlay button{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;border-radius:6px;padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;transition:background .2s;}
 .poster-owner-overlay button:hover{background:rgba(255,255,255,0.22);}
 /* Non-owner: clicking poster does nothing */
 body:not(.owner-mode) .poster-slot{cursor:default;}
 body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
+
+/* OWNER POSTER MANAGER */
+.poster-admin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.poster-admin-card{background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:9px;}
+.poster-admin-preview{height:86px;border-radius:8px;background:rgba(255,255,255,0.04);overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:8px;color:rgba(255,255,255,0.25);font-size:10px;text-transform:uppercase;letter-spacing:1px;}
+.poster-admin-preview img{width:100%;height:100%;object-fit:cover;display:block;}
+.poster-admin-actions{display:flex;gap:6px;}
+.poster-admin-actions button{flex:1;}
+@media(max-width:640px){.poster-admin-grid{grid-template-columns:1fr 1fr;}}
+
+/* WHY SECTION PREMIUM */
+.why-card.trust-card{border:2px solid rgba(201,153,58,0.45)!important;background:linear-gradient(145deg,#fff8e8,#fff)!important;box-shadow:0 18px 45px rgba(201,153,58,0.18)!important;position:relative;overflow:hidden;}
+.why-card.trust-card::after{content:'';position:absolute;right:-42px;top:-42px;width:120px;height:120px;background:radial-gradient(circle,rgba(201,153,58,.22),transparent 65%);}
+.why-num.trust-num{font-size:68px!important;color:var(--gold)!important;text-shadow:0 8px 26px rgba(201,153,58,.22);}
+.why-icon{width:44px;height:44px;border-radius:12px;background:rgba(200,32,31,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--red);font-size:22px;}
+.why-title{font-size:19px;font-weight:800;color:#12100d;}
+.why-desc{font-size:14px;font-weight:400;color:#5b5246;}
 
 /* OFFER SECTION */
 .offer-row{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
@@ -323,6 +343,30 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
 .post-date::before{content:'';display:inline-block;width:20px;height:1px;background:rgba(255,255,255,0.15);}
 
 /* ── SCROLL PROGRESS BAR ── */
+
+/* HERO LEFT WHATSAPP CARD */
+.hero-left-wa{display:inline-flex;align-items:center;gap:14px;margin-top:32px;background:#fff;border:1.5px solid rgba(37,211,102,0.25);border-radius:14px;padding:14px 22px 14px 14px;text-decoration:none;max-width:420px;position:relative;overflow:hidden;transition:all .25s cubic-bezier(.22,1,.36,1);box-shadow:0 4px 20px rgba(37,211,102,0.1);animation:fadeUp .6s .5s ease both;}
+.hero-left-wa:hover{border-color:#25D366;box-shadow:0 8px 32px rgba(37,211,102,0.22);transform:translateY(-2px);}
+.hero-left-wa-icon{width:46px;height:46px;border-radius:12px;background:#25D366;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(37,211,102,0.35);transition:transform .2s;}
+.hero-left-wa:hover .hero-left-wa-icon{transform:scale(1.08);}
+.hero-left-wa-label{display:block;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.3px;margin-bottom:4px;}
+.hero-left-wa-num{display:block;font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.3px;font-family:'Playfair Display',serif;}
+.hero-left-wa-pulse{position:absolute;top:12px;right:14px;width:8px;height:8px;border-radius:50%;background:#25D366;animation:waPulse 2s ease-in-out infinite;}
+@media(max-width:640px){.hero-left-wa{max-width:100%;padding:12px 16px 12px 12px;margin-top:24px;}.hero-left-wa-num{font-size:16px;}.hero-left-wa-icon{width:40px;height:40px;border-radius:10px;}}
+
+/* HERO WHATSAPP WIDGET */
+.hero-wa-widget{position:absolute;top:24px;right:24px;z-index:10;text-decoration:none;display:block;}
+.hero-wa-inner{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,0.12);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.22);border-radius:50px;padding:10px 18px 10px 10px;transition:all .25s cubic-bezier(.22,1,.36,1);position:relative;z-index:1;}
+.hero-wa-widget:hover .hero-wa-inner{background:rgba(37,211,102,0.82);border-color:rgba(37,211,102,0.9);transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,0.35);}
+.hero-wa-icon{width:42px;height:42px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 12px rgba(37,211,102,0.4);transition:transform .25s;}
+.hero-wa-widget:hover .hero-wa-icon{transform:scale(1.1);}
+.hero-wa-label{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);line-height:1;}
+.hero-wa-num{display:block;font-size:14px;font-weight:700;color:#fff;margin-top:3px;letter-spacing:.3px;}
+.hero-wa-arrow{font-size:16px;color:rgba(255,255,255,0.5);margin-left:4px;transition:transform .2s;}
+.hero-wa-widget:hover .hero-wa-arrow{transform:translateX(3px);color:#fff;}
+.hero-wa-pulse{position:absolute;top:8px;right:8px;width:10px;height:10px;border-radius:50%;background:#25D366;animation:waPulse 2s ease-in-out infinite;z-index:0;}
+@keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.5);}70%{box-shadow:0 0 0 10px rgba(37,211,102,0);}100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
+@media(max-width:900px){.hero-wa-widget{top:14px;right:14px;}.hero-wa-inner{padding:8px 14px 8px 8px;gap:8px;}.hero-wa-icon{width:36px;height:36px;}.hero-wa-num{font-size:12px;}.hero-wa-label{font-size:9px;}}
 #scroll-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));width:0%;z-index:9999;transition:width .1s linear;}
 
 /* ── MOBILE LAYOUT ── */
@@ -343,6 +387,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   .hero-desc{font-size:15px;}
   .hero-actions{gap:10px;}
   .btn-primary,.btn-outline{padding:13px 20px;font-size:12px;}
+  .btn-wa-hero{padding:12px 18px;font-size:12px;}
   .hero-right{height:260px;}
   .poster-grid{gap:2px;padding:2px;}
 
@@ -457,6 +502,21 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
       </a>
       <button class="btn-outline" onclick="openPortal('customer')">File a Complaint</button>
     </div>
+
+    <!-- WhatsApp Us card in hero-left -->
+    <a href="#" class="hero-left-wa" id="hero-left-wa" onclick="openWhatsAppUs();return false;">
+      <div class="hero-left-wa-icon">
+        <svg viewBox="0 0 24 24" width="22" height="22">
+          <path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path fill="#fff" fill-rule="evenodd" d="M11.999 2C6.477 2 2 6.477 2 12c0 1.85.504 3.58 1.383 5.065L2 22l5.085-1.338A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+        </svg>
+      </div>
+      <div class="hero-left-wa-text">
+        <span class="hero-left-wa-label">WhatsApp Us — Available Mon–Sun 8AM to 10PM</span>
+        <span class="hero-left-wa-num" id="hero-left-wa-num">+91 93939 33473</span>
+      </div>
+      <div class="hero-left-wa-pulse"></div>
+    </a>
   </div>
   <div class="hero-right" id="hero-right">
     <div class="hero-pattern">
@@ -588,14 +648,14 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   <h2 class="section-title">Built for Ibrahimpatnam</h2>
   <p class="section-sub">We're not a distant operator — we're your neighbours. Our team lives here, works here, and is always a call away.</p>
   <div class="why-grid">
-    <div class="why-card" style="border-color:rgba(201,153,58,0.35);background:linear-gradient(145deg,#FFFDF8,#fff);">
-      <div class="why-num" style="color:rgba(201,153,58,0.15);">25+</div>
+    <div class="why-card trust-card">
+      <div class="why-num trust-num">25+</div>
       <div class="why-title" style="color:var(--ink);">Years of Trust</div>
       <p class="why-desc">Over 25 years of serving Ibrahimpatnam. A name the community has relied on for generations.</p>
     </div>
-    <div class="why-card"><div class="why-num">01</div><div class="why-title">Same-day Support</div><p class="why-desc">Field technicians dispatched within hours. No waiting days for someone to arrive.</p></div>
-    <div class="why-card"><div class="why-num">02</div><div class="why-title">Telugu-first Team</div><p class="why-desc">Our support staff speak Telugu fluently. File complaints, ask questions — in your language.</p></div>
-    <div class="why-card"><div class="why-num">03</div><div class="why-title">No Hidden Fees</div><p class="why-desc">What you see is what you pay. Simple, transparent billing with zero surprise charges.</p></div>
+    <div class="why-card"><div class="why-icon">⚡</div><div class="why-title">Same-day Support</div><p class="why-desc">Field technicians dispatched within hours. No waiting days for someone to arrive.</p></div>
+    <div class="why-card"><div class="why-icon">తెలుగు</div><div class="why-title">Telugu-first Team</div><p class="why-desc">Our support staff speak Telugu fluently. File complaints, ask questions — in your language.</p></div>
+    <div class="why-card"><div class="why-icon">₹</div><div class="why-title">No Hidden Fees</div><p class="why-desc">What you see is what you pay. Simple, transparent billing with zero surprise charges.</p></div>
   </div>
 </section>
 
@@ -625,21 +685,35 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   <div id="posts-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;"></div>
 </section>
 
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-tag">Get in Touch</div>
   <div class="divider-line"></div>
-  <h2 class="section-title">Request a Callback</h2>
-  <div style="max-width:560px;">
-    <div class="quick-form">
-      <p class="qf-title">Quick Callback Request</p>
-      <p class="qf-sub">Leave your number — we'll call you back within 2 hours.</p>
-      <input class="qf-input" id="qname" placeholder="Your name">
-      <input class="qf-input" id="qphone" placeholder="Phone number">
-      <input class="qf-input" id="qissue" placeholder="Briefly describe your issue">
-      <button class="qf-submit" onclick="quickCB()">Request Callback</button>
-      <p id="qok" style="display:none;text-align:center;margin-top:12px;font-size:13px;color:var(--green);font-weight:600;">✓ Received! We'll call you within 2 hours.</p>
-    </div>
+  <h2 class="section-title">Contact Us</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+      <div class="contact-item">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+        <div><div class="c-label">Phone</div><div class="c-val" id="pub-phone">+91 93939 33473</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+        <div><div class="c-label">Email</div><div class="c-val" id="pub-email">support@nsrmasterchannel.in</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="c-label">Office Address</div><div class="c-val" id="pub-addr">Main Road, Ibrahimpatnam — 501506</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><div class="c-label">Support Hours</div><div class="c-val" id="pub-hours">Mon – Sun · 8 AM to 10 PM</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon" style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path fill="#25D366" fill-rule="evenodd" d="M11.999 2C6.477 2 2 6.477 2 12c0 1.85.504 3.58 1.383 5.065L2 22l5.085-1.338A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        </div>
+        <div><div class="c-label">WhatsApp Us</div><a class="c-val" id="pub-wa-link" href="#" onclick="openWhatsAppUs();return false;" style="color:#25D366;text-decoration:none;font-weight:700;">+91 93939 33473 →</a></div>
+      </div>
   </div>
 </section>
 
@@ -651,7 +725,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
 
 <!-- ══════════════ PORTAL OVERLAY ══════════════ -->
 <div class="overlay" id="overlay">
-  <div class="overlay-bg" onclick="closePortal()"></div>
+  <div class="overlay-bg" onclick="closePortalSafe(event)"></div>
   <div class="overlay-panel">
     <div class="overlay-topbar">
       <div class="ot-brand">
@@ -725,6 +799,53 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
         <div class="p-field"><p class="p-label">Any specific requirements</p><textarea class="p-ta" id="i-notes" placeholder="e.g. specific channels, timing preference…"></textarea></div>
         <button class="p-submit" style="background:var(--blue);" onclick="submitInquiry()">Submit Inquiry</button>
         <div id="inq-confirm" style="display:none;margin-top:12px;"></div>
+      </div>
+    </div>
+
+
+    <!-- WHATSAPP US STRUCTURED COMPLAINT -->
+    <div id="pp-whatsapp" style="display:none;">
+      <div class="p-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+          <p class="p-title" style="margin:0;">WhatsApp Us</p>
+          <button class="btn-p" onclick="showPP('customer')" style="font-size:10px;">← Back</button>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.42);line-height:1.6;margin-bottom:14px;">Fill the details below. A ticket number will be generated automatically and WhatsApp will open with a ready-to-send bilingual message to the owner.</p>
+        <div class="ai-bar" style="margin:0 0 14px 0;background:rgba(37,211,102,0.08);border-color:rgba(37,211,102,0.22);">
+          <div class="ai-result" style="color:rgba(255,255,255,0.62);">
+            Use the mic or type the issue. Works best in Chrome. Telugu-first voice input is enabled; English/Hindi typing is also supported. Owner draft will always show English + Telugu.
+          </div>
+        </div>
+        <div class="p-row">
+          <div class="p-field"><p class="p-label">Customer Name</p><input class="p-inp" id="w-name" placeholder="Your name"></div>
+          <div class="p-field"><p class="p-label">Phone Number</p><input class="p-inp" id="w-phone" placeholder="9876543210"></div>
+        </div>
+        <div class="p-row">
+          <div class="p-field"><p class="p-label">Setbox Name</p><select class="p-sel" id="w-stbtype"></select></div>
+          <div class="p-field"><p class="p-label">Setbox No</p><input class="p-inp" id="w-stbnum" placeholder="STB-00000"></div>
+        </div>
+        <div class="p-field">
+          <p class="p-label">Issue</p>
+          <div class="mic-wrap">
+            <textarea class="p-ta" id="w-issue" placeholder="మీ సమస్యను టైప్ చేయండి లేదా మైక్ నొక్కి మాట్లాడండి... Example: Signal రావడం లేదు / No signal" style="flex:1;margin-top:0;" oninput="updateWaTranslationPreview()"></textarea>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+              <button class="mic-btn" id="mic-btn-w" onclick="toggleWaMic()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
+              <span class="mic-lbl" id="mic-status-w">mic</span>
+            </div>
+          </div>
+          <p style="font-size:10px;color:rgba(255,255,255,0.34);line-height:1.5;margin-top:6px;">Speak in Telugu first. If mic does not capture correctly, type in Telugu/English/Hindi or tap a quick issue below.</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Signal రావడం లేదు')">No Signal</button>
+            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Channels రావడం లేదు')">Channels</button>
+            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Set box పని చేయడం లేదు')">Set Box</button>
+            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Internet slow గా ఉంది')">Internet Slow</button>
+          </div>
+        </div>
+        <div class="ai-bar" style="margin-top:6px;">
+          <div class="ai-result" id="w-translate-preview">AI preview appears after you type or speak the issue.</div>
+        </div>
+        <button class="p-submit" onclick="submitWhatsAppComplaint()" style="background:#25D366;box-shadow:0 4px 16px rgba(37,211,102,.25);">Create Ticket & Open WhatsApp</button>
+        <div id="wa-form-confirm" style="display:none;margin-top:12px;"></div>
       </div>
     </div>
 
@@ -822,6 +943,13 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </div>
           <div id="assoc-checks" style="margin-bottom:10px;"></div>
           <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;"><button class="btn-wa" onclick="sendBroadcast()" id="bc-btn">Send via WhatsApp</button><span style="font-size:11px;color:rgba(255,255,255,0.3);" id="bc-status"></span></div>
+          <div class="divp"></div>
+          <p style="font-size:11px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:8px;">Customer acknowledgement</p>
+          <div style="border-radius:10px;overflow:hidden;margin-bottom:10px;">
+            <div class="wa-hdr"><div style="width:28px;height:28px;border-radius:50%;background:#075E54;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#E1F5EE;">NSR</div><div><p style="font-size:12px;font-weight:600;color:#fff;">NSR Master Channel</p><p style="font-size:10px;color:#B2DFDB;">to customer</p></div></div>
+            <div class="wa-body"><div style="display:flex;justify-content:flex-end;"><div class="wa-bubble" id="ack-msg-preview"></div></div></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;"><button class="btn-wares" onclick="sendCustomerAck()" id="ack-btn">Acknowledge Customer</button><span style="font-size:11px;color:rgba(255,255,255,0.3);" id="ack-status"></span></div>
           <div class="divp"></div>
           <div class="p-row" style="margin-bottom:10px;">
             <div class="p-field"><p class="p-label">Update status</p><select class="p-sel" id="dp-status" onchange="onStatusChange()"><option>Open</option><option>In progress</option><option>Resolved</option></select></div>
@@ -964,8 +1092,17 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
             </div>
           </div>
         </div>
-        
 
+
+        <div class="divp"></div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap;">
+            <div><p style="font-size:13px;font-weight:600;color:#fff;">Homepage poster manager</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">Upload/change/remove the 4 images shown on the front page</p></div>
+            <button class="btn-p" onclick="resetPostersToDefault()" style="font-size:10px;padding:6px 11px;">Reset defaults</button>
+          </div>
+          <div class="poster-admin-grid" id="poster-admin-grid"></div>
+        </div>
+        
         <div class="divp"></div>
         <div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
@@ -994,13 +1131,13 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </div>
           <div id="contact-edit-form" style="display:none;" class="p-card">
             <div class="p-row">
-              <div class="p-field"><p class="p-label">Phone / WhatsApp</p><input class="p-inp" id="ce-phone" placeholder="+91 98480 12345"></div>
+              <div class="p-field"><p class="p-label">Phone / WhatsApp</p><input class="p-inp" id="ce-phone" placeholder="+91 93939 33473"></div>
               <div class="p-field"><p class="p-label">Email</p><input class="p-inp" id="ce-email" placeholder="support@nsrmasterchannel.in"></div>
             </div>
             <div class="p-field"><p class="p-label">Office Address</p><input class="p-inp" id="ce-addr" placeholder="Main Road, Ibrahimpatnam"></div>
             <div class="p-row">
               <div class="p-field"><p class="p-label">Support Hours</p><input class="p-inp" id="ce-hours" placeholder="Mon – Sun · 8 AM to 10 PM"></div>
-              <div class="p-field"><p class="p-label">WhatsApp Number (for wa.me link)</p><input class="p-inp" id="ce-wa" placeholder="919848012345"></div>
+              <div class="p-field"><p class="p-label">WhatsApp Number (for wa.me link)</p><input class="p-inp" id="ce-wa" placeholder="919393933473"></div>
             </div>
             <div style="display:flex;gap:8px;margin-top:4px;">
               <button class="btn-p" onclick="toggleContactEdit()">Cancel</button>
@@ -1039,7 +1176,7 @@ let packages=[
   {name:'Combo',price:749,period:'HD Cable + 100 Mbps Internet',features:['250+ HD Channels','100 Mbps Broadband','Unlimited Data','Best Value Bundle'],featured:false,btn:'out'},
 ];
 let complaints=[
-  {id:'CMP-1001',name:'Ravi Kumar',acct:'9848012345',addr:'12 MG Road, Ibrahimpatnam',stbtype:'AP Fiber',stbnum:'STB-44821',cat:'Signal / No signal',pri:'High',desc:'No cable signal since 2 days.',desc_te:'రెండు రోజులుగా కేబుల్ సిగ్నల్ లేదు.',status:'Open',notes:[],date:'2026-04-28',isNew:true,bcSent:false,resSent:false,assign:''},
+  {id:'CMP-1001',name:'Ravi Kumar',acct:'9393933473',addr:'12 MG Road, Ibrahimpatnam',stbtype:'AP Fiber',stbnum:'STB-44821',cat:'Signal / No signal',pri:'High',desc:'No cable signal since 2 days.',desc_te:'రెండు రోజులుగా కేబుల్ సిగ్నల్ లేదు.',status:'Open',notes:[],date:'2026-04-28',isNew:true,bcSent:false,resSent:false,assign:''},
   {id:'CMP-1002',name:'Sunita Reddy',acct:'9866543210',addr:'45 Main Road, Ibrahimpatnam',stbtype:'HCL',stbnum:'STB-22310',cat:'Billing issue',pri:'Medium',desc:'Duplicate charge for April.',desc_te:'ఏప్రిల్ నెల బిల్లు రెండుసార్లు తీసుకోబడింది.',status:'In progress',notes:['Escalated to billing'],date:'2026-04-27',isNew:false,bcSent:true,resSent:false,assign:'Lakshmi Devi'},
   {id:'CMP-1003',name:'Prasad Rao',acct:'9701234567',addr:'8 Colony Road, Ibrahimpatnam',stbtype:'BSNL',stbnum:'STB-11093',cat:'Equipment fault',pri:'Low',desc:'Remote not working.',desc_te:'రిమోట్ పని చేయడం లేదు.',status:'Resolved',notes:['New remote dispatched'],date:'2026-04-25',isNew:false,bcSent:true,resSent:true,assign:'Ramu Kumar'},
 ];
@@ -1048,7 +1185,7 @@ let inquiries=[
   {id:'INQ-1002',name:'Kavitha Rao',phone:'9812345678',addr:'Kondapalli Road, Ibrahimpatnam',pkg:'Combo — ₹749/mo',type:'Cable + Broadband Combo',status:'Contacted',date:'2026-04-28',notes:'Call back requested'},
 ];
 let customers=[
-  {id:'CUST-001',name:'Ravi Kumar',phone:'9848012345',wa:'9848012345',addr:'12 MG Road, Ibrahimpatnam',stbtype:'AP Fiber',stbnum:'STB-44821',pkg:'Standard HD',amount:'349',joinDate:'2025-01-15',status:'Active',notes:''},
+  {id:'CUST-001',name:'Ravi Kumar',phone:'9393933473',wa:'9393933473',addr:'12 MG Road, Ibrahimpatnam',stbtype:'AP Fiber',stbnum:'STB-44821',pkg:'Standard HD',amount:'349',joinDate:'2025-01-15',status:'Active',notes:''},
   {id:'CUST-002',name:'Sunita Reddy',phone:'9866543210',wa:'9866543210',addr:'45 Main Road, Ibrahimpatnam',stbtype:'HCL',stbnum:'STB-22310',pkg:'Combo',amount:'749',joinDate:'2025-03-20',status:'Active',notes:''},
   {id:'CUST-003',name:'Prasad Rao',phone:'9701234567',wa:'9701234567',addr:'8 Colony Road, Ibrahimpatnam',stbtype:'BSNL',stbnum:'STB-11093',pkg:'Basic',amount:'199',joinDate:'2024-11-10',status:'Active',notes:''},
 ];
@@ -1057,7 +1194,7 @@ const LL={en:{name:'Full name',phone:'Phone number',addr:'Address',stbtype:'Set 
 
 function setLang(l,el){lang=l;document.querySelectorAll('#lb-en,#lb-te').forEach(b=>b.classList.remove('active'));el.classList.add('active');Object.keys(LL[l]).forEach(k=>{const e=document.getElementById('L-'+k);if(e)e.textContent=LL[l][k];});}
 
-function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
+function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype','w-stbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
 function populatePkgDropdowns(){['i-pkg','nc-pkg'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.innerHTML=packages.map(p=>`<option>${p.name} — ₹${p.price}/mo</option>`).join('');});}
 
 function renderPackages(){
@@ -1107,7 +1244,7 @@ function savePkgEdit(){
 
 function openPortal(page){document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';showPP(page||'customer');populateSTB();populatePkgDropdowns();}
 function closePortal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
-function showPP(p){['pp-customer','pp-inquiry','pp-login','pp-owner'].forEach(x=>document.getElementById(x).style.display='none');document.getElementById('pp-'+p).style.display='block';const subs={customer:'CableConnect Customer Complaint Portal',inquiry:'New Connection Inquiry',login:'Owner Login',owner:'Owner Dashboard'};document.getElementById('ot-sub').textContent=subs[p]||'';}
+function showPP(p){['pp-customer','pp-inquiry','pp-whatsapp','pp-login','pp-owner'].forEach(x=>document.getElementById(x).style.display='none');document.getElementById('pp-'+p).style.display='block';const subs={customer:'CableConnect Customer Complaint Portal',inquiry:'New Connection Inquiry',whatsapp:'WhatsApp Complaint Form',login:'Owner Login',owner:'Owner Dashboard'};document.getElementById('ot-sub').textContent=subs[p]||'';}
 
 function toggleMic(which){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -1149,10 +1286,14 @@ function submitComplaint(){
   const name=document.getElementById('c-name').value.trim();const desc=document.getElementById('c-issue').value.trim();
   if(!name||!desc){alert('Please enter name and describe the issue.');return;}
   const id='CMP-'+nextCid++;
-  complaints.unshift({id,name,acct:document.getElementById('c-phone').value||'N/A',addr:document.getElementById('c-addr').value||'N/A',stbtype:document.getElementById('c-stbtype').value||'N/A',stbnum:document.getElementById('c-stbnum').value||'N/A',cat:document.getElementById('c-cat').value||'Other',pri:document.getElementById('c-pri').value||'Medium',desc,desc_te:window._lastSummaryTe||'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,assign:''});
+  const ticket={id,name,acct:document.getElementById('c-phone').value||'N/A',addr:document.getElementById('c-addr').value||'N/A',stbtype:document.getElementById('c-stbtype').value||'N/A',stbnum:document.getElementById('c-stbnum').value||'N/A',cat:document.getElementById('c-cat').value||'Other',pri:document.getElementById('c-pri').value||'Medium',desc,desc_te:window._lastSummaryTe||'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
+  complaints.unshift(ticket);
+  saveComplaintsToStorage();
+  addTicketToFirestore(ticket);
   const cf=document.getElementById('cust-confirm');cf.style.display='block';
   cf.innerHTML=`<div class="success-box"><p>Complaint registered: ${id}</p><p>${lang==='te'?'మీ ఫిర్యాదు నమోదైంది. మా బృందానికి WhatsApp అలర్ట్ పంపబడుతుంది.':'Complaint logged. Our team will be WhatsApp-alerted and will contact you the same day.'}</p></div>`;
   ['c-name','c-phone','c-addr','c-stbnum','c-issue'].forEach(x=>document.getElementById(x).value='');document.getElementById('c-stbtype').value='';document.getElementById('c-cat').value='';document.getElementById('c-pri').value='';
+  saveComplaintsToStorage();
 }
 function submitInquiry(){
   const name=document.getElementById('i-name').value.trim();const phone=document.getElementById('i-phone').value.trim();
@@ -1166,9 +1307,10 @@ function submitInquiry(){
 function quickCB(){const n=document.getElementById('qname').value.trim();if(!n){alert('Please enter your name.');return;}document.getElementById('qok').style.display='block';['qname','qphone','qissue'].forEach(x=>document.getElementById(x).value='');}
 
 function togglePw(){const i=document.getElementById('lp');const b=document.getElementById('eye-btn');i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'SHOW':'HIDE';}
-function doLogin(){
-  const u=document.getElementById('lu').value.trim().toLowerCase();const p=document.getElementById('lp').value;
-  if(OWNERS[u]&&OWNERS[u]===p){
+async function doLogin(){
+  const rawU=document.getElementById('lu').value.trim();const u=rawU.toLowerCase();const p=document.getElementById('lp').value;
+  const firebaseOk=await firebaseOwnerLogin(rawU,p);
+  if(firebaseOk || (OWNERS[u]&&OWNERS[u]===p)){
     document.getElementById('ow-av').textContent=u.slice(0,2).toUpperCase();
     document.getElementById('ow-name').textContent=u.charAt(0).toUpperCase()+u.slice(1);
     showPP('owner');renderOwner();populateSTB();
@@ -1180,6 +1322,7 @@ function doLogin(){
   }
 }
 function doLogout(){
+  firebaseOwnerLogout();
   showPP('customer');
   document.body.classList.remove('owner-mode');
   document.getElementById('pkg-edit-toggle-btn').style.removeProperty('display');
@@ -1188,7 +1331,7 @@ function doLogout(){
   if(btn){btn.textContent='Edit packages';btn.style.background='';btn.style.color='';btn.style.borderColor='';}
   document.querySelectorAll('.pkg-edit-badge').forEach(b=>b.style.display='');
 }
-function owTab(t,el){document.querySelectorAll('.oview').forEach(x=>x.classList.remove('active'));document.getElementById('oview-'+t).classList.add('active');document.querySelectorAll('.otab').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(t==='info'){renderSTBList();renderContacts();renderPkgManager();renderContactPreview();renderPostsOwner();}if(t==='walog')renderWaLog();if(t==='inquiries')renderInquiries();if(t==='customers')renderCustomers();}
+function owTab(t,el){document.querySelectorAll('.oview').forEach(x=>x.classList.remove('active'));document.getElementById('oview-'+t).classList.add('active');document.querySelectorAll('.otab').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(t==='info'){renderSTBList();renderContacts();renderPkgManager();renderPosterAdmin();renderContactPreview();renderPostsOwner();}if(t==='walog')renderWaLog();if(t==='inquiries')renderInquiries();if(t==='customers')renderCustomers();}
 
 function ini(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
 function bS(s){if(s==='Open')return`<span class="badge b-open">Open</span>`;if(s==='In progress')return`<span class="badge b-prog">In progress</span>`;return`<span class="badge b-res">Resolved</span>`;}
@@ -1206,7 +1349,7 @@ function renderOwner(){
   document.getElementById('new-alerts').innerHTML=complaints.filter(c=>c.isNew).map(c=>`<div class="alert-row"><span>New: <b>${c.id}</b> — ${c.name} | ${c.cat} ${bP(c.pri)}</span><button class="btn-p" style="font-size:10px;padding:3px 8px;" onclick="dismiss('${c.id}')">Dismiss</button></div>`).join('');
   document.getElementById('owner-list').innerHTML=complaints.map(c=>`<div class="ticket-item" onclick="openDetail('${c.id}')"><div class="t-av">${ini(c.name)}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${c.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${c.id}</p>${c.isNew?'<span class="badge b-new">New</span>':''}${c.bcSent?'<span class="badge" style="background:#E7FFDB;color:#27500A;">WA</span>':''}${c.resSent?'<span class="badge b-res">Resolved</span>':''}</div><p style="font-size:11px;color:rgba(255,255,255,0.3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${c.stbtype} · ${c.cat} — ${c.desc.slice(0,50)}…</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">${bS(c.status)}${bP(c.pri)}</div></div>`).join('');
 }
-function dismiss(id){const c=complaints.find(x=>x.id===id);if(c)c.isNew=false;renderOwner();}
+function dismiss(id){const c=complaints.find(x=>x.id===id);if(c){c.isNew=false;updateTicketInFirestore(id,{isNew:false});saveComplaintsToStorage();}renderOwner();}
 
 function renderInquiries(){
   document.getElementById('iq-tot').textContent=inquiries.length;
@@ -1279,7 +1422,7 @@ function deleteCustomer(){
 }
 
 // Contact Us edit
-let contactInfo={phone:'+91 98480 12345',email:'support@nsrmasterchannel.in',addr:'Main Road, Ibrahimpatnam, 501506',hours:'Mon – Sun · 8 AM to 10 PM',wa:'919848012345'};
+let contactInfo={phone:'+91 93939 33473',email:'support@nsrmasterchannel.in',addr:'Main Road, Ibrahimpatnam, 501506',hours:'Mon – Sun · 8 AM to 10 PM',wa:'919393933473'};
 function renderContactPreview(){
   document.getElementById('contact-preview').innerHTML=`
     <div class="stb-row"><div style="flex:1;"><p style="font-size:11px;color:rgba(255,255,255,0.3);">Phone</p><p style="font-size:13px;color:#fff;font-weight:500;">${contactInfo.phone}</p></div></div>
@@ -1308,9 +1451,16 @@ function saveContactInfo(){
   contactInfo.addr=document.getElementById('ce-addr').value.trim()||contactInfo.addr;
   contactInfo.hours=document.getElementById('ce-hours').value.trim()||contactInfo.hours;
   contactInfo.wa=document.getElementById('ce-wa').value.trim()||contactInfo.wa;
-  // update public website contact section
-  const vals=[contactInfo.phone,contactInfo.email,contactInfo.addr,contactInfo.hours];
-  document.querySelectorAll('.c-val').forEach((el,i)=>{if(vals[i])el.textContent=vals[i];});
+  const ph=document.getElementById('pub-phone'); if(ph) ph.textContent=contactInfo.phone;
+  const em=document.getElementById('pub-email'); if(em) em.textContent=contactInfo.email;
+  const ad=document.getElementById('pub-addr'); if(ad) ad.textContent=contactInfo.addr;
+  const hr=document.getElementById('pub-hours'); if(hr) hr.textContent=contactInfo.hours;
+  const wa=document.getElementById('pub-wa-link'); if(wa){wa.textContent=contactInfo.phone+' →';wa.href='#';wa.onclick=function(){openWhatsAppUs();return false;};}
+  const hwa=document.getElementById('hero-wa-btn'); if(hwa) hwa.href='https://wa.me/'+contactInfo.wa;
+  const hwaW=document.getElementById('hero-wa-widget'); if(hwaW) hwaW.href='https://wa.me/'+contactInfo.wa;
+  const hwaNum=document.querySelector('.hero-wa-num'); if(hwaNum) hwaNum.textContent=contactInfo.phone;
+  const hwaLNum=document.getElementById('hero-left-wa-num'); if(hwaLNum) hwaLNum.textContent=contactInfo.phone;
+  const hwaL=document.getElementById('hero-left-wa'); if(hwaL){hwaL.href='#';hwaL.onclick=function(){openWhatsAppUs();return false;};}
   document.getElementById('contact-edit-form').style.display='none';
   document.getElementById('contact-edit-btn').textContent='Edit';
   renderContactPreview();
@@ -1329,6 +1479,8 @@ function openDetail(id){
   document.getElementById('dp-assign').innerHTML='<option value="">-- assign --</option>'+ac.map(a=>`<option${c.assign===a.name?' selected':''}>${a.name}</option>`).join('');
   document.getElementById('assoc-checks').innerHTML=ac.map(a=>`<div class="assoc-row"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;flex:1;"><input type="checkbox" id="chk-${a.id}" style="width:14px;height:14px;" ${c.bcSent?'checked':''}><div><p style="font-size:12px;font-weight:600;color:#fff;">${a.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${a.title}</p></div></label><a href="${waLink(a.phone,bWA(c))}" target="_blank" style="font-size:10px;background:#E7FFDB;color:#27500A;border:1px solid #C5E8B0;border-radius:5px;padding:3px 9px;text-decoration:none;">Open WA</a></div>`).join('');
   document.getElementById('bc-status').textContent=c.bcSent?'Already broadcast':'';
+  const ackPrev=document.getElementById('ack-msg-preview'); if(ackPrev) ackPrev.textContent=buildCustomerAckMsg(c);
+  const ackStatus=document.getElementById('ack-status'); if(ackStatus) ackStatus.textContent=c.ackSent?'Already acknowledged':'';
   if(c.status==='Resolved')showResolved(c);else document.getElementById('resolved-section').style.display='none';
   document.getElementById('detail-panel').style.display='block';document.getElementById('raise-form').style.display='none';
   renderOwner();
@@ -1339,12 +1491,12 @@ function sendBroadcast(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;
   const sel=contacts.filter(a=>{const el=document.getElementById('chk-'+a.id);return el&&el.checked;});
   if(!sel.length){alert('Select at least one team member.');return;}
-  c.bcSent=true;waLog.unshift({type:'broadcast',id:c.id,name:c.name,to:sel.map(a=>a.name),msg:bWA(c),time:new Date().toLocaleString()});
+  c.bcSent=true;updateTicketInFirestore(c.id,{bcSent:true});saveComplaintsToStorage();waLog.unshift({type:'broadcast',id:c.id,name:c.name,to:sel.map(a=>a.name),msg:bWA(c),time:new Date().toLocaleString()});
   document.getElementById('bc-status').textContent='Sent to: '+sel.map(a=>a.name).join(', ');
   const btn=document.getElementById('bc-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send via WhatsApp';},2000);renderOwner();
 }
 function sendResolved(){
-  const c=complaints.find(x=>x.id===activeId);if(!c)return;c.resSent=true;c.status='Resolved';const msg=bRes(c);
+  const c=complaints.find(x=>x.id===activeId);if(!c)return;c.resSent=true;c.status='Resolved';updateTicketInFirestore(c.id,{resSent:true,status:'Resolved'});saveComplaintsToStorage();const msg=bRes(c);
   waLog.unshift({type:'resolved',id:c.id,name:c.name,to:[c.name+'('+c.acct+')'],msg,time:new Date().toLocaleString()});
   document.getElementById('res-status').textContent='WhatsApp sent';
   const btn=document.getElementById('res-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send WhatsApp to customer';},2000);
@@ -1354,6 +1506,8 @@ function closeDetail(){document.getElementById('detail-panel').style.display='no
 function saveDetail(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;c.status=document.getElementById('dp-status').value;c.assign=document.getElementById('dp-assign').value;
   const note=document.getElementById('dp-note').value.trim();if(note)c.notes.push(note);
+  updateTicketInFirestore(c.id,{status:c.status,assign:c.assign,notes:c.notes});
+  saveComplaintsToStorage();
   document.getElementById('dp-notes-log').innerHTML=c.notes.map(n=>`<div class="mbox" style="font-size:11px;color:rgba(255,255,255,0.4);">${n}</div>`).join('');
   if(c.status==='Resolved')showResolved(c);renderOwner();
 }
@@ -1362,8 +1516,10 @@ function toggleRaise(){const f=document.getElementById('raise-form');f.style.dis
 function saveRaise(){
   const name=document.getElementById('r-name').value.trim();const desc=document.getElementById('r-desc').value.trim();if(!name||!desc){alert('Name and description required.');return;}
   const id='CMP-'+nextCid++;
-  complaints.unshift({id,name,acct:document.getElementById('r-acct').value||'N/A',addr:document.getElementById('r-addr').value||'N/A',stbtype:document.getElementById('r-stbtype').value||'N/A',stbnum:document.getElementById('r-stbnum').value||'N/A',cat:document.getElementById('r-cat').value||'Other',pri:document.getElementById('r-pri').value||'Medium',desc,desc_te:'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,assign:''});
-  ['r-name','r-acct','r-addr','r-stbnum','r-desc'].forEach(x=>document.getElementById(x).value='');toggleRaise();renderOwner();
+  const ticket={id,name,acct:document.getElementById('r-acct').value||'N/A',addr:document.getElementById('r-addr').value||'N/A',stbtype:document.getElementById('r-stbtype').value||'N/A',stbnum:document.getElementById('r-stbnum').value||'N/A',cat:document.getElementById('r-cat').value||'Other',pri:document.getElementById('r-pri').value||'Medium',desc,desc_te:'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
+  complaints.unshift(ticket);
+  addTicketToFirestore(ticket);
+  ['r-name','r-acct','r-addr','r-stbnum','r-desc'].forEach(x=>document.getElementById(x).value='');toggleRaise();saveComplaintsToStorage();renderOwner();
 }
 
 function renderSTBList(){document.getElementById('stb-list').innerHTML=stbTypes.map((t,i)=>`<div class="stb-row"><p style="font-size:13px;font-weight:500;color:#fff;">${t}</p><button class="btn-danger" onclick="removeSTB(${i})" style="font-size:10px;padding:3px 9px;">Remove</button></div>`).join('');}
@@ -1420,8 +1576,8 @@ function exportExcel(){
 
 // ── POSTER UPLOAD ──────────────────────────────────────────────
 function triggerUpload(idx){
-  if(!document.body.classList.contains('owner-mode')) return;
-  document.getElementById('poster-file-'+idx).click();
+  // Front page poster grid is preview-only. Upload controls live in Owner > Info tab.
+  return;
 }
 function handlePosterUpload(idx,input){
   if(!input.files||!input.files[0]) return;
@@ -1429,9 +1585,10 @@ function handlePosterUpload(idx,input){
   reader.onload=e=>{
     const img=document.getElementById('poster-img-'+idx);
     const ph=document.getElementById('poster-ph-'+idx);
-    img.src=e.target.result;
-    img.style.display='block';
-    ph.style.display='none';
+    const data=e.target.result;
+    localStorage.setItem('poster_'+idx,data);
+    showPoster(idx,data);
+    renderPosterAdmin();
   };
   reader.readAsDataURL(input.files[0]);
 }
@@ -1439,7 +1596,11 @@ function clearPoster(idx){
   const img=document.getElementById('poster-img-'+idx);
   const ph=document.getElementById('poster-ph-'+idx);
   const fi=document.getElementById('poster-file-'+idx);
-  img.src='';img.style.display='none';ph.style.display='flex';fi.value='';
+  localStorage.removeItem('poster_'+idx);
+  showPoster(idx,`./images/poster${idx+1}.jpg`);
+  if(fi) fi.value='';
+  const afi=document.getElementById('poster-admin-file-'+idx); if(afi) afi.value='';
+  renderPosterAdmin();
 }
 
 // ── PACKAGE EDIT MODE TOGGLE (public page) ─────────────────────
@@ -1551,233 +1712,629 @@ function renderPostsPublic(){
 
 
 
-// ── FIREBASE SYNC OVERRIDES: tickets, inquiries, customers ─────────────
-function _safeRenderOwner(){ try{ renderOwner(); }catch(e){ console.warn(e); } }
-function _safeRenderInquiries(){ try{ renderInquiries(); }catch(e){ console.warn(e); } }
-function _safeRenderCustomers(){ try{ renderCustomers(); }catch(e){ console.warn(e); } }
-function _calcNextNumber(list, prefix, fallback){
-  const nums=(list||[]).map(x=>String(x.id||'').replace(prefix+'-','')).map(n=>parseInt(n,10)).filter(n=>!isNaN(n));
-  return nums.length ? Math.max(...nums)+1 : fallback;
-}
-window.addEventListener('firebaseTicketsLoaded', (e)=>{
-  if(Array.isArray(e.detail)){
-    complaints=e.detail;
-    nextCid=_calcNextNumber(complaints,'CMP',nextCid||1004);
-    _safeRenderOwner();
-  }
-});
-window.addEventListener('firebaseInquiriesLoaded', (e)=>{
-  if(Array.isArray(e.detail)){
-    inquiries=e.detail;
-    nextIid=_calcNextNumber(inquiries,'INQ',nextIid||1003);
-    _safeRenderInquiries();
-  }
-});
-window.addEventListener('firebaseCustomersLoaded', (e)=>{
-  if(Array.isArray(e.detail)){
-    customers=e.detail;
-    nextCustId=_calcNextNumber(customers,'CUST',nextCustId||4);
-    _safeRenderCustomers();
-  }
-});
+// ── WHATSAPP US STRUCTURED COMPLAINT + MULTI-LANGUAGE VOICE ─────────────────
+let waMicRec=null;
+let waMicActive=false;
 
-function _classifyIssue(text){
-  const t=(text||'').toLowerCase();
-  if(t.includes('internet')||t.includes('slow')||t.includes('wifi')||t.includes('net')) return {cat:'Slow internet', pri:'Medium'};
-  if(t.includes('bill')||t.includes('charge')||t.includes('payment')) return {cat:'Billing issue', pri:'Medium'};
-  if(t.includes('remote')||t.includes('box')||t.includes('set')) return {cat:'Equipment fault', pri:'Medium'};
-  if(t.includes('channel')) return {cat:'Channel missing', pri:'Medium'};
-  if(t.includes('signal')||t.includes('no signal')) return {cat:'Signal / No signal', pri:'High'};
-  return {cat:'Other', pri:'Medium'};
+function openWhatsAppUs(){
+  openPortal('whatsapp');
+  populateSTB();
+  const cf=document.getElementById('wa-form-confirm');
+  if(cf){cf.style.display='none';cf.innerHTML='';}
+  const status=document.getElementById('mic-status-w');
+  if(status) status.textContent='mic';
+  updateWaTranslationPreview();
 }
-function _ticketToFirestore(t){
+
+function autoSpeechLang(text){
+  // Default to Telugu because most customers are Telugu-speaking.
+  // If the user already typed Hindi/English-looking text, shift the speech engine hint.
+  if(/[ऀ-ॿ]/.test(text||'')) return 'hi-IN';
+  if(/[ఀ-౿]/.test(text||'')) return 'te-IN';
+  if(/[a-zA-Z]/.test(text||'')) return 'en-IN';
+  return 'te-IN';
+}
+
+function setWaQuickIssue(text){
+  const el=document.getElementById('w-issue');
+  if(!el) return;
+  el.value=text;
+  updateWaTranslationPreview();
+}
+
+function setWaMicState(text,isRecording){
+  const btn=document.getElementById('mic-btn-w');
+  const status=document.getElementById('mic-status-w');
+  if(btn) btn.classList.toggle('recording',!!isRecording);
+  if(status) status.textContent=text || 'mic';
+}
+
+function toggleWaMic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){
+    alert('Voice input is not supported in this browser. Please use Chrome or type your issue.');
+    return;
+  }
+  const issueEl=document.getElementById('w-issue');
+  if(!issueEl) return;
+
+  if(waMicActive){
+    try{ if(waMicRec) waMicRec.stop(); }catch(e){}
+    waMicActive=false;
+    setWaMicState('mic',false);
+    return;
+  }
+
+  const languages=['te-IN','en-IN','hi-IN'];
+  const langNames={'te-IN':'Telugu','en-IN':'English','hi-IN':'Hindi'};
+  let langIndex=0;
+  let baseText=issueEl.value.trim();
+
+  function startRecognition(){
+    const r=new SR();
+    waMicRec=r;
+    waMicActive=true;
+    r.continuous=false;
+    r.interimResults=true;
+    r.maxAlternatives=1;
+    r.lang=languages[langIndex];
+    let finalText=baseText ? baseText+' ' : '';
+    let gotResult=false;
+    setWaMicState('listening '+langNames[r.lang],true);
+
+    r.onresult=e=>{
+      gotResult=true;
+      let interim='';
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        const transcript=e.results[i][0].transcript || '';
+        if(e.results[i].isFinal) finalText+=transcript;
+        else interim=transcript;
+      }
+      issueEl.value=(finalText+interim).trim();
+      setWaMicState(interim?'capturing':'captured',true);
+      updateWaTranslationPreview();
+    };
+
+    r.onerror=ev=>{
+      const recoverable=['no-speech','audio-capture','network','not-allowed','service-not-allowed'];
+      if(ev && ev.error==='not-allowed'){
+        waMicActive=false;
+        setWaMicState('allow mic',false);
+        alert('Microphone permission is blocked. Please allow microphone access or type the issue.');
+        return;
+      }
+      // Try next language only when there was no captured text.
+      if(!gotResult && langIndex<languages.length-1 && recoverable.includes(ev.error)){
+        try{ r.abort(); }catch(e){}
+        langIndex++;
+        setTimeout(startRecognition,150);
+      }else{
+        waMicActive=false;
+        setWaMicState('type issue',false);
+      }
+    };
+
+    r.onend=()=>{
+      // If nothing was captured, try next language automatically.
+      if(waMicActive && !gotResult && langIndex<languages.length-1){
+        langIndex++;
+        setTimeout(startRecognition,150);
+        return;
+      }
+      waMicActive=false;
+      setWaMicState('mic',false);
+      updateWaTranslationPreview();
+    };
+
+    try{ r.start(); }
+    catch(e){
+      waMicActive=false;
+      setWaMicState('try again',false);
+    }
+  }
+  startRecognition();
+}
+
+function detectIssueLang(text){
+  if(/[\u0C00-\u0C7F]/.test(text)) return 'te';
+  if(/[\u0900-\u097F]/.test(text)) return 'hi';
+  return 'en';
+}
+function normalizeIssue(text){return (text||'').toLowerCase().trim();}
+function issueFlags(text){
+  const t=normalizeIssue(text);
   return {
-    id:t.id,
-    name:t.name||'',
-    phone:t.acct||t.phone||'',
-    address:t.addr||t.address||'',
-    setboxName:t.stbtype||t.setboxName||'',
-    setboxNo:t.stbnum||t.setboxNo||'',
-    issueOriginal:t.issueOriginal||t.desc||'',
-    issueEnglish:t.issueEnglish||t.desc||'',
-    issueTelugu:t.issueTelugu||t.desc_te||'',
-    category:t.category||t.cat||'Other',
-    priority:t.priority||t.pri||'Medium',
-    status:t.status||'Open',
-    assignedTo:t.assignedTo||t.assign||'',
-    ackSent:!!t.ackSent,
-    bcSent:!!t.bcSent,
-    resSent:!!t.resSent,
-    notes:Array.isArray(t.notes)?t.notes:[],
-    isNew:t.isNew!==false,
-    date:t.date||new Date().toISOString().slice(0,10),
-    source:t.source||'website'
+    noSignal:/no signal|signal problem|signal not|signal ra|signal rav|ravatledu|raavatledu|ravadam ledu|సిగ్నల్|సిగ్నల్ రావడం లేదు|सिग्नल|signal nahi|सिगनल/.test(t),
+    internet:/internet|broadband|wifi|wi-fi|slow|speed|net slow|internet slow|ఇంటర్నెట్|వైఫై|నెమ్మదిగా|धीमा|इंटरनेट|नेट/.test(t),
+    channels:/channel|channels|missing|not coming|channel ravatledu|channels ravatledu|చానెల్|చానెల్స్|चैनल/.test(t),
+    remote:/remote|remote working ledu|రిమోట్|रिमोट/.test(t),
+    billing:/bill|billing|payment|charge|బిల్|చార్జ్|భారం|भुगतान|बिल/.test(t),
+    setbox:/set box|setup box|setbox|stb|box|box working ledu|సెట్|బాక్స్|बॉक्स/.test(t),
+    outage:/outage|not working|working ledu|work avvatledu|down|పని చేయడం లేదు|काम नहीं|बंद/.test(t)
   };
 }
-function _inquiryToFirestore(q){
+function translateIssueToEnglishTelugu(text){
+  const original=(text||'').trim();
+  const lang=detectIssueLang(original);
+  const f=issueFlags(original);
+  let english='', telugu='';
+  if(f.noSignal){english='No signal / signal not coming.';telugu='సిగ్నల్ రావడం లేదు.';}
+  else if(f.internet){english='Internet is slow or not working.';telugu='ఇంటర్నెట్ నెమ్మదిగా ఉంది లేదా పని చేయడం లేదు.';}
+  else if(f.channels){english='Channels are missing or not coming.';telugu='చానెల్స్ రావడం లేదు లేదా కనిపించడం లేదు.';}
+  else if(f.remote){english='Remote is not working.';telugu='రిమోట్ పని చేయడం లేదు.';}
+  else if(f.billing){english='Billing or payment issue.';telugu='బిల్లింగ్ లేదా చెల్లింపు సమస్య.';}
+  else if(f.setbox){english='Set top box issue.';telugu='సెట్ టాప్ బాక్స్ సమస్య.';}
+  else if(f.outage){english='Service is not working.';telugu='సర్వీస్ పని చేయడం లేదు.';}
+  else if(lang==='en'){english=original;telugu='కస్టమర్ తెలిపిన సమస్య: '+original;}
+  else if(lang==='te'){english='Customer reported this issue: '+original;telugu=original;}
+  else {english='Customer reported this issue: '+original;telugu='కస్టమర్ తెలిపిన సమస్య: '+original;}
+  return {english,telugu,lang};
+}
+function updateWaTranslationPreview(){
+  const el=document.getElementById('w-translate-preview');
+  const issueEl=document.getElementById('w-issue');
+  if(!el||!issueEl) return;
+  const issue=issueEl.value.trim();
+  if(!issue){el.textContent='AI preview appears after you type or speak the issue.';return;}
+  const t=translateIssueToEnglishTelugu(issue);
+  const d=t.lang==='te'?'Telugu':(t.lang==='hi'?'Hindi':'English');
+  el.innerHTML=`<span class="badge b-pend" style="margin-right:4px;">Detected: ${d}</span><br><span class="badge b-new" style="margin-right:4px;margin-top:6px;">English</span> ${t.english}<br><span class="badge b-cat" style="margin-right:4px;margin-top:6px;">Telugu</span> <span style="font-family:'Noto Sans Telugu',sans-serif;">${t.telugu}</span>`;
+}
+function buildOwnerComplaintMsg(c){
+  const en=c.issueEnglish||c.desc||'';
+  const te=c.issueTelugu||c.desc_te||'';
+  return `NSR Master Channel - Complaint
+
+Complaint No: ${c.id}
+Customer Name: ${c.name}
+Phone Number: ${c.acct}
+Set Top Box Name: ${c.stbtype}
+Set Top Box Number: ${c.stbnum}
+
+Issue (English):
+${en}
+
+Issue (Telugu):
+${te}
+
+Please review and assign technician.`;
+}
+function submitWhatsAppComplaint(){
+  const name=document.getElementById('w-name').value.trim();
+  const phone=document.getElementById('w-phone').value.trim();
+  const stbtype=document.getElementById('w-stbtype').value.trim();
+  const stbnum=document.getElementById('w-stbnum').value.trim();
+  const issue=document.getElementById('w-issue').value.trim();
+  if(!name||!phone||!stbtype||!stbnum||!issue){alert('Please fill Name, Phone, Setbox Name, Setbox No, and Issue.');return;}
+  const id='CMP-'+nextCid++;
+  const converted=translateIssueToEnglishTelugu(issue);
+  const ticket={id,name,acct:phone,addr:'Submitted via WhatsApp Us form',stbtype,stbnum,cat:'WhatsApp complaint',pri:'Medium',desc:converted.english,desc_te:converted.telugu,issueOriginal:issue,issueEnglish:converted.english,issueTelugu:converted.telugu,issueInputLang:converted.lang,status:'Open',notes:['Ticket raised from WhatsApp Us form'],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
+  complaints.unshift(ticket);
+  saveComplaintsToStorage();
+  addTicketToFirestore(ticket);
+  if(typeof renderOwner==='function') renderOwner();
+  const msg=buildOwnerComplaintMsg(ticket);
+  const ownerWa=(contactInfo.wa||'919393933473').replace(/\D/g,'');
+  const cf=document.getElementById('wa-form-confirm');
+  cf.style.display='block';
+  cf.innerHTML=`<div class="success-box"><p>Ticket created: ${id}</p><p>WhatsApp is opening with a bilingual draft message to the owner. Please press Send in WhatsApp.</p></div>`;
+  ['w-name','w-phone','w-stbnum','w-issue'].forEach(x=>document.getElementById(x).value='');
+  document.getElementById('w-stbtype').value='';
+  updateWaTranslationPreview();
+  window.open(`https://wa.me/${ownerWa}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+function buildCustomerAckMsg(c){return `Your complaint has been received.\nComplaint No: ${c.id}\nOur team will contact you shortly.\n\nNSR Master Channel`;}
+function sendCustomerAck(){
+  const c=complaints.find(x=>x.id===activeId);if(!c)return;
+  const msg=buildCustomerAckMsg(c);
+  c.ackSent=true;
+  updateTicketInFirestore(c.id,{ackSent:true});
+  saveComplaintsToStorage();
+  waLog.unshift({type:'acknowledgement',id:c.id,name:c.name,to:[c.name+' ('+c.acct+')'],msg,time:new Date().toLocaleString()});
+  saveComplaintsToStorage();
+  const status=document.getElementById('ack-status'); if(status) status.textContent='Acknowledgement opened in WhatsApp';
+  renderOwner();
+  window.open(waLink(c.acct,msg),'_blank');
+}
+
+
+
+
+// ── FIREBASE / FIRESTORE LIVE SYNC + STANDARDIZED DATABASE ─────────────
+let firebaseReady=false;
+let firebaseTicketsUnsub=null;
+let firebaseInquiriesUnsub=null;
+let firebaseCustomersUnsub=null;
+let ticketStatusFilter='All';
+
+function closePortalSafe(){
+  const ownerPanel=document.getElementById('pp-owner');
+  const isOwnerOpen=ownerPanel && ownerPanel.style.display!=='none';
+  if(isOwnerOpen || document.body.classList.contains('owner-mode')) return;
+  closePortal();
+}
+
+function _today(){return new Date().toISOString().slice(0,10);}
+function _cleanPhone(v){return String(v||'').replace(/\D/g,'');}
+function _parseNum(id,prefix){const n=parseInt(String(id||'').replace(prefix+'-','').replace(/\D/g,''),10);return Number.isFinite(n)?n:0;}
+function _nextFrom(list,prefix,fallback){const max=(list||[]).reduce((m,x)=>Math.max(m,_parseNum(x.id,prefix)),0);return Math.max(fallback||0,max+1);}
+function _serverTimestamp(){return (window.fb && window.fb.serverTimestamp) ? window.fb.serverTimestamp() : new Date().toISOString();}
+function _safeDate(v){
+  if(!v) return _today();
+  try{
+    if(typeof v === 'string') return v.slice(0,10);
+    if(v.toDate) return v.toDate().toISOString().slice(0,10);
+    return new Date(v).toISOString().slice(0,10);
+  }catch(e){return _today();}
+}
+function _priorityFromText(text){
+  const t=String(text||'').toLowerCase();
+  if(t.includes('no signal') || t.includes('signal') || t.includes('service outage') || t.includes('outage')) return 'High';
+  return 'Medium';
+}
+function _categoryFromText(text){
+  const t=String(text||'').toLowerCase();
+  if(t.includes('internet')||t.includes('slow')||t.includes('wifi')||t.includes('net')) return 'Slow internet';
+  if(t.includes('bill')||t.includes('charge')||t.includes('payment')) return 'Billing issue';
+  if(t.includes('remote')||t.includes('box')||t.includes('set')) return 'Equipment fault';
+  if(t.includes('channel')) return 'Channel missing';
+  if(t.includes('signal')||t.includes('no signal')) return 'Signal / No signal';
+  return 'Other';
+}
+
+// Standard Firestore ticket schema. UI still receives legacy aliases for compatibility.
+function toFirestoreTicket(ticket){
+  const issueEnglish=ticket.issueEnglish || ticket.desc || ticket.issueOriginal || '';
+  const issueTelugu=ticket.issueTelugu || ticket.desc_te || '';
+  const issueOriginal=ticket.issueOriginal || ticket.desc || issueEnglish || issueTelugu || '';
+  return {
+    id: ticket.id,
+    name: ticket.name || '',
+    phone: ticket.phone || ticket.acct || '',
+    address: ticket.address || ticket.addr || '',
+    setboxName: ticket.setboxName || ticket.stbtype || '',
+    setboxNo: ticket.setboxNo || ticket.stbnum || '',
+    issueOriginal,
+    issueEnglish,
+    issueTelugu,
+    category: ticket.category || ticket.cat || _categoryFromText(issueEnglish || issueOriginal),
+    priority: ticket.priority || ticket.pri || _priorityFromText(issueEnglish || issueOriginal),
+    status: ticket.status || 'Open',
+    assignedTo: ticket.assignedTo || ticket.assign || '',
+    ackSent: !!ticket.ackSent,
+    bcSent: !!ticket.bcSent,
+    resSent: !!ticket.resSent,
+    notes: Array.isArray(ticket.notes)?ticket.notes:[],
+    source: ticket.source || 'website',
+    createdAt: ticket.createdAt || _serverTimestamp(),
+    updatedAt: _serverTimestamp()
+  };
+}
+function fromFirestoreTicket(docSnap){
+  const d=docSnap.data ? (docSnap.data()||{}) : (docSnap||{});
+  const id=d.id || docSnap.id || '';
+  const issueEnglish=d.issueEnglish || d.desc || d.issueOriginal || '';
+  const issueTelugu=d.issueTelugu || d.desc_te || '';
+  return {
+    id,
+    name:d.name || '',
+    acct:d.phone || d.acct || '',
+    phone:d.phone || d.acct || '',
+    addr:d.address || d.addr || '',
+    address:d.address || d.addr || '',
+    stbtype:d.setboxName || d.stbtype || '',
+    setboxName:d.setboxName || d.stbtype || '',
+    stbnum:d.setboxNo || d.stbnum || '',
+    setboxNo:d.setboxNo || d.stbnum || '',
+    cat:d.category || d.cat || 'Other',
+    category:d.category || d.cat || 'Other',
+    pri:d.priority || d.pri || 'Medium',
+    priority:d.priority || d.pri || 'Medium',
+    desc:issueEnglish,
+    desc_te:issueTelugu,
+    issueOriginal:d.issueOriginal || issueEnglish || issueTelugu,
+    issueEnglish,
+    issueTelugu,
+    status:d.status || 'Open',
+    notes:Array.isArray(d.notes)?d.notes:[],
+    date:d.date || _safeDate(d.createdAt),
+    isNew:d.isNew !== false,
+    bcSent:!!d.bcSent,
+    resSent:!!d.resSent,
+    ackSent:!!d.ackSent,
+    assign:d.assignedTo || d.assign || '',
+    assignedTo:d.assignedTo || d.assign || '',
+    source:d.source || 'firebase'
+  };
+}
+function toFirestoreInquiry(q){
   return {
     id:q.id,
     name:q.name||'',
     phone:q.phone||'',
-    address:q.addr||q.address||'',
-    preferredPackage:q.pkg||q.preferredPackage||'',
-    connectionType:q.type||q.connectionType||'',
+    address:q.address||q.addr||'',
+    preferredPackage:q.preferredPackage||q.pkg||'',
+    connectionType:q.connectionType||q.type||'',
     status:q.status||'Pending',
     notes:q.notes||'',
-    date:q.date||new Date().toISOString().slice(0,10),
-    source:q.source||'website'
+    source:q.source||'new-connection-form',
+    createdAt:q.createdAt||_serverTimestamp(),
+    updatedAt:_serverTimestamp()
   };
 }
-function _customerToFirestore(c){
+function fromFirestoreInquiry(docSnap){
+  const d=docSnap.data?docSnap.data()||{}:docSnap||{};
+  return {id:d.id||docSnap.id||'',name:d.name||'',phone:d.phone||'',addr:d.address||d.addr||'',pkg:d.preferredPackage||d.pkg||'',type:d.connectionType||d.type||'',status:d.status||'Pending',date:d.date||_safeDate(d.createdAt),notes:d.notes||'',source:d.source||'firebase'};
+}
+function toFirestoreCustomer(c){
   return {
     id:c.id,
     name:c.name||'',
     phone:c.phone||'',
-    whatsapp:c.wa||c.whatsapp||c.phone||'',
-    address:c.addr||c.address||'',
-    setboxName:c.stbtype||c.setboxName||'',
-    setboxNo:c.stbnum||c.setboxNo||'',
-    packageName:c.pkg||c.packageName||'',
-    monthlyAmount:String(c.amount||c.monthlyAmount||''),
-    joinDate:c.joinDate||new Date().toISOString().slice(0,10),
+    whatsapp:c.whatsapp||c.wa||c.phone||'',
+    address:c.address||c.addr||'',
+    setboxName:c.setboxName||c.stbtype||'',
+    setboxNo:c.setboxNo||c.stbnum||'',
+    packageName:c.packageName||c.pkg||'',
+    monthlyAmount:String(c.monthlyAmount||c.amount||''),
+    joinDate:c.joinDate||_today(),
     status:c.status||'Active',
     notes:c.notes||'',
-    source:c.source||'owner'
+    source:c.source||'owner-add',
+    createdAt:c.createdAt||_serverTimestamp(),
+    updatedAt:_serverTimestamp()
   };
 }
-async function _fbUpsertTicket(t){ if(window.firebaseUpsertTicket){ try{ await window.firebaseUpsertTicket(_ticketToFirestore(t)); }catch(e){ console.warn('Firebase ticket save failed',e); } } }
-async function _fbUpdateTicket(id, patch){ if(window.firebaseUpdateTicket){ try{ await window.firebaseUpdateTicket(id, patch); }catch(e){ console.warn('Firebase ticket update failed',e); } } }
-async function _fbUpsertInquiry(q){ if(window.firebaseUpsertInquiry){ try{ await window.firebaseUpsertInquiry(_inquiryToFirestore(q)); }catch(e){ console.warn('Firebase inquiry save failed',e); } } }
-async function _fbUpdateInquiry(id, patch){ if(window.firebaseUpdateInquiry){ try{ await window.firebaseUpdateInquiry(id, patch); }catch(e){ console.warn('Firebase inquiry update failed',e); } } }
-async function _fbUpsertCustomer(c){ if(window.firebaseUpsertCustomer){ try{ await window.firebaseUpsertCustomer(_customerToFirestore(c)); }catch(e){ console.warn('Firebase customer save failed',e); } } }
-async function _fbDeleteCustomer(id){ if(window.firebaseDeleteCustomer){ try{ await window.firebaseDeleteCustomer(id); }catch(e){ console.warn('Firebase customer delete failed',e); } } }
+function fromFirestoreCustomer(docSnap){
+  const d=docSnap.data?docSnap.data()||{}:docSnap||{};
+  return {id:d.id||docSnap.id||'',name:d.name||'',phone:d.phone||'',wa:d.whatsapp||d.wa||d.phone||'',addr:d.address||d.addr||'',stbtype:d.setboxName||d.stbtype||'',stbnum:d.setboxNo||d.stbnum||'',pkg:d.packageName||d.pkg||'',amount:d.monthlyAmount||d.amount||'',joinDate:d.joinDate||_safeDate(d.createdAt),status:d.status||'Active',notes:d.notes||'',source:d.source||'firebase'};
+}
 
+async function addTicketToFirestore(ticket){
+  try{
+    if(!window.fb || !window.firebaseDB) return false;
+    const data=toFirestoreTicket(ticket);
+    await window.fb.setDoc(window.fb.doc(window.firebaseDB,'tickets',data.id), data, {merge:true});
+    return true;
+  }catch(e){console.warn('Firestore ticket save failed:', e);alert('Ticket was created locally, but Firebase save failed. Check Firestore rules/connection.');return false;}
+}
+async function updateTicketInFirestore(id, patch){
+  try{
+    if(!window.fb || !window.firebaseDB || !id) return false;
+    const clean={...patch, updatedAt:_serverTimestamp()};
+    // Normalize update aliases
+    if(clean.assign!==undefined && clean.assignedTo===undefined) clean.assignedTo=clean.assign;
+    if(clean.cat!==undefined && clean.category===undefined) clean.category=clean.cat;
+    if(clean.pri!==undefined && clean.priority===undefined) clean.priority=clean.pri;
+    if(clean.desc!==undefined && clean.issueEnglish===undefined) clean.issueEnglish=clean.desc;
+    if(clean.desc_te!==undefined && clean.issueTelugu===undefined) clean.issueTelugu=clean.desc_te;
+    await window.fb.setDoc(window.fb.doc(window.firebaseDB,'tickets',id), clean, {merge:true});
+    return true;
+  }catch(e){console.warn('Firestore ticket update failed:', e);alert('Firebase ticket update failed. Check Firestore rules/connection.');return false;}
+}
+async function addInquiryToFirestore(inquiry){
+  try{
+    if(!window.fb || !window.firebaseDB) return false;
+    const data=toFirestoreInquiry(inquiry);
+    await window.fb.setDoc(window.fb.doc(window.firebaseDB,'inquiries',data.id), data, {merge:true});
+    return true;
+  }catch(e){console.warn('Firestore inquiry save failed:', e);alert('Inquiry created locally, but Firebase save failed. Check Firestore rules.');return false;}
+}
+async function updateInquiryInFirestore(id, patch){
+  try{
+    if(!window.fb || !window.firebaseDB || !id) return false;
+    await window.fb.setDoc(window.fb.doc(window.firebaseDB,'inquiries',id), {...patch, updatedAt:_serverTimestamp()}, {merge:true});
+    return true;
+  }catch(e){console.warn('Firestore inquiry update failed:', e);return false;}
+}
+async function addCustomerToFirestore(customer){
+  try{
+    if(!window.fb || !window.firebaseDB) return false;
+    const data=toFirestoreCustomer(customer);
+    await window.fb.setDoc(window.fb.doc(window.firebaseDB,'customers',data.id), data, {merge:true});
+    return true;
+  }catch(e){console.warn('Firestore customer save failed:', e);alert('Customer created locally, but Firebase save failed. Check Firestore rules for customers.');return false;}
+}
+async function updateCustomerInFirestore(customer){
+  return addCustomerToFirestore(customer);
+}
+async function deleteCustomerFromFirestore(id){
+  try{
+    if(!window.fb || !window.firebaseDB || !id || !window.fb.deleteDoc) return false;
+    await window.fb.deleteDoc(window.fb.doc(window.firebaseDB,'customers',id));
+    return true;
+  }catch(e){console.warn('Firestore customer delete failed:', e);return false;}
+}
+
+function startFirebaseSync(){
+  if(!window.fb || !window.firebaseDB) return;
+  firebaseReady=true;
+  try{
+    if(!firebaseTicketsUnsub){
+      const q=window.fb.query(window.fb.collection(window.firebaseDB,'tickets'), window.fb.orderBy('createdAt','desc'));
+      firebaseTicketsUnsub=window.fb.onSnapshot(q,(snap)=>{
+        complaints=snap.docs.map(fromFirestoreTicket);
+        nextCid=_nextFrom(complaints,'CMP',nextCid||1004);
+        saveComplaintsToStorage();
+        if(document.getElementById('pp-owner')?.style.display!=='none') renderOwner();
+      },(err)=>console.warn('Firestore tickets listener failed:',err));
+    }
+    if(!firebaseInquiriesUnsub){
+      const q=window.fb.query(window.fb.collection(window.firebaseDB,'inquiries'), window.fb.orderBy('createdAt','desc'));
+      firebaseInquiriesUnsub=window.fb.onSnapshot(q,(snap)=>{
+        inquiries=snap.docs.map(fromFirestoreInquiry);
+        nextIid=_nextFrom(inquiries,'INQ',nextIid||1003);
+        if(document.getElementById('oview-inquiries')?.classList.contains('active')) renderInquiries();
+      },(err)=>console.warn('Firestore inquiries listener failed:',err));
+    }
+    if(!firebaseCustomersUnsub){
+      const q=window.fb.query(window.fb.collection(window.firebaseDB,'customers'), window.fb.orderBy('createdAt','desc'));
+      firebaseCustomersUnsub=window.fb.onSnapshot(q,(snap)=>{
+        customers=snap.docs.map(fromFirestoreCustomer);
+        nextCustId=_nextFrom(customers,'CUST',nextCustId||4);
+        if(document.getElementById('oview-customers')?.classList.contains('active')) renderCustomers();
+      },(err)=>console.warn('Firestore customers listener failed:',err));
+    }
+  }catch(e){console.warn('Firestore sync start failed:',e);}
+}
+async function firebaseOwnerLogin(username,password){
+  try{
+    if(!window.fb || !window.firebaseAuth || !username.includes('@')) return false;
+    await window.fb.signInWithEmailAndPassword(window.firebaseAuth,username,password);
+    startFirebaseSync();
+    return true;
+  }catch(e){console.warn('Firebase login failed:',e);return false;}
+}
+async function firebaseOwnerLogout(){try{if(window.fb && window.firebaseAuth) await window.fb.signOut(window.firebaseAuth);}catch(e){}}
+
+// Owner ticket list with status filter; keeps all previous detail actions intact.
+function setTicketFilter(v){ticketStatusFilter=v;renderOwner();}
+function renderOwner(){
+  const total=complaints.length;
+  document.getElementById('o-tot').textContent=total;
+  document.getElementById('o-opn').textContent=complaints.filter(c=>c.status==='Open').length;
+  document.getElementById('o-prg').textContent=complaints.filter(c=>c.status==='In progress').length;
+  document.getElementById('o-res').textContent=complaints.filter(c=>c.status==='Resolved').length;
+  document.getElementById('new-alerts').innerHTML=complaints.filter(c=>c.isNew).map(c=>`<div class="alert-row"><span>New: <b>${c.id}</b> — ${c.name} | ${c.cat} ${bP(c.pri)}</span><button class="btn-p" style="font-size:10px;padding:3px 8px;" onclick="dismiss('${c.id}')">Dismiss</button></div>`).join('');
+  const filtered=complaints.filter(c=>ticketStatusFilter==='All' || c.status===ticketStatusFilter);
+  const filterBar=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+    ${['All','Open','In progress','Resolved'].map(s=>`<button class="btn-p" style="font-size:10px;padding:5px 10px;${ticketStatusFilter===s?'background:var(--red);border-color:var(--red);':''}" onclick="setTicketFilter('${s}')">${s}</button>`).join('')}
+    <span style="font-size:11px;color:rgba(255,255,255,.35);align-self:center;">Showing ${filtered.length} of ${total}</span>
+  </div>`;
+  document.getElementById('owner-list').innerHTML=filterBar + filtered.map(c=>`<div class="ticket-item" onclick="openDetail('${c.id}')"><div class="t-av">${ini(c.name||'NA')}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${c.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${c.id}</p>${c.isNew?'<span class="badge b-new">New</span>':''}${c.ackSent?'<span class="badge b-res">Ack</span>':''}${c.bcSent?'<span class="badge" style="background:#E7FFDB;color:#27500A;">Team WA</span>':''}${c.resSent?'<span class="badge b-res">Resolved Msg</span>':''}</div><p style="font-size:11px;color:rgba(255,255,255,0.3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${c.stbtype||c.setboxName||'Set box'} · ${c.cat||c.category} — ${(c.desc||c.issueEnglish||'').slice(0,70)}…</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">${bS(c.status)}${bP(c.pri||c.priority)}</div></div>`).join('');
+}
+
+// Standardized writes for all entry points.
 submitComplaint = async function(){
   const name=document.getElementById('c-name').value.trim();
   const desc=document.getElementById('c-issue').value.trim();
   if(!name||!desc){alert('Please enter name and describe the issue.');return;}
   const id='CMP-'+nextCid++;
-  const cls=_classifyIssue(desc);
-  const ticket={
-    id,name,
-    acct:document.getElementById('c-phone').value||'N/A',
-    addr:document.getElementById('c-addr').value||'N/A',
-    stbtype:document.getElementById('c-stbtype').value||'N/A',
-    stbnum:document.getElementById('c-stbnum').value||'N/A',
-    cat:document.getElementById('c-cat').value||cls.cat,
-    pri:document.getElementById('c-pri').value||cls.pri,
-    desc,
-    desc_te:window._lastSummaryTe||'',
-    status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:'',source:'complaint-form'
-  };
-  complaints.unshift(ticket);
-  await _fbUpsertTicket(ticket);
-  const cf=document.getElementById('cust-confirm');cf.style.display='block';
-  cf.innerHTML=`<div class="success-box"><p>Complaint registered: ${id}</p><p>${lang==='te'?'మీ ఫిర్యాదు నమోదైంది. మా బృందం మిమ్మల్ని సంప్రదిస్తుంది.':'Complaint logged. Our team will contact you shortly.'}</p></div>`;
+  const ticket={id,name,phone:document.getElementById('c-phone').value||'N/A',address:document.getElementById('c-addr').value||'N/A',setboxName:document.getElementById('c-stbtype').value||'N/A',setboxNo:document.getElementById('c-stbnum').value||'N/A',issueOriginal:desc,issueEnglish:desc,issueTelugu:window._lastSummaryTe||'',category:document.getElementById('c-cat').value||_categoryFromText(desc),priority:document.getElementById('c-pri').value||_priorityFromText(desc),status:'Open',notes:['Ticket raised from File Complaint form'],source:'file-complaint-form',ackSent:false,bcSent:false,resSent:false,assignedTo:'',isNew:true,date:_today()};
+  const ui=fromFirestoreTicket(ticket);complaints.unshift(ui);saveComplaintsToStorage();renderOwner();
+  await addTicketToFirestore(ticket);
+  const cf=document.getElementById('cust-confirm');cf.style.display='block';cf.innerHTML=`<div class="success-box"><p>Complaint registered: ${id}</p><p>Complaint logged. Our team will contact you shortly.</p></div>`;
   ['c-name','c-phone','c-addr','c-stbnum','c-issue'].forEach(x=>document.getElementById(x).value='');document.getElementById('c-stbtype').value='';document.getElementById('c-cat').value='';document.getElementById('c-pri').value='';
-  _safeRenderOwner();
 };
-
 submitInquiry = async function(){
   const name=document.getElementById('i-name').value.trim();const phone=document.getElementById('i-phone').value.trim();
   if(!name||!phone){alert('Please enter name and phone.');return;}
   const id='INQ-'+nextIid++;
-  const inquiry={id,name,phone,addr:document.getElementById('i-addr').value||'N/A',pkg:document.getElementById('i-pkg').value||'N/A',type:document.getElementById('i-type').value,status:'Pending',date:new Date().toISOString().slice(0,10),notes:document.getElementById('i-notes').value,source:'new-connection-form'};
-  inquiries.unshift(inquiry);
-  await _fbUpsertInquiry(inquiry);
-  const cf=document.getElementById('inq-confirm');cf.style.display='block';
-  cf.innerHTML=`<div class="success-box"><p>Inquiry submitted: ${id}</p><p>Our team will contact you at ${phone} shortly to discuss your new connection.</p></div>`;
+  const inquiry={id,name,phone,address:document.getElementById('i-addr').value||'N/A',preferredPackage:document.getElementById('i-pkg').value||'N/A',connectionType:document.getElementById('i-type').value,status:'Pending',notes:document.getElementById('i-notes').value,source:'new-connection-form',date:_today()};
+  inquiries.unshift(fromFirestoreInquiry(inquiry));renderInquiries();
+  await addInquiryToFirestore(inquiry);
+  const cf=document.getElementById('inq-confirm');cf.style.display='block';cf.innerHTML=`<div class="success-box"><p>Inquiry submitted: ${id}</p><p>Our team will contact you at ${phone} shortly to discuss your new connection.</p></div>`;
   ['i-name','i-phone','i-addr','i-notes'].forEach(x=>document.getElementById(x).value='');
-  _safeRenderInquiries();
 };
-
-saveRaise = async function(){
-  const name=document.getElementById('r-name').value.trim();const desc=document.getElementById('r-desc').value.trim();if(!name||!desc){alert('Name and description required.');return;}
-  const id='CMP-'+nextCid++;
-  const cls=_classifyIssue(desc);
-  const ticket={id,name,acct:document.getElementById('r-acct').value||'N/A',addr:document.getElementById('r-addr').value||'N/A',stbtype:document.getElementById('r-stbtype').value||'N/A',stbnum:document.getElementById('r-stbnum').value||'N/A',cat:document.getElementById('r-cat').value||cls.cat,pri:document.getElementById('r-pri').value||cls.pri,desc,desc_te:'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:'',source:'owner-raise'};
-  complaints.unshift(ticket);
-  await _fbUpsertTicket(ticket);
-  ['r-name','r-acct','r-addr','r-stbnum','r-desc'].forEach(x=>document.getElementById(x).value='');toggleRaise();renderOwner();
-};
-
 saveCust = async function(){
   const name=document.getElementById('nc-name').value.trim();const phone=document.getElementById('nc-phone').value.trim();
   if(!name||!phone){alert('Name and phone required.');return;}
   const id='CUST-'+String(nextCustId++).padStart(3,'0');
   const pkgVal=document.getElementById('nc-pkg').value||'N/A';
-  const customer={id,name,phone,wa:document.getElementById('nc-wa').value||phone,addr:document.getElementById('nc-addr').value||'N/A',stbtype:document.getElementById('nc-stbtype').value||'N/A',stbnum:document.getElementById('nc-stbnum').value||'N/A',pkg:pkgVal.split(' — ')[0]||pkgVal,amount:packages.find(p=>pkgVal.startsWith(p.name))?.price||'0',joinDate:document.getElementById('nc-date').value||new Date().toISOString().slice(0,10),status:'Active',notes:document.getElementById('nc-notes').value,source:'owner-add'};
-  customers.push(customer);
-  await _fbUpsertCustomer(customer);
-  ['nc-name','nc-phone','nc-wa','nc-addr','nc-stbnum','nc-notes'].forEach(x=>document.getElementById(x).value='');toggleAddCust();renderCustomers();
+  const customer={id,name,phone,whatsapp:document.getElementById('nc-wa').value||phone,address:document.getElementById('nc-addr').value||'N/A',setboxName:document.getElementById('nc-stbtype').value||'N/A',setboxNo:document.getElementById('nc-stbnum').value||'N/A',packageName:pkgVal.split(' — ')[0]||pkgVal,monthlyAmount:String(packages.find(p=>pkgVal.startsWith(p.name))?.price||'0'),joinDate:document.getElementById('nc-date').value||_today(),status:'Active',notes:document.getElementById('nc-notes').value,source:'owner-add'};
+  customers.push(fromFirestoreCustomer(customer));renderCustomers();
+  await addCustomerToFirestore(customer);
+  ['nc-name','nc-phone','nc-wa','nc-addr','nc-stbnum','nc-notes'].forEach(x=>document.getElementById(x).value='');toggleAddCust();
 };
-
 saveCustEdit = async function(){
   const c=customers.find(x=>x.id===editCustId);if(!c)return;
-  c.name=document.getElementById('ec-name').value.trim()||c.name;
-  c.phone=document.getElementById('ec-phone').value.trim()||c.phone;
-  c.wa=document.getElementById('ec-wa').value.trim()||c.phone;
-  c.addr=document.getElementById('ec-addr').value.trim()||c.addr;
-  c.stbtype=document.getElementById('ec-stbtype').value||c.stbtype;
-  c.stbnum=document.getElementById('ec-stbnum').value.trim()||c.stbnum;
-  const pkgVal=document.getElementById('ec-pkg').value;
-  c.pkg=pkgVal.split(' — ')[0]||c.pkg;
-  c.amount=packages.find(p=>pkgVal.startsWith(p.name))?.price||c.amount;
-  c.status=document.getElementById('ec-status').value;
-  c.notes=document.getElementById('ec-notes').value;
-  await _fbUpsertCustomer(c);
+  c.name=document.getElementById('ec-name').value.trim()||c.name;c.phone=document.getElementById('ec-phone').value.trim()||c.phone;c.wa=document.getElementById('ec-wa').value.trim()||c.phone;c.addr=document.getElementById('ec-addr').value.trim()||c.addr;c.stbtype=document.getElementById('ec-stbtype').value||c.stbtype;c.stbnum=document.getElementById('ec-stbnum').value.trim()||c.stbnum;
+  const pkgVal=document.getElementById('ec-pkg').value;c.pkg=pkgVal.split(' — ')[0]||c.pkg;c.amount=packages.find(p=>pkgVal.startsWith(p.name))?.price||c.amount;c.status=document.getElementById('ec-status').value;c.notes=document.getElementById('ec-notes').value;
+  await updateCustomerInFirestore(toFirestoreCustomer(c));
   document.getElementById('cust-detail-panel').style.display='none';editCustId=null;renderCustomers();
 };
-
 deleteCustomer = async function(){
   if(!confirm('Delete this customer? This cannot be undone.'))return;
-  const id=editCustId;
-  customers=customers.filter(x=>x.id!==id);
-  await _fbDeleteCustomer(id);
-  document.getElementById('cust-detail-panel').style.display='none';editCustId=null;renderCustomers();
+  const id=editCustId;customers=customers.filter(x=>x.id!==id);await deleteCustomerFromFirestore(id);document.getElementById('cust-detail-panel').style.display='none';editCustId=null;renderCustomers();
 };
-
-updateInqStatus = async function(id,val){const q=inquiries.find(x=>x.id===id);if(q)q.status=val;await _fbUpdateInquiry(id,{status:val});renderInquiries();};
-
+updateInqStatus = async function(id,val){const q=inquiries.find(x=>x.id===id);if(q)q.status=val;await updateInquiryInFirestore(id,{status:val});renderInquiries();};
+saveRaise = async function(){
+  const name=document.getElementById('r-name').value.trim();const desc=document.getElementById('r-desc').value.trim();if(!name||!desc){alert('Name and description required.');return;}
+  const id='CMP-'+nextCid++;
+  const ticket={id,name,phone:document.getElementById('r-acct').value||'N/A',address:document.getElementById('r-addr').value||'N/A',setboxName:document.getElementById('r-stbtype').value||'N/A',setboxNo:document.getElementById('r-stbnum').value||'N/A',issueOriginal:desc,issueEnglish:desc,issueTelugu:'',category:document.getElementById('r-cat').value||_categoryFromText(desc),priority:document.getElementById('r-pri').value||_priorityFromText(desc),status:'Open',notes:['Ticket raised manually by owner'],source:'owner-raise',ackSent:false,bcSent:false,resSent:false,assignedTo:'',isNew:true,date:_today()};
+  complaints.unshift(fromFirestoreTicket(ticket));renderOwner();await addTicketToFirestore(ticket);
+  ['r-name','r-acct','r-addr','r-stbnum','r-desc'].forEach(x=>document.getElementById(x).value='');toggleRaise();
+};
+const _oldSubmitWhatsAppComplaint = typeof submitWhatsAppComplaint==='function' ? submitWhatsAppComplaint : null;
+submitWhatsAppComplaint = async function(){
+  const name=document.getElementById('w-name').value.trim();const phone=document.getElementById('w-phone').value.trim();const stbtype=document.getElementById('w-stbtype').value.trim();const stbnum=document.getElementById('w-stbnum').value.trim();const issue=document.getElementById('w-issue').value.trim();
+  if(!name||!phone||!stbtype||!stbnum||!issue){alert('Please fill Name, Phone, Setbox Name, Setbox No, and Issue.');return;}
+  const id='CMP-'+nextCid++;
+  const converted=translateIssueToEnglishTelugu(issue);
+  const ticket={id,name,phone,address:'Submitted via WhatsApp Us form',setboxName:stbtype,setboxNo:stbnum,issueOriginal:issue,issueEnglish:converted.english,issueTelugu:converted.telugu,category:'WhatsApp complaint',priority:'Medium',status:'Open',notes:['Ticket raised from WhatsApp Us form'],source:'whatsapp-us-form',ackSent:false,bcSent:false,resSent:false,assignedTo:'',isNew:true,date:_today()};
+  const ui=fromFirestoreTicket(ticket);complaints.unshift(ui);saveComplaintsToStorage();renderOwner();await addTicketToFirestore(ticket);
+  const msg=buildOwnerComplaintMsg(ui);
+  const ownerWa=(contactInfo.wa||'919393933473').replace(/\D/g,'');
+  const cf=document.getElementById('wa-form-confirm');cf.style.display='block';cf.innerHTML=`<div class="success-box"><p>Ticket created: ${id}</p><p>WhatsApp is opening with a bilingual draft message to the owner. Please press Send in WhatsApp.</p></div>`;
+  ['w-name','w-phone','w-stbnum','w-issue'].forEach(x=>document.getElementById(x).value='');document.getElementById('w-stbtype').value='';updateWaTranslationPreview();
+  window.open(`https://wa.me/${ownerWa}?text=${encodeURIComponent(msg)}`,'_blank');
+};
 saveDetail = async function(){
-  const c=complaints.find(x=>x.id===activeId);if(!c)return;c.status=document.getElementById('dp-status').value;c.assign=document.getElementById('dp-assign').value;
+  const c=complaints.find(x=>x.id===activeId);if(!c)return;c.status=document.getElementById('dp-status').value;c.assign=document.getElementById('dp-assign').value;c.assignedTo=c.assign;
   const note=document.getElementById('dp-note').value.trim();if(note)c.notes.push(note);
-  await _fbUpdateTicket(c.id,{status:c.status,assignedTo:c.assign,notes:c.notes,updatedAt:new Date()});
+  await updateTicketInFirestore(c.id,{status:c.status,assignedTo:c.assign,notes:c.notes});
   document.getElementById('dp-notes-log').innerHTML=c.notes.map(n=>`<div class="mbox" style="font-size:11px;color:rgba(255,255,255,0.4);">${n}</div>`).join('');
   if(c.status==='Resolved')showResolved(c);renderOwner();
 };
-
 sendBroadcast = async function(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;
   const sel=contacts.filter(a=>{const el=document.getElementById('chk-'+a.id);return el&&el.checked;});
   if(!sel.length){alert('Select at least one team member.');return;}
   c.bcSent=true;waLog.unshift({type:'broadcast',id:c.id,name:c.name,to:sel.map(a=>a.name),msg:bWA(c),time:new Date().toLocaleString()});
-  await _fbUpdateTicket(c.id,{bcSent:true,updatedAt:new Date()});
+  await updateTicketInFirestore(c.id,{bcSent:true});
   document.getElementById('bc-status').textContent='Sent to: '+sel.map(a=>a.name).join(', ');
   const btn=document.getElementById('bc-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send via WhatsApp';},2000);renderOwner();
 };
-
 sendResolved = async function(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;c.resSent=true;c.status='Resolved';const msg=bRes(c);
   waLog.unshift({type:'resolved',id:c.id,name:c.name,to:[c.name+'('+c.acct+')'],msg,time:new Date().toLocaleString()});
-  await _fbUpdateTicket(c.id,{resSent:true,status:'Resolved',updatedAt:new Date()});
+  await updateTicketInFirestore(c.id,{resSent:true,status:'Resolved'});
   document.getElementById('res-status').textContent='WhatsApp sent';
   const btn=document.getElementById('res-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send WhatsApp to customer';},2000);
   window.open(waLink(c.acct,msg),'_blank');renderOwner();
 };
+sendCustomerAck = async function(){
+  const c=complaints.find(x=>x.id===activeId);if(!c)return;
+  const msg=buildCustomerAckMsg(c);c.ackSent=true;
+  await updateTicketInFirestore(c.id,{ackSent:true});
+  waLog.unshift({type:'acknowledgement',id:c.id,name:c.name,to:[c.name+' ('+c.acct+')'],msg,time:new Date().toLocaleString()});
+  const status=document.getElementById('ack-status'); if(status) status.textContent='Acknowledgement opened in WhatsApp';
+  renderOwner();window.open(waLink(c.acct,msg),'_blank');
+};
+
+// ── LOCAL STORAGE FOR FALLBACK TICKETS + POSTERS ───────────────────────
+function saveComplaintsToStorage(){try{localStorage.setItem('nsr_complaints',JSON.stringify(complaints));localStorage.setItem('nsr_nextCid',String(nextCid));}catch(e){}}
+function loadComplaintsFromStorage(){try{const saved=localStorage.getItem('nsr_complaints');if(saved){complaints=JSON.parse(saved);}const n=parseInt(localStorage.getItem('nsr_nextCid'),10);if(n)nextCid=n;}catch(e){}}
+function showPoster(idx,src){const img=document.getElementById('poster-img-'+idx);const ph=document.getElementById('poster-ph-'+idx);if(!img||!ph)return;img.src=src;img.style.display='block';ph.style.display='none';}
+function loadPosters(){for(let i=0;i<4;i++){const saved=localStorage.getItem('poster_'+i);showPoster(i,saved||`./images/poster${i+1}.jpg`);}}
+function renderPosterAdmin(){
+  const grid=document.getElementById('poster-admin-grid'); if(!grid)return;
+  grid.innerHTML=[0,1,2,3].map(i=>{const src=localStorage.getItem('poster_'+i)||`./images/poster${i+1}.jpg`;return `<div class="poster-admin-card"><div class="poster-admin-preview"><img src="${src}" onerror="this.style.display='none';this.parentElement.textContent='Poster ${i+1}'"></div><input type="file" accept="image/*" id="poster-admin-file-${i}" style="display:none" onchange="handlePosterUpload(${i},this)"><div class="poster-admin-actions"><button class="btn-gold" style="font-size:10px;padding:5px 7px;" onclick="document.getElementById('poster-admin-file-${i}').click()">Upload</button><button class="btn-danger" style="font-size:10px;padding:5px 7px;" onclick="clearPoster(${i})">Remove</button></div></div>`;}).join('');
+}
+function resetPostersToDefault(){for(let i=0;i<4;i++){localStorage.removeItem('poster_'+i);showPoster(i,`./images/poster${i+1}.jpg`);}renderPosterAdmin();}
 
 // INIT
+loadComplaintsFromStorage();
+loadPosters();
+const wIssueEl=document.getElementById('w-issue'); if(wIssueEl) wIssueEl.addEventListener('input',updateWaTranslationPreview);
 renderPackages();
 populateSTB();
 populatePkgDropdowns();
 renderPostsPublic();
+// Sync contact info to public page on load
+(function syncContact(){
+  const ph=document.getElementById('pub-phone'); if(ph) ph.textContent=contactInfo.phone;
+  const em=document.getElementById('pub-email'); if(em) em.textContent=contactInfo.email;
+  const ad=document.getElementById('pub-addr'); if(ad) ad.textContent=contactInfo.addr;
+  const hr=document.getElementById('pub-hours'); if(hr) hr.textContent=contactInfo.hours;
+  const wa=document.getElementById('pub-wa-link'); if(wa){wa.textContent=contactInfo.phone+' →';wa.href='#';wa.onclick=function(){openWhatsAppUs();return false;};}
+  const hwa=document.getElementById('hero-wa-btn'); if(hwa) hwa.href='https://wa.me/'+contactInfo.wa;
+})();
 </script>
-
-
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, updateDoc, deleteDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, deleteDoc, addDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -1793,113 +2350,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+
 window.firebaseDB = db;
 window.firebaseAuth = auth;
+window.fb = { collection, doc, setDoc, deleteDoc, addDoc, onSnapshot, serverTimestamp, query, orderBy, signInWithEmailAndPassword, signOut, onAuthStateChanged };
 
-function safeDate(v){
-  if(!v) return new Date().toISOString().slice(0,10);
-  if(typeof v === 'string') return v.slice(0,10);
-  if(v.toDate) return v.toDate().toISOString().slice(0,10);
-  return new Date(v).toISOString().slice(0,10);
-}
-function ticketFromFirestore(snap){
-  const d=snap.data()||{};
-  return {
-    id:d.id || snap.id,
-    name:d.name || '',
-    acct:d.phone || d.acct || '',
-    addr:d.address || d.addr || '',
-    stbtype:d.setboxName || d.stbtype || '',
-    stbnum:d.setboxNo || d.stbnum || '',
-    cat:d.category || d.cat || 'Other',
-    pri:d.priority || d.pri || 'Medium',
-    desc:d.issueEnglish || d.desc || d.issueOriginal || '',
-    desc_te:d.issueTelugu || d.desc_te || '',
-    issueOriginal:d.issueOriginal || d.desc || '',
-    issueEnglish:d.issueEnglish || d.desc || '',
-    issueTelugu:d.issueTelugu || d.desc_te || '',
-    status:d.status || 'Open',
-    notes:Array.isArray(d.notes) ? d.notes : [],
-    date:d.date || safeDate(d.createdAt),
-    isNew:d.isNew !== false,
-    bcSent:!!d.bcSent,
-    resSent:!!d.resSent,
-    ackSent:!!d.ackSent,
-    assign:d.assignedTo || d.assign || ''
-  };
-}
-function inquiryFromFirestore(snap){
-  const d=snap.data()||{};
-  return {
-    id:d.id || snap.id,
-    name:d.name || '',
-    phone:d.phone || '',
-    addr:d.address || d.addr || '',
-    pkg:d.preferredPackage || d.pkg || '',
-    type:d.connectionType || d.type || '',
-    status:d.status || 'Pending',
-    date:d.date || safeDate(d.createdAt),
-    notes:d.notes || ''
-  };
-}
-function customerFromFirestore(snap){
-  const d=snap.data()||{};
-  return {
-    id:d.id || snap.id,
-    name:d.name || '',
-    phone:d.phone || '',
-    wa:d.whatsapp || d.wa || d.phone || '',
-    addr:d.address || d.addr || '',
-    stbtype:d.setboxName || d.stbtype || '',
-    stbnum:d.setboxNo || d.stbnum || '',
-    pkg:d.packageName || d.pkg || '',
-    amount:d.monthlyAmount || d.amount || '',
-    joinDate:d.joinDate || safeDate(d.createdAt),
-    status:d.status || 'Active',
-    notes:d.notes || ''
-  };
-}
-
-window.firebaseUpsertTicket = async function(ticket){
-  const id=ticket.id;
-  if(!id) throw new Error('Ticket id missing');
-  await setDoc(doc(db,'tickets',id), {...ticket, createdAt: ticket.createdAt || serverTimestamp(), updatedAt: serverTimestamp()}, {merge:true});
-};
-window.firebaseUpdateTicket = async function(id, patch){
-  await setDoc(doc(db,'tickets',id), {...patch, updatedAt: serverTimestamp()}, {merge:true});
-};
-window.firebaseUpsertInquiry = async function(inquiry){
-  const id=inquiry.id;
-  if(!id) throw new Error('Inquiry id missing');
-  await setDoc(doc(db,'inquiries',id), {...inquiry, createdAt: inquiry.createdAt || serverTimestamp(), updatedAt: serverTimestamp()}, {merge:true});
-};
-window.firebaseUpdateInquiry = async function(id, patch){
-  await setDoc(doc(db,'inquiries',id), {...patch, updatedAt: serverTimestamp()}, {merge:true});
-};
-window.firebaseUpsertCustomer = async function(customer){
-  const id=customer.id;
-  if(!id) throw new Error('Customer id missing');
-  await setDoc(doc(db,'customers',id), {...customer, createdAt: customer.createdAt || serverTimestamp(), updatedAt: serverTimestamp()}, {merge:true});
-};
-window.firebaseDeleteCustomer = async function(id){
-  await deleteDoc(doc(db,'customers',id));
-};
-
-onSnapshot(query(collection(db,'tickets'), orderBy('createdAt','desc')), (snapshot)=>{
-  window.dispatchEvent(new CustomEvent('firebaseTicketsLoaded',{detail:snapshot.docs.map(ticketFromFirestore)}));
-}, (err)=>console.error('Tickets listener failed',err));
-
-onSnapshot(query(collection(db,'inquiries'), orderBy('createdAt','desc')), (snapshot)=>{
-  window.dispatchEvent(new CustomEvent('firebaseInquiriesLoaded',{detail:snapshot.docs.map(inquiryFromFirestore)}));
-}, (err)=>console.error('Inquiries listener failed',err));
-
-onSnapshot(query(collection(db,'customers'), orderBy('createdAt','desc')), (snapshot)=>{
-  window.dispatchEvent(new CustomEvent('firebaseCustomersLoaded',{detail:snapshot.docs.map(customerFromFirestore)}));
-}, (err)=>console.error('Customers listener failed',err));
-
-window.firebaseLogin = async function(email,password){ return signInWithEmailAndPassword(auth,email,password); };
-window.firebaseLogout = async function(){ return signOut(auth); };
-window.firebaseAuthState = function(cb){ return onAuthStateChanged(auth,cb); };
+if(typeof window.startFirebaseSync === 'function') window.startFirebaseSync();
+onAuthStateChanged(auth,()=>{ if(typeof window.startFirebaseSync === 'function') window.startFirebaseSync(); });
 </script>
 
 <!-- SCROLL PROGRESS BAR -->
