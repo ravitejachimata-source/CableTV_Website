@@ -73,7 +73,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:66px;display:flex;ali
 /* SECTION BASE */
 section{padding:96px 6%;}
 .section-tag{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:900;color:var(--ink);line-height:1.1;margin-bottom:14px;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:900;color:#0B0B0B;line-height:1.08;margin-bottom:14px;letter-spacing:-0.6px;text-shadow:0 1px 0 rgba(255,255,255,0.55);}
 .section-sub{font-size:16px;font-weight:300;color:var(--muted);line-height:1.7;max-width:520px;margin-bottom:56px;}
 .divider-line{width:48px;height:3px;background:var(--red);border-radius:2px;margin-bottom:20px;}
 
@@ -105,11 +105,11 @@ section{padding:96px 6%;}
 /* WHY */
 #why{background:var(--cream);}
 .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
-.why-card{padding:32px;border:1px solid var(--border);border-radius:14px;background:#fff;transition:all .25s;}
-.why-card:hover{border-color:rgba(200,32,31,0.25);box-shadow:0 8px 32px rgba(0,0,0,0.06);}
-.why-num{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:rgba(200,32,31,0.08);line-height:1;margin-bottom:12px;}
-.why-title{font-size:17px;font-weight:600;color:var(--ink);margin-bottom:8px;}
-.why-desc{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7;}
+.why-card{padding:34px;border:1px solid rgba(14,12,10,0.10);border-radius:16px;background:#fff;transition:all .25s;box-shadow:0 10px 28px rgba(14,12,10,0.08);}
+.why-card:hover{border-color:rgba(200,32,31,0.30);box-shadow:0 16px 42px rgba(0,0,0,0.10);}
+.why-num{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:rgba(192,24,29,0.16);line-height:1;margin-bottom:14px;letter-spacing:-1px;}
+.why-title{font-size:19px;font-weight:800;color:#111;margin-bottom:10px;letter-spacing:-0.2px;}
+.why-desc{font-size:14.5px;font-weight:500;color:#5A5145;line-height:1.75;}
 
 /* COMPLAINT BAND */
 .cta-band{background:var(--red);padding:72px 6%;display:grid;grid-template-columns:1fr auto;align-items:center;gap:32px;}
@@ -134,6 +134,14 @@ section{padding:96px 6%;}
 .qf-input:focus{border-color:var(--red);}
 .qf-submit{width:100%;background:var(--red);color:#fff;border:none;border-radius:8px;padding:14px;font-size:13px;font-weight:600;letter-spacing:.5px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;margin-top:4px;}
 .qf-submit:hover{background:var(--red2);}
+
+
+/* PUBLIC CONTACT PREVIEW */
+.public-contact-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:var(--shadow-md);}
+.public-contact-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:18px;}
+.public-contact-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+.public-contact-actions a{text-decoration:none;}
+@media(max-width:900px){.contact-layout{grid-template-columns:1fr;gap:28px;}}
 
 /* FOOTER */
 footer{background:var(--ink);padding:48px 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
@@ -286,16 +294,20 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .modal-box{box-shadow:0 30px 80px rgba(0,0,0,0.5);}
 /* POSTER GRID */
 .poster-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;width:100%;height:100%;position:relative;z-index:1;gap:3px;padding:3px;}
-.poster-slot{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.18);transition:background .2s;}
-.poster-slot:hover{background:rgba(0,0,0,0.28);}
+.poster-slot{position:relative;overflow:hidden;cursor:default;background:rgba(0,0,0,0.18);transition:background .2s;}
+.poster-slot:hover{background:rgba(0,0,0,0.18);}
 .poster-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
 .poster-placeholder p{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);}
-.poster-owner-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;gap:8px;}
-.owner-mode .poster-slot:hover .poster-owner-overlay{display:flex;}
-.owner-mode .poster-slot .poster-placeholder p::after{content:' (click to upload)';}
+.poster-owner-overlay{display:none !important;}
+.poster-manager-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+@media(max-width:560px){.poster-manager-grid{grid-template-columns:1fr;}}
+.poster-admin-card{background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px;}
+.poster-admin-thumb{height:120px;border-radius:9px;background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:9px;}
+.poster-admin-thumb img{width:100%;height:100%;object-fit:cover;display:none;}
+.poster-admin-thumb span{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);}
 .poster-owner-overlay button{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;border-radius:6px;padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;transition:background .2s;}
 .poster-owner-overlay button:hover{background:rgba(255,255,255,0.22);}
-/* Non-owner: clicking poster does nothing */
+/* Public poster preview only. Upload controls are inside Owner Dashboard > Info. */
 body:not(.owner-mode) .poster-slot{cursor:default;}
 body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
 
@@ -470,7 +482,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
     </div>
     <!-- 4-POSTER GRID -->
     <div class="poster-grid" id="poster-grid">
-      <div class="poster-slot" onclick="triggerUpload(0)">
+      <div class="poster-slot">
         <input type="file" accept="image/*" id="poster-file-0" style="display:none" onchange="handlePosterUpload(0,this)">
         <img id="poster-img-0" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
         <div class="poster-placeholder" id="poster-ph-0">
@@ -488,7 +500,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </button>
         </div>
       </div>
-      <div class="poster-slot" onclick="triggerUpload(1)">
+      <div class="poster-slot">
         <input type="file" accept="image/*" id="poster-file-1" style="display:none" onchange="handlePosterUpload(1,this)">
         <img id="poster-img-1" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
         <div class="poster-placeholder" id="poster-ph-1">
@@ -506,7 +518,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </button>
         </div>
       </div>
-      <div class="poster-slot" onclick="triggerUpload(2)">
+      <div class="poster-slot">
         <input type="file" accept="image/*" id="poster-file-2" style="display:none" onchange="handlePosterUpload(2,this)">
         <img id="poster-img-2" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
         <div class="poster-placeholder" id="poster-ph-2">
@@ -524,7 +536,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </button>
         </div>
       </div>
-      <div class="poster-slot" onclick="triggerUpload(3)">
+      <div class="poster-slot">
         <input type="file" accept="image/*" id="poster-file-3" style="display:none" onchange="handlePosterUpload(3,this)">
         <img id="poster-img-3" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
         <div class="poster-placeholder" id="poster-ph-3">
@@ -588,8 +600,8 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   <h2 class="section-title">Built for Ibrahimpatnam</h2>
   <p class="section-sub">We're not a distant operator — we're your neighbours. Our team lives here, works here, and is always a call away.</p>
   <div class="why-grid">
-    <div class="why-card" style="border-color:rgba(201,153,58,0.35);background:linear-gradient(145deg,#FFFDF8,#fff);">
-      <div class="why-num" style="color:rgba(201,153,58,0.15);">25+</div>
+    <div class="why-card" style="border-color:rgba(201,153,58,0.45);background:linear-gradient(145deg,#FFF8E8,#fff);">
+      <div class="why-num" style="color:rgba(201,153,58,0.28);">25+</div>
       <div class="why-title" style="color:var(--ink);">Years of Trust</div>
       <p class="why-desc">Over 25 years of serving Ibrahimpatnam. A name the community has relied on for generations.</p>
     </div>
@@ -630,7 +642,32 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   <div class="section-tag">Get in Touch</div>
   <div class="divider-line"></div>
   <h2 class="section-title">Request a Callback</h2>
-  <div style="max-width:560px;">
+
+  <div class="contact-layout">
+    <div class="public-contact-card">
+      <p class="public-contact-title">Contact Information</p>
+      <div class="contact-item">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.11 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><p class="c-label">Phone / WhatsApp</p><p class="c-val" id="public-phone">+91 98480 12345</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><p class="c-label">Email</p><p class="c-val" id="public-email">support@nsrmasterchannel.in</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><p class="c-label">Office Address</p><p class="c-val" id="public-addr">Main Road, Ibrahimpatnam, 501506</p></div>
+      </div>
+      <div class="contact-item" style="margin-bottom:0;">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><p class="c-label">Support Hours</p><p class="c-val" id="public-hours">Mon – Sun · 8 AM to 10 PM</p></div>
+      </div>
+      <div class="public-contact-actions">
+        <a class="btn-primary" id="public-wa-link" href="https://wa.me/919848012345" target="_blank">WhatsApp Us</a>
+        <button class="btn-outline" onclick="openPortal('customer')">File Complaint</button>
+      </div>
+    </div>
+
     <div class="quick-form">
       <p class="qf-title">Quick Callback Request</p>
       <p class="qf-sub">Leave your number — we'll call you back within 2 hours.</p>
@@ -940,6 +977,15 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
             <div id="contacts-list"></div>
           </div>
         </div>
+
+        <div class="divp"></div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap;">
+            <div><p style="font-size:13px;font-weight:600;color:#fff;">Front page poster images</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">Upload, change, or remove hero poster previews shown on the public home page</p></div>
+            <button class="btn-danger" onclick="clearAllPosters()" style="font-size:10px;padding:5px 12px;">Clear all</button>
+          </div>
+          <div class="poster-manager-grid" id="poster-manager-grid"></div>
+        </div>
         <div class="divp"></div>
         <div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
@@ -1009,6 +1055,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </div>
           <div id="contact-preview" style="display:flex;flex-direction:column;gap:7px;margin-top:6px;">
       </div>
+          <button class="btn-danger" onclick="resetLocalWebsiteData()" style="font-size:10px;padding:6px 12px;margin-top:10px;">Reset saved browser data</button>
 
       <!-- WA LOG -->
       <div id="oview-walog" class="oview">
@@ -1103,7 +1150,9 @@ function savePkgEdit(){
   p.btn=document.getElementById('em-btnstyle').value;
   document.getElementById('pkg-edit-panel').style.display='none';
   renderPackages();renderPkgManager();populatePkgDropdowns();
+  saveAppState();
 }
+
 
 function openPortal(page){document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';showPP(page||'customer');populateSTB();populatePkgDropdowns();}
 function closePortal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
@@ -1162,6 +1211,7 @@ function submitInquiry(){
   const cf=document.getElementById('inq-confirm');cf.style.display='block';
   cf.innerHTML=`<div class="success-box"><p>Inquiry submitted: ${id}</p><p>Our team will contact you at ${phone} shortly to discuss your new connection.</p></div>`;
   ['i-name','i-phone','i-addr','i-notes'].forEach(x=>document.getElementById(x).value='');
+  saveAppState();
 }
 function quickCB(){const n=document.getElementById('qname').value.trim();if(!n){alert('Please enter your name.');return;}document.getElementById('qok').style.display='block';['qname','qphone','qissue'].forEach(x=>document.getElementById(x).value='');}
 
@@ -1188,7 +1238,7 @@ function doLogout(){
   if(btn){btn.textContent='Edit packages';btn.style.background='';btn.style.color='';btn.style.borderColor='';}
   document.querySelectorAll('.pkg-edit-badge').forEach(b=>b.style.display='');
 }
-function owTab(t,el){document.querySelectorAll('.oview').forEach(x=>x.classList.remove('active'));document.getElementById('oview-'+t).classList.add('active');document.querySelectorAll('.otab').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(t==='info'){renderSTBList();renderContacts();renderPkgManager();renderContactPreview();renderPostsOwner();}if(t==='walog')renderWaLog();if(t==='inquiries')renderInquiries();if(t==='customers')renderCustomers();}
+function owTab(t,el){document.querySelectorAll('.oview').forEach(x=>x.classList.remove('active'));document.getElementById('oview-'+t).classList.add('active');document.querySelectorAll('.otab').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(t==='info'){renderSTBList();renderContacts();renderPosterManager();renderPkgManager();renderContactPreview();renderPostsOwner();}if(t==='walog')renderWaLog();if(t==='inquiries')renderInquiries();if(t==='customers')renderCustomers();}
 
 function ini(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
 function bS(s){if(s==='Open')return`<span class="badge b-open">Open</span>`;if(s==='In progress')return`<span class="badge b-prog">In progress</span>`;return`<span class="badge b-res">Resolved</span>`;}
@@ -1206,7 +1256,7 @@ function renderOwner(){
   document.getElementById('new-alerts').innerHTML=complaints.filter(c=>c.isNew).map(c=>`<div class="alert-row"><span>New: <b>${c.id}</b> — ${c.name} | ${c.cat} ${bP(c.pri)}</span><button class="btn-p" style="font-size:10px;padding:3px 8px;" onclick="dismiss('${c.id}')">Dismiss</button></div>`).join('');
   document.getElementById('owner-list').innerHTML=complaints.map(c=>`<div class="ticket-item" onclick="openDetail('${c.id}')"><div class="t-av">${ini(c.name)}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${c.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${c.id}</p>${c.isNew?'<span class="badge b-new">New</span>':''}${c.bcSent?'<span class="badge" style="background:#E7FFDB;color:#27500A;">WA</span>':''}${c.resSent?'<span class="badge b-res">Resolved</span>':''}</div><p style="font-size:11px;color:rgba(255,255,255,0.3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${c.stbtype} · ${c.cat} — ${c.desc.slice(0,50)}…</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">${bS(c.status)}${bP(c.pri)}</div></div>`).join('');
 }
-function dismiss(id){const c=complaints.find(x=>x.id===id);if(c)c.isNew=false;renderOwner();}
+function dismiss(id){const c=complaints.find(x=>x.id===id);if(c)c.isNew=false;renderOwner();saveAppState();}
 
 function renderInquiries(){
   document.getElementById('iq-tot').textContent=inquiries.length;
@@ -1215,7 +1265,7 @@ function renderInquiries(){
   document.getElementById('iq-conv').textContent=inquiries.filter(i=>i.status==='Converted').length;
   document.getElementById('inq-list').innerHTML=inquiries.map(q=>`<div class="ticket-item"><div class="t-av" style="background:rgba(26,82,118,0.15);color:#85B7EB;">${ini(q.name)}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${q.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${q.id}</p></div><p style="font-size:11px;color:rgba(255,255,255,0.3);">${q.pkg} · ${q.type}</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;"><span class="badge ${q.status==='Pending'?'b-pend':q.status==='Contacted'?'b-new':'b-res'}">${q.status}</span><select onchange="updateInqStatus('${q.id}',this.value)" style="font-size:10px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:5px;color:#fff;padding:3px 6px;cursor:pointer;"><option>Pending</option><option${q.status==='Contacted'?' selected':''}>Contacted</option><option${q.status==='Converted'?' selected':''}>Converted</option></select></div></div>`).join('');
 }
-function updateInqStatus(id,val){const q=inquiries.find(x=>x.id===id);if(q)q.status=val;renderInquiries();}
+function updateInqStatus(id,val){const q=inquiries.find(x=>x.id===id);if(q)q.status=val;renderInquiries();saveAppState();}
 
 function renderCustomers(){
   populateSTB();populatePkgDropdowns();
@@ -1229,7 +1279,9 @@ function saveCust(){
   customers.push({id,name,phone,wa:document.getElementById('nc-wa').value||phone,addr:document.getElementById('nc-addr').value||'N/A',stbtype:document.getElementById('nc-stbtype').value||'N/A',stbnum:document.getElementById('nc-stbnum').value||'N/A',pkg:document.getElementById('nc-pkg').value||'N/A',amount:packages.find(p=>document.getElementById('nc-pkg').value.startsWith(p.name))?.price||'0',joinDate:document.getElementById('nc-date').value||new Date().toISOString().slice(0,10),status:'Active',notes:document.getElementById('nc-notes').value});
   ['nc-name','nc-phone','nc-wa','nc-addr','nc-stbnum','nc-notes'].forEach(x=>document.getElementById(x).value='');
   toggleAddCust();renderCustomers();
+  saveAppState();
 }
+
 
 let editCustId=null;
 function openCustEdit(id){
@@ -1270,12 +1322,14 @@ function saveCustEdit(){
   c.notes=document.getElementById('ec-notes').value;
   document.getElementById('cust-detail-panel').style.display='none';editCustId=null;
   renderCustomers();
+  saveAppState();
 }
 function deleteCustomer(){
   if(!confirm('Delete this customer? This cannot be undone.'))return;
   customers=customers.filter(x=>x.id!==editCustId);
   document.getElementById('cust-detail-panel').style.display='none';editCustId=null;
   renderCustomers();
+  saveAppState();
 }
 
 // Contact Us edit
@@ -1302,19 +1356,31 @@ function toggleContactEdit(){
   }
   f.style.display=isOpen?'none':'block';
 }
+function renderPublicContactInfo(){
+  const phone=document.getElementById('public-phone');
+  const email=document.getElementById('public-email');
+  const addr=document.getElementById('public-addr');
+  const hours=document.getElementById('public-hours');
+  const wa=document.getElementById('public-wa-link');
+  if(phone)phone.textContent=contactInfo.phone;
+  if(email)email.textContent=contactInfo.email;
+  if(addr)addr.textContent=contactInfo.addr;
+  if(hours)hours.textContent=contactInfo.hours;
+  if(wa)wa.href='https://wa.me/'+String(contactInfo.wa||'').replace(/\D/g,'');
+}
 function saveContactInfo(){
   contactInfo.phone=document.getElementById('ce-phone').value.trim()||contactInfo.phone;
   contactInfo.email=document.getElementById('ce-email').value.trim()||contactInfo.email;
   contactInfo.addr=document.getElementById('ce-addr').value.trim()||contactInfo.addr;
   contactInfo.hours=document.getElementById('ce-hours').value.trim()||contactInfo.hours;
   contactInfo.wa=document.getElementById('ce-wa').value.trim()||contactInfo.wa;
-  // update public website contact section
-  const vals=[contactInfo.phone,contactInfo.email,contactInfo.addr,contactInfo.hours];
-  document.querySelectorAll('.c-val').forEach((el,i)=>{if(vals[i])el.textContent=vals[i];});
   document.getElementById('contact-edit-form').style.display='none';
   document.getElementById('contact-edit-btn').textContent='Edit';
   renderContactPreview();
+  renderPublicContactInfo();
+  saveAppState();
 }
+
 
 function openDetail(id){
   activeId=id;const c=complaints.find(x=>x.id===id);if(!c)return;c.isNew=false;
@@ -1342,6 +1408,7 @@ function sendBroadcast(){
   c.bcSent=true;waLog.unshift({type:'broadcast',id:c.id,name:c.name,to:sel.map(a=>a.name),msg:bWA(c),time:new Date().toLocaleString()});
   document.getElementById('bc-status').textContent='Sent to: '+sel.map(a=>a.name).join(', ');
   const btn=document.getElementById('bc-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send via WhatsApp';},2000);renderOwner();
+  saveAppState();
 }
 function sendResolved(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;c.resSent=true;c.status='Resolved';const msg=bRes(c);
@@ -1349,14 +1416,18 @@ function sendResolved(){
   document.getElementById('res-status').textContent='WhatsApp sent';
   const btn=document.getElementById('res-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send WhatsApp to customer';},2000);
   window.open(waLink(c.acct,msg),'_blank');renderOwner();
+  saveAppState();
 }
+
 function closeDetail(){document.getElementById('detail-panel').style.display='none';activeId=null;}
 function saveDetail(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;c.status=document.getElementById('dp-status').value;c.assign=document.getElementById('dp-assign').value;
   const note=document.getElementById('dp-note').value.trim();if(note)c.notes.push(note);
   document.getElementById('dp-notes-log').innerHTML=c.notes.map(n=>`<div class="mbox" style="font-size:11px;color:rgba(255,255,255,0.4);">${n}</div>`).join('');
   if(c.status==='Resolved')showResolved(c);renderOwner();
+  saveAppState();
 }
+
 function aiResolve(){const c=complaints.find(x=>x.id===activeId);if(!c)return;alert(`AI Suggestion for ${c.cat}:\n\nStep 1: Check physical cable connections at the set box (${c.stbtype} / ${c.stbnum}).\nStep 2: Power cycle set box — unplug 30 sec, replug.\nStep 3: If signal issue persists, check distribution amplifier at junction.\nStep 4: Send field technician to ${c.addr} if above steps fail.\n\nEstimated resolution: 2–4 hours.`);}
 function toggleRaise(){const f=document.getElementById('raise-form');f.style.display=f.style.display==='none'?'block':'none';document.getElementById('detail-panel').style.display='none';populateSTB();}
 function saveRaise(){
@@ -1364,18 +1435,20 @@ function saveRaise(){
   const id='CMP-'+nextCid++;
   complaints.unshift({id,name,acct:document.getElementById('r-acct').value||'N/A',addr:document.getElementById('r-addr').value||'N/A',stbtype:document.getElementById('r-stbtype').value||'N/A',stbnum:document.getElementById('r-stbnum').value||'N/A',cat:document.getElementById('r-cat').value||'Other',pri:document.getElementById('r-pri').value||'Medium',desc,desc_te:'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,assign:''});
   ['r-name','r-acct','r-addr','r-stbnum','r-desc'].forEach(x=>document.getElementById(x).value='');toggleRaise();renderOwner();
+  saveAppState();
 }
+
 
 function renderSTBList(){document.getElementById('stb-list').innerHTML=stbTypes.map((t,i)=>`<div class="stb-row"><p style="font-size:13px;font-weight:500;color:#fff;">${t}</p><button class="btn-danger" onclick="removeSTB(${i})" style="font-size:10px;padding:3px 9px;">Remove</button></div>`).join('');}
 function showAddSTB(){document.getElementById('add-stb-form').style.display='block';document.getElementById('new-stb').focus();}
-function saveSTB(){const v=document.getElementById('new-stb').value.trim();if(!v)return;if(stbTypes.includes(v)){alert('Already exists.');return;}stbTypes.push(v);document.getElementById('new-stb').value='';document.getElementById('add-stb-form').style.display='none';renderSTBList();populateSTB();}
-function removeSTB(i){if(confirm('Remove?')){stbTypes.splice(i,1);renderSTBList();populateSTB();}}
+function saveSTB(){const v=document.getElementById('new-stb').value.trim();if(!v)return;if(stbTypes.includes(v)){alert('Already exists.');return;}stbTypes.push(v);document.getElementById('new-stb').value='';document.getElementById('add-stb-form').style.display='none';renderSTBList();populateSTB();saveAppState();}
+function removeSTB(i){if(confirm('Remove?')){stbTypes.splice(i,1);renderSTBList();populateSTB();saveAppState();}}
 
 function renderContacts(){document.getElementById('contacts-list').innerHTML=contacts.map(a=>`<div class="stb-row"><div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0;"><div style="width:26px;height:26px;border-radius:50%;background:${a.active?'rgba(46,204,113,0.12)':'rgba(255,255,255,0.05)'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:${a.active?'#2ECC71':'#888'};flex-shrink:0;">${ini(a.name)}</div><div style="min-width:0;"><p style="font-size:12px;font-weight:600;color:#fff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${a.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${a.title}</p></div></div><div style="display:flex;gap:4px;flex-shrink:0;"><a href="${waLink(a.phone,'Hello '+a.name+', NSR Support here.')}" target="_blank" style="font-size:10px;background:#E7FFDB;color:#27500A;border:1px solid #C5E8B0;border-radius:5px;padding:3px 7px;text-decoration:none;">WA</a><button class="btn-p" style="font-size:10px;padding:3px 7px;" onclick="toggleContact(${a.id})">${a.active?'Off':'On'}</button><button class="btn-danger" style="font-size:10px;padding:3px 7px;" onclick="removeContact(${a.id})">X</button></div></div>`).join('');}
 function showAddContact(){document.getElementById('add-contact-form').style.display='block';}
-function saveContact(){const name=document.getElementById('tm-name').value.trim();const phone=document.getElementById('tm-phone').value.trim();if(!name||!phone){alert('Required.');return;}contacts.push({id:nextContactId++,name,phone,title:document.getElementById('tm-title').value||'Team Member',dept:document.getElementById('tm-dept').value,active:true});['tm-name','tm-phone','tm-title'].forEach(x=>document.getElementById(x).value='');document.getElementById('add-contact-form').style.display='none';renderContacts();}
-function toggleContact(id){const a=contacts.find(x=>x.id===id);if(a)a.active=!a.active;renderContacts();}
-function removeContact(id){if(confirm('Remove?')){contacts=contacts.filter(x=>x.id!==id);renderContacts();}}
+function saveContact(){const name=document.getElementById('tm-name').value.trim();const phone=document.getElementById('tm-phone').value.trim();if(!name||!phone){alert('Required.');return;}contacts.push({id:nextContactId++,name,phone,title:document.getElementById('tm-title').value||'Team Member',dept:document.getElementById('tm-dept').value,active:true});['tm-name','tm-phone','tm-title'].forEach(x=>document.getElementById(x).value='');document.getElementById('add-contact-form').style.display='none';renderContacts();saveAppState();}
+function toggleContact(id){const a=contacts.find(x=>x.id===id);if(a)a.active=!a.active;renderContacts();saveAppState();}
+function removeContact(id){if(confirm('Remove?')){contacts=contacts.filter(x=>x.id!==id);renderContacts();saveAppState();}}
 
 function renderPkgManager(){
   document.getElementById('pkg-manager-list').innerHTML=packages.map((p,i)=>`<div class="stb-row"><div style="flex:1;"><p style="font-size:13px;font-weight:600;color:#fff;">${p.name}</p><p style="font-size:11px;color:rgba(255,255,255,0.3);">₹${p.price}/mo · ${p.features.length} features${p.featured?' · ⭐ Featured':''}</p></div><button class="btn-gold" onclick="openPkgEdit(${i})" style="font-size:10px;padding:5px 12px;">Edit</button></div>`).join('');
@@ -1418,28 +1491,77 @@ function exportExcel(){
   XLSX.writeFile(wb,`NSR_MasterChannel_Data_${date}.xlsx`);
 }
 
-// ── POSTER UPLOAD ──────────────────────────────────────────────
+// ── POSTER UPLOAD / FRONT PAGE PREVIEW ──────────────────────────────
+let posterImages=[null,null,null,null];
+
+function savePostersToStorage(){
+  try{localStorage.setItem('nsrPosterImages',JSON.stringify(posterImages));}catch(e){}
+}
+function loadPostersFromStorage(){
+  try{
+    const saved=JSON.parse(localStorage.getItem('nsrPosterImages')||'null');
+    if(Array.isArray(saved)) posterImages=[0,1,2,3].map(i=>saved[i]||null);
+  }catch(e){}
+}
+function applyPosterPreview(idx){
+  const img=document.getElementById('poster-img-'+idx);
+  const ph=document.getElementById('poster-ph-'+idx);
+  if(!img||!ph) return;
+  if(posterImages[idx]){img.src=posterImages[idx];img.style.display='block';ph.style.display='none';}
+  else{img.src='';img.style.display='none';ph.style.display='flex';}
+}
+function renderAllPosterPreviews(){[0,1,2,3].forEach(applyPosterPreview);}
 function triggerUpload(idx){
   if(!document.body.classList.contains('owner-mode')) return;
-  document.getElementById('poster-file-'+idx).click();
+  const input=document.getElementById('poster-file-'+idx);
+  if(input) input.click();
 }
 function handlePosterUpload(idx,input){
+  if(!document.body.classList.contains('owner-mode')){ if(input) input.value=''; return; }
   if(!input.files||!input.files[0]) return;
   const reader=new FileReader();
   reader.onload=e=>{
-    const img=document.getElementById('poster-img-'+idx);
-    const ph=document.getElementById('poster-ph-'+idx);
-    img.src=e.target.result;
-    img.style.display='block';
-    ph.style.display='none';
+    posterImages[idx]=e.target.result;
+    applyPosterPreview(idx);
+    savePostersToStorage();
+    renderPosterManager();
   };
   reader.readAsDataURL(input.files[0]);
 }
 function clearPoster(idx){
-  const img=document.getElementById('poster-img-'+idx);
-  const ph=document.getElementById('poster-ph-'+idx);
+  if(!document.body.classList.contains('owner-mode')) return;
+  posterImages[idx]=null;
   const fi=document.getElementById('poster-file-'+idx);
-  img.src='';img.style.display='none';ph.style.display='flex';fi.value='';
+  if(fi) fi.value='';
+  applyPosterPreview(idx);
+  savePostersToStorage();
+  renderPosterManager();
+}
+function clearAllPosters(){
+  if(!document.body.classList.contains('owner-mode')) return;
+  if(!confirm('Remove all front page poster images?')) return;
+  posterImages=[null,null,null,null];
+  [0,1,2,3].forEach(i=>{const fi=document.getElementById('poster-file-'+i); if(fi) fi.value=''; applyPosterPreview(i);});
+  savePostersToStorage();
+  renderPosterManager();
+}
+function renderPosterManager(){
+  const grid=document.getElementById('poster-manager-grid');
+  if(!grid) return;
+  grid.innerHTML=[0,1,2,3].map(i=>`
+    <div class="poster-admin-card">
+      <div class="poster-admin-thumb">
+        <img id="poster-admin-img-${i}" src="${posterImages[i]||''}" style="display:${posterImages[i]?'block':'none'};">
+        <span style="display:${posterImages[i]?'none':'block'};">Poster ${i+1} preview</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <p style="font-size:11px;font-weight:600;color:#fff;letter-spacing:.5px;">Home poster ${i+1}</p>
+        <div style="display:flex;gap:6px;flex-shrink:0;">
+          <button class="btn-gold" onclick="triggerUpload(${i})" style="font-size:10px;padding:4px 10px;">${posterImages[i]?'Change':'Upload'}</button>
+          <button class="btn-danger" onclick="clearPoster(${i})" style="font-size:10px;padding:4px 10px;">Remove</button>
+        </div>
+      </div>
+    </div>`).join('');
 }
 
 // ── PACKAGE EDIT MODE TOGGLE (public page) ─────────────────────
@@ -1486,7 +1608,9 @@ function savePost(){
   cancelAddPost();
   renderPostsOwner();
   renderPostsPublic();
+  saveAppState();
 }
+
 function editPost(id){
   const p=posts.find(x=>x.id===id);if(!p)return;
   // Fill the add form with existing data for editing
@@ -1506,6 +1630,7 @@ function deletePost(id){
   posts=posts.filter(p=>p.id!==id);
   renderPostsOwner();
   renderPostsPublic();
+  saveAppState();
 }
 function renderPostsOwner(){
   const list=document.getElementById('posts-owner-list');
@@ -1549,11 +1674,53 @@ function renderPostsPublic(){
     </div>`).join('');
 }
 
+// ── BROWSER PERSISTENCE (single-file production mode) ─────────────
+const NSR_STATE_KEY='nsr_master_channel_state_v1';
+function saveAppState(){
+  try{
+    localStorage.setItem(NSR_STATE_KEY,JSON.stringify({
+      stbTypes,contacts,packages,complaints,inquiries,customers,contactInfo,posts,nextCid,nextIid,nextCustId,nextContactId,nextPostId,waLog
+    }));
+  }catch(e){console.warn('NSR local save failed',e);}
+}
+function loadAppState(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(NSR_STATE_KEY)||'null');
+    if(!saved) return;
+    if(Array.isArray(saved.stbTypes)) stbTypes=saved.stbTypes;
+    if(Array.isArray(saved.contacts)) contacts=saved.contacts;
+    if(Array.isArray(saved.packages)) packages=saved.packages;
+    if(Array.isArray(saved.complaints)) complaints=saved.complaints;
+    if(Array.isArray(saved.inquiries)) inquiries=saved.inquiries;
+    if(Array.isArray(saved.customers)) customers=saved.customers;
+    if(saved.contactInfo&&typeof saved.contactInfo==='object') contactInfo={...contactInfo,...saved.contactInfo};
+    if(Array.isArray(saved.posts)) posts=saved.posts;
+    if(Number.isFinite(saved.nextCid)) nextCid=saved.nextCid;
+    if(Number.isFinite(saved.nextIid)) nextIid=saved.nextIid;
+    if(Number.isFinite(saved.nextCustId)) nextCustId=saved.nextCustId;
+    if(Number.isFinite(saved.nextContactId)) nextContactId=saved.nextContactId;
+    if(Number.isFinite(saved.nextPostId)) nextPostId=saved.nextPostId;
+    if(Array.isArray(saved.waLog)) waLog=saved.waLog;
+  }catch(e){console.warn('NSR local load failed',e);}
+}
+function resetLocalWebsiteData(){
+  if(!confirm('Reset all saved website data in this browser?')) return;
+  localStorage.removeItem(NSR_STATE_KEY);
+  localStorage.removeItem('nsrPosterImages');
+  location.reload();
+}
+window.addEventListener('beforeunload',saveAppState);
+
 // INIT
+loadAppState();
+loadPostersFromStorage();
+renderAllPosterPreviews();
 renderPackages();
 populateSTB();
 populatePkgDropdowns();
 renderPostsPublic();
+renderPublicContactInfo();
+saveAppState();
 </script>
 
 <!-- SCROLL PROGRESS BAR -->
