@@ -810,7 +810,15 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           <p class="p-title" style="margin:0;">WhatsApp Us</p>
           <button class="btn-p" onclick="showPP('customer')" style="font-size:10px;">← Back</button>
         </div>
-        <p style="font-size:12px;color:rgba(255,255,255,0.42);line-height:1.6;margin-bottom:14px;">Fill the details below. A ticket number will be generated automatically and WhatsApp will open with a ready-to-send message to the owner.</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.42);line-height:1.6;margin-bottom:14px;">Fill the details below. A ticket number will be generated automatically and WhatsApp will open with a ready-to-send bilingual message to the owner.</p>
+        <div class="p-field" style="margin-bottom:14px;">
+          <p class="p-label">Voice language</p>
+          <div class="lang-sw" style="background:#111;">
+            <button class="ltab active" id="wlang-en" onclick="setWaLang('en',this)">English</button>
+            <button class="ltab" id="wlang-te" onclick="setWaLang('te',this)">తెలుగు</button>
+            <button class="ltab" id="wlang-hi" onclick="setWaLang('hi',this)">हिन्दी</button>
+          </div>
+        </div>
         <div class="p-row">
           <div class="p-field"><p class="p-label">Customer Name</p><input class="p-inp" id="w-name" placeholder="Your name"></div>
           <div class="p-field"><p class="p-label">Phone Number</p><input class="p-inp" id="w-phone" placeholder="9876543210"></div>
@@ -819,7 +827,20 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           <div class="p-field"><p class="p-label">Setbox Name</p><select class="p-sel" id="w-stbtype"></select></div>
           <div class="p-field"><p class="p-label">Setbox No</p><input class="p-inp" id="w-stbnum" placeholder="STB-00000"></div>
         </div>
-        <div class="p-field"><p class="p-label">Issue</p><textarea class="p-ta" id="w-issue" placeholder="Describe the issue..."></textarea></div>
+        <div class="p-field">
+          <p class="p-label">Issue</p>
+          <div class="mic-wrap">
+            <textarea class="p-ta" id="w-issue" placeholder="Type or speak the issue in English, Telugu, or Hindi..." style="flex:1;margin-top:0;"></textarea>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+              <button class="mic-btn" id="mic-btn-w" onclick="toggleWaMic()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
+              <span class="mic-lbl" id="mic-status-w">mic</span>
+            </div>
+          </div>
+          <p style="font-size:10px;color:rgba(255,255,255,0.28);line-height:1.5;margin-top:6px;">Final WhatsApp draft will include English + Telugu issue text only.</p>
+        </div>
+        <div class="ai-bar" style="margin-top:6px;">
+          <div class="ai-result" id="w-translate-preview">Translation preview appears after you type or speak the issue.</div>
+        </div>
         <button class="p-submit" onclick="submitWhatsAppComplaint()" style="background:#25D366;box-shadow:0 4px 16px rgba(37,211,102,.25);">Create Ticket & Open WhatsApp</button>
         <div id="wa-form-confirm" style="display:none;margin-top:12px;"></div>
       </div>
@@ -919,6 +940,13 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </div>
           <div id="assoc-checks" style="margin-bottom:10px;"></div>
           <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;"><button class="btn-wa" onclick="sendBroadcast()" id="bc-btn">Send via WhatsApp</button><span style="font-size:11px;color:rgba(255,255,255,0.3);" id="bc-status"></span></div>
+          <div class="divp"></div>
+          <p style="font-size:11px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:8px;">Customer acknowledgement</p>
+          <div style="border-radius:10px;overflow:hidden;margin-bottom:10px;">
+            <div class="wa-hdr"><div style="width:28px;height:28px;border-radius:50%;background:#075E54;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#E1F5EE;">NSR</div><div><p style="font-size:12px;font-weight:600;color:#fff;">NSR Master Channel</p><p style="font-size:10px;color:#B2DFDB;">to customer</p></div></div>
+            <div class="wa-body"><div style="display:flex;justify-content:flex-end;"><div class="wa-bubble" id="ack-msg-preview"></div></div></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;"><button class="btn-wares" onclick="sendCustomerAck()" id="ack-btn">Acknowledge Customer</button><span style="font-size:11px;color:rgba(255,255,255,0.3);" id="ack-status"></span></div>
           <div class="divp"></div>
           <div class="p-row" style="margin-bottom:10px;">
             <div class="p-field"><p class="p-label">Update status</p><select class="p-sel" id="dp-status" onchange="onStatusChange()"><option>Open</option><option>In progress</option><option>Resolved</option></select></div>
@@ -1443,6 +1471,8 @@ function openDetail(id){
   document.getElementById('dp-assign').innerHTML='<option value="">-- assign --</option>'+ac.map(a=>`<option${c.assign===a.name?' selected':''}>${a.name}</option>`).join('');
   document.getElementById('assoc-checks').innerHTML=ac.map(a=>`<div class="assoc-row"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;flex:1;"><input type="checkbox" id="chk-${a.id}" style="width:14px;height:14px;" ${c.bcSent?'checked':''}><div><p style="font-size:12px;font-weight:600;color:#fff;">${a.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${a.title}</p></div></label><a href="${waLink(a.phone,bWA(c))}" target="_blank" style="font-size:10px;background:#E7FFDB;color:#27500A;border:1px solid #C5E8B0;border-radius:5px;padding:3px 9px;text-decoration:none;">Open WA</a></div>`).join('');
   document.getElementById('bc-status').textContent=c.bcSent?'Already broadcast':'';
+  const ackPrev=document.getElementById('ack-msg-preview'); if(ackPrev) ackPrev.textContent=buildCustomerAckMsg(c);
+  const ackStatus=document.getElementById('ack-status'); if(ackStatus) ackStatus.textContent=c.ackSent?'Already acknowledged':'';
   if(c.status==='Resolved')showResolved(c);else document.getElementById('resolved-section').style.display='none';
   document.getElementById('detail-panel').style.display='block';document.getElementById('raise-form').style.display='none';
   renderOwner();
@@ -1670,22 +1700,113 @@ function renderPostsPublic(){
 
 
 
-// ── WHATSAPP US STRUCTURED COMPLAINT ─────────────────────────────
+// ── WHATSAPP US STRUCTURED COMPLAINT + MULTI-LANGUAGE VOICE ─────────────────
+let waLang='en';
+let waMicRec=null;
+let waMicActive=false;
+
 function openWhatsAppUs(){
   openPortal('whatsapp');
   populateSTB();
   const cf=document.getElementById('wa-form-confirm');
   if(cf){cf.style.display='none';cf.innerHTML='';}
+  updateWaTranslationPreview();
+}
+
+function setWaLang(l,el){
+  waLang=l;
+  document.querySelectorAll('#wlang-en,#wlang-te,#wlang-hi').forEach(b=>b.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+function waLangCode(){return waLang==='te'?'te-IN':(waLang==='hi'?'hi-IN':'en-IN');}
+
+function toggleWaMic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('Voice input requires Chrome browser.');return;}
+  const btn=document.getElementById('mic-btn-w');
+  const status=document.getElementById('mic-status-w');
+  const issueEl=document.getElementById('w-issue');
+  if(waMicActive){if(waMicRec)waMicRec.stop();waMicActive=false;btn.classList.remove('recording');status.textContent='mic';return;}
+  waMicActive=true;btn.classList.add('recording');status.textContent='…';
+  const r=new SR();waMicRec=r;r.continuous=false;r.interimResults=true;r.lang=waLangCode();
+  let finalText=issueEl.value.trim()?issueEl.value.trim()+' ':'';
+  r.onresult=e=>{
+    let interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal) finalText+=e.results[i][0].transcript;
+      else interim=e.results[i][0].transcript;
+    }
+    issueEl.value=(finalText+interim).trim();
+    status.textContent=interim?'hearing':'got it';
+    updateWaTranslationPreview();
+  };
+  r.onerror=()=>{waMicActive=false;btn.classList.remove('recording');status.textContent='error';};
+  r.onend=()=>{waMicActive=false;btn.classList.remove('recording');status.textContent='mic';updateWaTranslationPreview();};
+  r.start();
+}
+
+function detectIssueLang(text){
+  if(/[\u0C00-\u0C7F]/.test(text)) return 'te';
+  if(/[\u0900-\u097F]/.test(text)) return 'hi';
+  return 'en';
+}
+function normalizeIssue(text){return (text||'').toLowerCase().trim();}
+function issueFlags(text){
+  const t=normalizeIssue(text);
+  return {
+    noSignal:/no signal|signal problem|signal not|సిగ్నల్|सिग्नल|signal nahi|सिगनल/.test(t),
+    internet:/internet|broadband|wifi|wi-fi|slow|speed|ఇంటర్నెట్|వైఫై|धीमा|इंटरनेट|नेट/.test(t),
+    channels:/channel|channels|missing|not coming|చానెల్|చానెల్స్|चैनल/.test(t),
+    remote:/remote|రిమోట్|रिमोट/.test(t),
+    billing:/bill|billing|payment|charge|బిల్|చార్జ్|भुगतान|बिल/.test(t),
+    setbox:/set box|setup box|stb|box|సెట్|बॉक्स/.test(t),
+    outage:/outage|not working|down|పని చేయడం లేదు|काम नहीं|बंद/.test(t)
+  };
+}
+function translateIssueToEnglishTelugu(text){
+  const original=(text||'').trim();
+  const lang=detectIssueLang(original);
+  const f=issueFlags(original);
+  let english='', telugu='';
+  if(f.noSignal){english='No signal / signal not coming.';telugu='సిగ్నల్ రావడం లేదు.';}
+  else if(f.internet){english='Internet is slow or not working.';telugu='ఇంటర్నెట్ నెమ్మదిగా ఉంది లేదా పని చేయడం లేదు.';}
+  else if(f.channels){english='Channels are missing or not coming.';telugu='చానెల్స్ రావడం లేదు లేదా కనిపించడం లేదు.';}
+  else if(f.remote){english='Remote is not working.';telugu='రిమోట్ పని చేయడం లేదు.';}
+  else if(f.billing){english='Billing or payment issue.';telugu='బిల్లింగ్ లేదా చెల్లింపు సమస్య.';}
+  else if(f.setbox){english='Set top box issue.';telugu='సెట్ టాప్ బాక్స్ సమస్య.';}
+  else if(f.outage){english='Service is not working.';telugu='సర్వీస్ పని చేయడం లేదు.';}
+  else if(lang==='en'){english=original;telugu='కస్టమర్ తెలిపిన సమస్య: '+original;}
+  else if(lang==='te'){english='Customer reported this issue: '+original;telugu=original;}
+  else {english='Customer reported this issue: '+original;telugu='కస్టమర్ తెలిపిన సమస్య: '+original;}
+  return {english,telugu,lang};
+}
+function updateWaTranslationPreview(){
+  const el=document.getElementById('w-translate-preview');
+  const issueEl=document.getElementById('w-issue');
+  if(!el||!issueEl) return;
+  const issue=issueEl.value.trim();
+  if(!issue){el.textContent='Translation preview appears after you type or speak the issue.';return;}
+  const t=translateIssueToEnglishTelugu(issue);
+  el.innerHTML=`<span class="badge b-new" style="margin-right:4px;">English</span> ${t.english}<br><span class="badge b-cat" style="margin-right:4px;margin-top:6px;">Telugu</span> <span style="font-family:'Noto Sans Telugu',sans-serif;">${t.telugu}</span>`;
 }
 function buildOwnerComplaintMsg(c){
+  const en=c.issueEnglish||c.desc||'';
+  const te=c.issueTelugu||c.desc_te||'';
   return `NSR Master Channel - Complaint
 
 Complaint No: ${c.id}
 Customer Name: ${c.name}
 Phone Number: ${c.acct}
-Set Top Box: ${c.stbtype}
+Set Top Box Name: ${c.stbtype}
 Set Top Box Number: ${c.stbnum}
-Issue: ${c.desc}`;
+
+Issue (English):
+${en}
+
+Issue (Telugu):
+${te}
+
+Please review and assign technician.`;
 }
 function submitWhatsAppComplaint(){
   const name=document.getElementById('w-name').value.trim();
@@ -1695,7 +1816,8 @@ function submitWhatsAppComplaint(){
   const issue=document.getElementById('w-issue').value.trim();
   if(!name||!phone||!stbtype||!stbnum||!issue){alert('Please fill Name, Phone, Setbox Name, Setbox No, and Issue.');return;}
   const id='CMP-'+nextCid++;
-  const ticket={id,name,acct:phone,addr:'Submitted via WhatsApp Us form',stbtype,stbnum,cat:'WhatsApp complaint',pri:'Medium',desc:issue,desc_te:'',status:'Open',notes:['Ticket raised from WhatsApp Us form'],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
+  const converted=translateIssueToEnglishTelugu(issue);
+  const ticket={id,name,acct:phone,addr:'Submitted via WhatsApp Us form',stbtype,stbnum,cat:'WhatsApp complaint',pri:'Medium',desc:converted.english,desc_te:converted.telugu,issueOriginal:issue,issueEnglish:converted.english,issueTelugu:converted.telugu,issueInputLang:converted.lang,status:'Open',notes:['Ticket raised from WhatsApp Us form'],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
   complaints.unshift(ticket);
   saveComplaintsToStorage();
   if(typeof renderOwner==='function') renderOwner();
@@ -1703,10 +1825,22 @@ function submitWhatsAppComplaint(){
   const ownerWa=(contactInfo.wa||'919393933473').replace(/\D/g,'');
   const cf=document.getElementById('wa-form-confirm');
   cf.style.display='block';
-  cf.innerHTML=`<div class="success-box"><p>Ticket created: ${id}</p><p>WhatsApp is opening with a draft message to the owner. Please press Send in WhatsApp.</p></div>`;
+  cf.innerHTML=`<div class="success-box"><p>Ticket created: ${id}</p><p>WhatsApp is opening with a bilingual draft message to the owner. Please press Send in WhatsApp.</p></div>`;
   ['w-name','w-phone','w-stbnum','w-issue'].forEach(x=>document.getElementById(x).value='');
   document.getElementById('w-stbtype').value='';
+  updateWaTranslationPreview();
   window.open(`https://wa.me/${ownerWa}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+function buildCustomerAckMsg(c){return `Your complaint has been received.\nComplaint No: ${c.id}\nOur team will contact you shortly.\n\nNSR Master Channel`;}
+function sendCustomerAck(){
+  const c=complaints.find(x=>x.id===activeId);if(!c)return;
+  const msg=buildCustomerAckMsg(c);
+  c.ackSent=true;
+  waLog.unshift({type:'acknowledgement',id:c.id,name:c.name,to:[c.name+' ('+c.acct+')'],msg,time:new Date().toLocaleString()});
+  saveComplaintsToStorage();
+  const status=document.getElementById('ack-status'); if(status) status.textContent='Acknowledgement opened in WhatsApp';
+  renderOwner();
+  window.open(waLink(c.acct,msg),'_blank');
 }
 
 // ── LOCAL STORAGE FOR TICKETS + POSTERS ─────────────────────────
@@ -1730,6 +1864,7 @@ function resetPostersToDefault(){for(let i=0;i<4;i++){localStorage.removeItem('p
 // INIT
 loadComplaintsFromStorage();
 loadPosters();
+const wIssueEl=document.getElementById('w-issue'); if(wIssueEl) wIssueEl.addEventListener('input',updateWaTranslationPreview);
 renderPackages();
 populateSTB();
 populatePkgDropdowns();
