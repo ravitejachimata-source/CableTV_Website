@@ -17,7 +17,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
 ::selection{background:var(--red);color:#fff;}
 
 /* NAV */
@@ -52,7 +52,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:66px;display:flex;ali
 .hero h1 em{color:var(--red);font-style:normal;display:block;}
 .hero-location{font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);margin-bottom:22px;display:flex;align-items:center;gap:6px;}
 .hero-location svg{width:14px;height:14px;}
-.hero-desc{font-size:17px;font-weight:300;color:var(--muted);line-height:1.78;margin-bottom:40px;max-width:480px;letter-spacing:.02em;}
+.hero-desc{font-size:17px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:40px;max-width:480px;}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
 .btn-primary{background:var(--red);color:#fff;padding:15px 30px;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:.5px;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
 .btn-primary:hover{background:var(--red2);transform:translateY(-1px);}
@@ -242,7 +242,7 @@ footer{background:var(--ink);padding:48px 6%;display:flex;align-items:center;jus
 .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--red);transition:width .25s;}
 .nav-links a:hover::after{width:100%;}
 .hero-left::before{content:'';position:absolute;top:10%;left:-5%;width:320px;height:320px;background:radial-gradient(circle,rgba(192,24,29,0.05),transparent 70%);pointer-events:none;}
-.hero h1{letter-spacing:-2px;animation:fadeUp .6s .1s ease both;font-feature-settings:'kern' 1,'liga' 1;}
+.hero h1{letter-spacing:-1px;animation:fadeUp .6s .1s ease both;}
 .hero-eyebrow{animation:fadeUp .6s ease both;}
 .hero-location{animation:fadeUp .6s .2s ease both;}
 .hero-desc{animation:fadeUp .6s .3s ease both;}
@@ -293,13 +293,31 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .poster-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
 .poster-placeholder p{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);}
 .poster-owner-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;gap:8px;}
-.owner-mode .poster-slot:hover .poster-owner-overlay{display:flex;}
-.owner-mode .poster-slot .poster-placeholder p::after{content:' (click to upload)';}
+/* Poster controls are managed only inside Owner > Info tab. Front page only previews posters. */
+.owner-mode .poster-slot:hover .poster-owner-overlay{display:none;}
+.owner-mode .poster-slot .poster-placeholder p::after{content:'';}
 .poster-owner-overlay button{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;border-radius:6px;padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;transition:background .2s;}
 .poster-owner-overlay button:hover{background:rgba(255,255,255,0.22);}
 /* Non-owner: clicking poster does nothing */
 body:not(.owner-mode) .poster-slot{cursor:default;}
 body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
+
+/* OWNER POSTER MANAGER */
+.poster-admin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.poster-admin-card{background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:9px;}
+.poster-admin-preview{height:86px;border-radius:8px;background:rgba(255,255,255,0.04);overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:8px;color:rgba(255,255,255,0.25);font-size:10px;text-transform:uppercase;letter-spacing:1px;}
+.poster-admin-preview img{width:100%;height:100%;object-fit:cover;display:block;}
+.poster-admin-actions{display:flex;gap:6px;}
+.poster-admin-actions button{flex:1;}
+@media(max-width:640px){.poster-admin-grid{grid-template-columns:1fr 1fr;}}
+
+/* WHY SECTION PREMIUM */
+.why-card.trust-card{border:2px solid rgba(201,153,58,0.45)!important;background:linear-gradient(145deg,#fff8e8,#fff)!important;box-shadow:0 18px 45px rgba(201,153,58,0.18)!important;position:relative;overflow:hidden;}
+.why-card.trust-card::after{content:'';position:absolute;right:-42px;top:-42px;width:120px;height:120px;background:radial-gradient(circle,rgba(201,153,58,.22),transparent 65%);}
+.why-num.trust-num{font-size:68px!important;color:var(--gold)!important;text-shadow:0 8px 26px rgba(201,153,58,.22);}
+.why-icon{width:44px;height:44px;border-radius:12px;background:rgba(200,32,31,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--red);font-size:22px;}
+.why-title{font-size:19px;font-weight:800;color:#12100d;}
+.why-desc{font-size:14px;font-weight:400;color:#5b5246;}
 
 /* OFFER SECTION */
 .offer-row{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
@@ -319,7 +337,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
 .post-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px;position:relative;transition:all .28s cubic-bezier(.22,1,.36,1);backdrop-filter:blur(4px);}
 .post-card:hover{border-color:rgba(201,153,58,0.4);background:rgba(255,255,255,0.08);transform:translateY(-3px);}
 .post-tag-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 13px;border-radius:20px;margin-bottom:14px;background:rgba(201,153,58,0.12);color:var(--gold);border:1px solid rgba(201,153,58,0.25);}
-.post-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.2;letter-spacing:-.5px;font-feature-settings:'kern' 1;}
+.post-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.25;letter-spacing:-.3px;}
 .post-body{font-size:13px;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.75;}
 .post-date{font-size:10px;color:rgba(255,255,255,0.25);margin-top:16px;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
 .post-date::before{content:'';display:inline-block;width:20px;height:1px;background:rgba(255,255,255,0.15);}
@@ -486,14 +504,15 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
     </div>
 
     <!-- WhatsApp Us card in hero-left -->
-    <a href="https://wa.me/919393933473" target="_blank" class="hero-left-wa" id="hero-left-wa">
+    <a href="#" class="hero-left-wa" id="hero-left-wa" onclick="openWhatsAppUs();return false;">
       <div class="hero-left-wa-icon">
-        <svg viewBox="0 0 32 32" width="22" height="22" style="display:block">
-            <path fill="#fff" d="M16 2C8.268 2 2 8.268 2 16c0 2.492.655 4.833 1.798 6.858L2 30l7.335-1.775A13.924 13.924 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm7.234 19.674c-.306.861-1.507 1.576-2.474 1.784-.659.14-1.521.252-4.42-.95-3.712-1.522-6.108-5.287-6.294-5.532-.18-.245-1.513-2.014-1.513-3.84s.955-2.72 1.294-3.095c.305-.337.663-.421.884-.421.22 0 .441.002.634.01.204.01.476-.077.745.568.306.713 1.04 2.465 1.13 2.645.091.18.151.39.03.635-.12.245-.18.397-.357.611-.179.214-.376.478-.536.642-.18.18-.367.375-.158.735.21.36.933 1.537 2.003 2.49 1.375 1.227 2.534 1.606 2.893 1.786.36.18.569.15.778-.09.21-.24.9-1.05 1.14-1.41.239-.36.478-.3.808-.18.33.12 2.094.987 2.453 1.167.36.18.6.27.689.42.09.15.09.87-.215 1.73z"/>
-          </svg>
+        <svg viewBox="0 0 24 24" width="22" height="22">
+          <path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path fill="#fff" fill-rule="evenodd" d="M11.999 2C6.477 2 2 6.477 2 12c0 1.85.504 3.58 1.383 5.065L2 22l5.085-1.338A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+        </svg>
       </div>
       <div class="hero-left-wa-text">
-        <span class="hero-left-wa-label">WhatsApp Us — Mon–Sun, 8AM to 8PM</span>
+        <span class="hero-left-wa-label">WhatsApp Us — Available Mon–Sun 8AM to 10PM</span>
         <span class="hero-left-wa-num" id="hero-left-wa-num">+91 93939 33473</span>
       </div>
       <div class="hero-left-wa-pulse"></div>
@@ -629,14 +648,14 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   <h2 class="section-title">Built for Ibrahimpatnam</h2>
   <p class="section-sub">We're not a distant operator — we're your neighbours. Our team lives here, works here, and is always a call away.</p>
   <div class="why-grid">
-    <div class="why-card" style="border-color:rgba(201,153,58,0.35);background:linear-gradient(145deg,#FFFDF8,#fff);">
-      <div class="why-num" style="color:rgba(201,153,58,0.15);">25+</div>
+    <div class="why-card trust-card">
+      <div class="why-num trust-num">25+</div>
       <div class="why-title" style="color:var(--ink);">Years of Trust</div>
       <p class="why-desc">Over 25 years of serving Ibrahimpatnam. A name the community has relied on for generations.</p>
     </div>
-    <div class="why-card"><div class="why-num">01</div><div class="why-title">Same-day Support</div><p class="why-desc">Field technicians dispatched within hours. No waiting days for someone to arrive.</p></div>
-    <div class="why-card"><div class="why-num">02</div><div class="why-title">Telugu-first Team</div><p class="why-desc">Our support staff speak Telugu fluently. File complaints, ask questions — in your language.</p></div>
-    <div class="why-card"><div class="why-num">03</div><div class="why-title">No Hidden Fees</div><p class="why-desc">What you see is what you pay. Simple, transparent billing with zero surprise charges.</p></div>
+    <div class="why-card"><div class="why-icon">⚡</div><div class="why-title">Same-day Support</div><p class="why-desc">Field technicians dispatched within hours. No waiting days for someone to arrive.</p></div>
+    <div class="why-card"><div class="why-icon">తెలుగు</div><div class="why-title">Telugu-first Team</div><p class="why-desc">Our support staff speak Telugu fluently. File complaints, ask questions — in your language.</p></div>
+    <div class="why-card"><div class="why-icon">₹</div><div class="why-title">No Hidden Fees</div><p class="why-desc">What you see is what you pay. Simple, transparent billing with zero surprise charges.</p></div>
   </div>
 </section>
 
@@ -687,13 +706,13 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
       </div>
       <div class="contact-item">
         <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div><div class="c-label">Support Hours</div><div class="c-val" id="pub-hours">Mon – Sun · 8 AM to 8 PM</div></div>
+        <div><div class="c-label">Support Hours</div><div class="c-val" id="pub-hours">Mon – Sun · 8 AM to 10 PM</div></div>
       </div>
       <div class="contact-item">
         <div class="c-icon" style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);">
-          <svg viewBox="0 0 32 32" width="20" height="20" style="display:block"><path fill="#25D366" d="M16 2C8.268 2 2 8.268 2 16c0 2.492.655 4.833 1.798 6.858L2 30l7.335-1.775A13.924 13.924 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm7.234 19.674c-.306.861-1.507 1.576-2.474 1.784-.659.14-1.521.252-4.42-.95-3.712-1.522-6.108-5.287-6.294-5.532-.18-.245-1.513-2.014-1.513-3.84s.955-2.72 1.294-3.095c.305-.337.663-.421.884-.421.22 0 .441.002.634.01.204.01.476-.077.745.568.306.713 1.04 2.465 1.13 2.645.091.18.151.39.03.635-.12.245-.18.397-.357.611-.179.214-.376.478-.536.642-.18.18-.367.375-.158.735.21.36.933 1.537 2.003 2.49 1.375 1.227 2.534 1.606 2.893 1.786.36.18.569.15.778-.09.21-.24.9-1.05 1.14-1.41.239-.36.478-.3.808-.18.33.12 2.094.987 2.453 1.167.36.18.6.27.689.42.09.15.09.87-.215 1.73z"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path fill="#25D366" fill-rule="evenodd" d="M11.999 2C6.477 2 2 6.477 2 12c0 1.85.504 3.58 1.383 5.065L2 22l5.085-1.338A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
         </div>
-        <div><div class="c-label">WhatsApp Us</div><a class="c-val" id="pub-wa-link" href="https://wa.me/919393933473" target="_blank" style="color:#25D366;text-decoration:none;font-weight:700;">+91 93939 33473 →</a></div>
+        <div><div class="c-label">WhatsApp Us</div><a class="c-val" id="pub-wa-link" href="#" onclick="openWhatsAppUs();return false;" style="color:#25D366;text-decoration:none;font-weight:700;">+91 93939 33473 →</a></div>
       </div>
   </div>
 </section>
@@ -780,6 +799,29 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
         <div class="p-field"><p class="p-label">Any specific requirements</p><textarea class="p-ta" id="i-notes" placeholder="e.g. specific channels, timing preference…"></textarea></div>
         <button class="p-submit" style="background:var(--blue);" onclick="submitInquiry()">Submit Inquiry</button>
         <div id="inq-confirm" style="display:none;margin-top:12px;"></div>
+      </div>
+    </div>
+
+
+    <!-- WHATSAPP US STRUCTURED COMPLAINT -->
+    <div id="pp-whatsapp" style="display:none;">
+      <div class="p-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+          <p class="p-title" style="margin:0;">WhatsApp Us</p>
+          <button class="btn-p" onclick="showPP('customer')" style="font-size:10px;">← Back</button>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.42);line-height:1.6;margin-bottom:14px;">Fill the details below. A ticket number will be generated automatically and WhatsApp will open with a ready-to-send message to the owner.</p>
+        <div class="p-row">
+          <div class="p-field"><p class="p-label">Customer Name</p><input class="p-inp" id="w-name" placeholder="Your name"></div>
+          <div class="p-field"><p class="p-label">Phone Number</p><input class="p-inp" id="w-phone" placeholder="9876543210"></div>
+        </div>
+        <div class="p-row">
+          <div class="p-field"><p class="p-label">Setbox Name</p><select class="p-sel" id="w-stbtype"></select></div>
+          <div class="p-field"><p class="p-label">Setbox No</p><input class="p-inp" id="w-stbnum" placeholder="STB-00000"></div>
+        </div>
+        <div class="p-field"><p class="p-label">Issue</p><textarea class="p-ta" id="w-issue" placeholder="Describe the issue..."></textarea></div>
+        <button class="p-submit" onclick="submitWhatsAppComplaint()" style="background:#25D366;box-shadow:0 4px 16px rgba(37,211,102,.25);">Create Ticket & Open WhatsApp</button>
+        <div id="wa-form-confirm" style="display:none;margin-top:12px;"></div>
       </div>
     </div>
 
@@ -1019,8 +1061,17 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
             </div>
           </div>
         </div>
-        
 
+
+        <div class="divp"></div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap;">
+            <div><p style="font-size:13px;font-weight:600;color:#fff;">Homepage poster manager</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">Upload/change/remove the 4 images shown on the front page</p></div>
+            <button class="btn-p" onclick="resetPostersToDefault()" style="font-size:10px;padding:6px 11px;">Reset defaults</button>
+          </div>
+          <div class="poster-admin-grid" id="poster-admin-grid"></div>
+        </div>
+        
         <div class="divp"></div>
         <div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
@@ -1054,7 +1105,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
             </div>
             <div class="p-field"><p class="p-label">Office Address</p><input class="p-inp" id="ce-addr" placeholder="Main Road, Ibrahimpatnam"></div>
             <div class="p-row">
-              <div class="p-field"><p class="p-label">Support Hours</p><input class="p-inp" id="ce-hours" placeholder="Mon – Sun · 8 AM to 8 PM"></div>
+              <div class="p-field"><p class="p-label">Support Hours</p><input class="p-inp" id="ce-hours" placeholder="Mon – Sun · 8 AM to 10 PM"></div>
               <div class="p-field"><p class="p-label">WhatsApp Number (for wa.me link)</p><input class="p-inp" id="ce-wa" placeholder="919393933473"></div>
             </div>
             <div style="display:flex;gap:8px;margin-top:4px;">
@@ -1112,7 +1163,7 @@ const LL={en:{name:'Full name',phone:'Phone number',addr:'Address',stbtype:'Set 
 
 function setLang(l,el){lang=l;document.querySelectorAll('#lb-en,#lb-te').forEach(b=>b.classList.remove('active'));el.classList.add('active');Object.keys(LL[l]).forEach(k=>{const e=document.getElementById('L-'+k);if(e)e.textContent=LL[l][k];});}
 
-function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
+function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype','w-stbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
 function populatePkgDropdowns(){['i-pkg','nc-pkg'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.innerHTML=packages.map(p=>`<option>${p.name} — ₹${p.price}/mo</option>`).join('');});}
 
 function renderPackages(){
@@ -1162,7 +1213,7 @@ function savePkgEdit(){
 
 function openPortal(page){document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';showPP(page||'customer');populateSTB();populatePkgDropdowns();}
 function closePortal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
-function showPP(p){['pp-customer','pp-inquiry','pp-login','pp-owner'].forEach(x=>document.getElementById(x).style.display='none');document.getElementById('pp-'+p).style.display='block';const subs={customer:'CableConnect Customer Complaint Portal',inquiry:'New Connection Inquiry',login:'Owner Login',owner:'Owner Dashboard'};document.getElementById('ot-sub').textContent=subs[p]||'';}
+function showPP(p){['pp-customer','pp-inquiry','pp-whatsapp','pp-login','pp-owner'].forEach(x=>document.getElementById(x).style.display='none');document.getElementById('pp-'+p).style.display='block';const subs={customer:'CableConnect Customer Complaint Portal',inquiry:'New Connection Inquiry',whatsapp:'WhatsApp Complaint Form',login:'Owner Login',owner:'Owner Dashboard'};document.getElementById('ot-sub').textContent=subs[p]||'';}
 
 function toggleMic(which){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -1208,6 +1259,7 @@ function submitComplaint(){
   const cf=document.getElementById('cust-confirm');cf.style.display='block';
   cf.innerHTML=`<div class="success-box"><p>Complaint registered: ${id}</p><p>${lang==='te'?'మీ ఫిర్యాదు నమోదైంది. మా బృందానికి WhatsApp అలర్ట్ పంపబడుతుంది.':'Complaint logged. Our team will be WhatsApp-alerted and will contact you the same day.'}</p></div>`;
   ['c-name','c-phone','c-addr','c-stbnum','c-issue'].forEach(x=>document.getElementById(x).value='');document.getElementById('c-stbtype').value='';document.getElementById('c-cat').value='';document.getElementById('c-pri').value='';
+  saveComplaintsToStorage();
 }
 function submitInquiry(){
   const name=document.getElementById('i-name').value.trim();const phone=document.getElementById('i-phone').value.trim();
@@ -1243,7 +1295,7 @@ function doLogout(){
   if(btn){btn.textContent='Edit packages';btn.style.background='';btn.style.color='';btn.style.borderColor='';}
   document.querySelectorAll('.pkg-edit-badge').forEach(b=>b.style.display='');
 }
-function owTab(t,el){document.querySelectorAll('.oview').forEach(x=>x.classList.remove('active'));document.getElementById('oview-'+t).classList.add('active');document.querySelectorAll('.otab').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(t==='info'){renderSTBList();renderContacts();renderPkgManager();renderContactPreview();renderPostsOwner();}if(t==='walog')renderWaLog();if(t==='inquiries')renderInquiries();if(t==='customers')renderCustomers();}
+function owTab(t,el){document.querySelectorAll('.oview').forEach(x=>x.classList.remove('active'));document.getElementById('oview-'+t).classList.add('active');document.querySelectorAll('.otab').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(t==='info'){renderSTBList();renderContacts();renderPkgManager();renderPosterAdmin();renderContactPreview();renderPostsOwner();}if(t==='walog')renderWaLog();if(t==='inquiries')renderInquiries();if(t==='customers')renderCustomers();}
 
 function ini(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
 function bS(s){if(s==='Open')return`<span class="badge b-open">Open</span>`;if(s==='In progress')return`<span class="badge b-prog">In progress</span>`;return`<span class="badge b-res">Resolved</span>`;}
@@ -1334,7 +1386,7 @@ function deleteCustomer(){
 }
 
 // Contact Us edit
-let contactInfo={phone:'+91 93939 33473',email:'support@nsrmasterchannel.in',addr:'Main Road, Ibrahimpatnam, 501506',hours:'Mon – Sun · 8 AM to 8 PM',wa:'919393933473'};
+let contactInfo={phone:'+91 93939 33473',email:'support@nsrmasterchannel.in',addr:'Main Road, Ibrahimpatnam, 501506',hours:'Mon – Sun · 8 AM to 10 PM',wa:'919393933473'};
 function renderContactPreview(){
   document.getElementById('contact-preview').innerHTML=`
     <div class="stb-row"><div style="flex:1;"><p style="font-size:11px;color:rgba(255,255,255,0.3);">Phone</p><p style="font-size:13px;color:#fff;font-weight:500;">${contactInfo.phone}</p></div></div>
@@ -1425,7 +1477,7 @@ function saveRaise(){
   const name=document.getElementById('r-name').value.trim();const desc=document.getElementById('r-desc').value.trim();if(!name||!desc){alert('Name and description required.');return;}
   const id='CMP-'+nextCid++;
   complaints.unshift({id,name,acct:document.getElementById('r-acct').value||'N/A',addr:document.getElementById('r-addr').value||'N/A',stbtype:document.getElementById('r-stbtype').value||'N/A',stbnum:document.getElementById('r-stbnum').value||'N/A',cat:document.getElementById('r-cat').value||'Other',pri:document.getElementById('r-pri').value||'Medium',desc,desc_te:'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,assign:''});
-  ['r-name','r-acct','r-addr','r-stbnum','r-desc'].forEach(x=>document.getElementById(x).value='');toggleRaise();renderOwner();
+  ['r-name','r-acct','r-addr','r-stbnum','r-desc'].forEach(x=>document.getElementById(x).value='');toggleRaise();saveComplaintsToStorage();renderOwner();
 }
 
 function renderSTBList(){document.getElementById('stb-list').innerHTML=stbTypes.map((t,i)=>`<div class="stb-row"><p style="font-size:13px;font-weight:500;color:#fff;">${t}</p><button class="btn-danger" onclick="removeSTB(${i})" style="font-size:10px;padding:3px 9px;">Remove</button></div>`).join('');}
@@ -1482,8 +1534,8 @@ function exportExcel(){
 
 // ── POSTER UPLOAD ──────────────────────────────────────────────
 function triggerUpload(idx){
-  if(!document.body.classList.contains('owner-mode')) return;
-  document.getElementById('poster-file-'+idx).click();
+  // Front page poster grid is preview-only. Upload controls live in Owner > Info tab.
+  return;
 }
 function handlePosterUpload(idx,input){
   if(!input.files||!input.files[0]) return;
@@ -1491,9 +1543,10 @@ function handlePosterUpload(idx,input){
   reader.onload=e=>{
     const img=document.getElementById('poster-img-'+idx);
     const ph=document.getElementById('poster-ph-'+idx);
-    img.src=e.target.result;
-    img.style.display='block';
-    ph.style.display='none';
+    const data=e.target.result;
+    localStorage.setItem('poster_'+idx,data);
+    showPoster(idx,data);
+    renderPosterAdmin();
   };
   reader.readAsDataURL(input.files[0]);
 }
@@ -1501,7 +1554,11 @@ function clearPoster(idx){
   const img=document.getElementById('poster-img-'+idx);
   const ph=document.getElementById('poster-ph-'+idx);
   const fi=document.getElementById('poster-file-'+idx);
-  img.src='';img.style.display='none';ph.style.display='flex';fi.value='';
+  localStorage.removeItem('poster_'+idx);
+  showPoster(idx,`./images/poster${idx+1}.jpg`);
+  if(fi) fi.value='';
+  const afi=document.getElementById('poster-admin-file-'+idx); if(afi) afi.value='';
+  renderPosterAdmin();
 }
 
 // ── PACKAGE EDIT MODE TOGGLE (public page) ─────────────────────
@@ -1611,7 +1668,68 @@ function renderPostsPublic(){
     </div>`).join('');
 }
 
+
+
+// ── WHATSAPP US STRUCTURED COMPLAINT ─────────────────────────────
+function openWhatsAppUs(){
+  openPortal('whatsapp');
+  populateSTB();
+  const cf=document.getElementById('wa-form-confirm');
+  if(cf){cf.style.display='none';cf.innerHTML='';}
+}
+function buildOwnerComplaintMsg(c){
+  return `NSR Master Channel - Complaint
+
+Complaint No: ${c.id}
+Customer Name: ${c.name}
+Phone Number: ${c.acct}
+Set Top Box: ${c.stbtype}
+Set Top Box Number: ${c.stbnum}
+Issue: ${c.desc}`;
+}
+function submitWhatsAppComplaint(){
+  const name=document.getElementById('w-name').value.trim();
+  const phone=document.getElementById('w-phone').value.trim();
+  const stbtype=document.getElementById('w-stbtype').value.trim();
+  const stbnum=document.getElementById('w-stbnum').value.trim();
+  const issue=document.getElementById('w-issue').value.trim();
+  if(!name||!phone||!stbtype||!stbnum||!issue){alert('Please fill Name, Phone, Setbox Name, Setbox No, and Issue.');return;}
+  const id='CMP-'+nextCid++;
+  const ticket={id,name,acct:phone,addr:'Submitted via WhatsApp Us form',stbtype,stbnum,cat:'WhatsApp complaint',pri:'Medium',desc:issue,desc_te:'',status:'Open',notes:['Ticket raised from WhatsApp Us form'],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
+  complaints.unshift(ticket);
+  saveComplaintsToStorage();
+  if(typeof renderOwner==='function') renderOwner();
+  const msg=buildOwnerComplaintMsg(ticket);
+  const ownerWa=(contactInfo.wa||'919393933473').replace(/\D/g,'');
+  const cf=document.getElementById('wa-form-confirm');
+  cf.style.display='block';
+  cf.innerHTML=`<div class="success-box"><p>Ticket created: ${id}</p><p>WhatsApp is opening with a draft message to the owner. Please press Send in WhatsApp.</p></div>`;
+  ['w-name','w-phone','w-stbnum','w-issue'].forEach(x=>document.getElementById(x).value='');
+  document.getElementById('w-stbtype').value='';
+  window.open(`https://wa.me/${ownerWa}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// ── LOCAL STORAGE FOR TICKETS + POSTERS ─────────────────────────
+function saveComplaintsToStorage(){try{localStorage.setItem('nsr_complaints',JSON.stringify(complaints));localStorage.setItem('nsr_nextCid',String(nextCid));}catch(e){}}
+function loadComplaintsFromStorage(){try{const saved=localStorage.getItem('nsr_complaints');if(saved){complaints=JSON.parse(saved);}const n=parseInt(localStorage.getItem('nsr_nextCid'),10);if(n)nextCid=n;}catch(e){}}
+function showPoster(idx,src){const img=document.getElementById('poster-img-'+idx);const ph=document.getElementById('poster-ph-'+idx);if(!img||!ph)return;img.src=src;img.style.display='block';ph.style.display='none';}
+function loadPosters(){for(let i=0;i<4;i++){const saved=localStorage.getItem('poster_'+i);showPoster(i,saved||`./images/poster${i+1}.jpg`);}}
+function renderPosterAdmin(){
+  const grid=document.getElementById('poster-admin-grid'); if(!grid)return;
+  grid.innerHTML=[0,1,2,3].map(i=>{
+    const src=localStorage.getItem('poster_'+i)||`./images/poster${i+1}.jpg`;
+    return `<div class="poster-admin-card">
+      <div class="poster-admin-preview"><img src="${src}" onerror="this.style.display='none';this.parentElement.textContent='Poster ${i+1}'"></div>
+      <input type="file" accept="image/*" id="poster-admin-file-${i}" style="display:none" onchange="handlePosterUpload(${i},this)">
+      <div class="poster-admin-actions"><button class="btn-gold" style="font-size:10px;padding:5px 7px;" onclick="document.getElementById('poster-admin-file-${i}').click()">Upload</button><button class="btn-danger" style="font-size:10px;padding:5px 7px;" onclick="clearPoster(${i})">Remove</button></div>
+    </div>`;
+  }).join('');
+}
+function resetPostersToDefault(){for(let i=0;i<4;i++){localStorage.removeItem('poster_'+i);showPoster(i,`./images/poster${i+1}.jpg`);}renderPosterAdmin();}
+
 // INIT
+loadComplaintsFromStorage();
+loadPosters();
 renderPackages();
 populateSTB();
 populatePkgDropdowns();
