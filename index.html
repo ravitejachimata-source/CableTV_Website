@@ -873,6 +873,13 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           <div id="assoc-checks" style="margin-bottom:10px;"></div>
           <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;"><button class="btn-wa" onclick="sendBroadcast()" id="bc-btn">Send via WhatsApp</button><span style="font-size:11px;color:rgba(255,255,255,0.3);" id="bc-status"></span></div>
           <div class="divp"></div>
+          <p style="font-size:11px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:8px;">Customer acknowledgement</p>
+          <div style="border-radius:10px;overflow:hidden;margin-bottom:10px;">
+            <div class="wa-hdr"><div style="width:28px;height:28px;border-radius:50%;background:#075E54;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#E1F5EE;">NSR</div><div><p style="font-size:12px;font-weight:600;color:#fff;">NSR Master Channel</p><p style="font-size:10px;color:#B2DFDB;">to <span id="ack-cust-name"></span></p></div></div>
+            <div class="wa-body"><div style="display:flex;justify-content:flex-end;"><div class="wa-bubble" id="ack-msg-preview"></div></div><div style="display:flex;justify-content:flex-end;font-size:10px;color:#667781;gap:4px;"><span id="ack-sent-time"></span><span style="color:#53bdeb;">✓✓</span></div></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;"><button class="btn-wares" onclick="sendCustomerAck()" id="ack-btn">Acknowledge Customer</button><span style="font-size:11px;color:rgba(255,255,255,0.3);" id="ack-status"></span></div>
+          <div class="divp"></div>
           <div class="p-row" style="margin-bottom:10px;">
             <div class="p-field"><p class="p-label">Update status</p><select class="p-sel" id="dp-status" onchange="onStatusChange()"><option>Open</option><option>In progress</option><option>Resolved</option></select></div>
             <div class="p-field"><p class="p-label">Assigned to</p><select class="p-sel" id="dp-assign"></select></div>
@@ -1258,21 +1265,23 @@ function sendWhatsAppContact(){
     id,name,acct:phone,addr:'Submitted from WhatsApp Us form',stbtype:stbType,stbnum:stbNum,
     cat:'Customer WhatsApp request',pri:'Medium',desc:issue,desc_te:'',status:'Open',
     notes:['Ticket raised from public WhatsApp Us button'],date:new Date().toISOString().slice(0,10),
-    isNew:true,bcSent:false,resSent:false,assign:''
+    isNew:true,bcSent:false,ackSent:false,resSent:false,assign:''
   };
-  complaints.unshift(ticket);
 
-  const msg='*NSR Master Channel — New Complaint*\n\n*Complaint No:* '+id+'\n*Customer Name:* '+name+'\n*Phone Number:* '+phone+'\n*Set Box Name:* '+stbType+'\n*Set Box Number:* '+stbNum+'\n*Issue:* '+issue+'\n\nYour complaint has been received. Our team will contact you shortly.\n\n_NSR Master Channel_';
-  const waNumber=String(contactInfo.wa||'919393933473').replace(/\D/g,'');
-  window.open('https://wa.me/'+waNumber+'?text='+encodeURIComponent(msg),'_blank');
+  complaints.unshift(ticket);
+  if(typeof renderOwner==='function') renderOwner();
+  saveAppState();
+
+  const ownerMsg='NSR Master Channel - Complaint\n\nComplaint No: '+id+'\nCustomer Name: '+name+'\nPhone Number: '+phone+'\nSet Top Box: '+stbType+'\nSet Top Box Number: '+stbNum+'\nIssue: '+issue;
+  const ownerWaNumber=String(contactInfo.wa||'919393933473').replace(/\D/g,'');
+  window.open('https://wa.me/'+ownerWaNumber+'?text='+encodeURIComponent(ownerMsg),'_blank');
 
   const waok=document.getElementById('waok');
   waok.style.display='block';
-  waok.innerHTML='✓ Complaint received! Your complaint number is <b>'+id+'</b>. WhatsApp message is ready to send.';
+  waok.innerHTML='✓ Ticket raised successfully. Complaint number: <b>'+id+'</b><br><span style="font-size:12px;color:var(--muted);">Owner will acknowledge the customer from Owner Login → Tickets.</span>';
+
   ['wa-name','wa-phone','wa-stbnum','wa-issue'].forEach(x=>document.getElementById(x).value='');
   document.getElementById('wa-stbtype').value='';
-  if(typeof renderOwner==='function') renderOwner();
-  saveAppState();
 }
 
 function togglePw(){const i=document.getElementById('lp');const b=document.getElementById('eye-btn');i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'SHOW':'HIDE';}
@@ -1306,7 +1315,7 @@ function bP(p){if(p==='High')return`<span class="badge b-high">High</span>`;if(p
 function nowT(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
 function bWA(c){const te=c.desc_te&&c.desc_te.trim()?`\n\n*వివరణ (Telugu):*\n${c.desc_te}`:'';return `*NSR Master Channel — New Ticket*\n\n*Ticket:* ${c.id}\n*Customer:* ${c.name}\n*Phone:* ${c.acct}\n*Address:* ${c.addr}\n*Set box:* ${c.stbtype} / ${c.stbnum}\n*Issue:* ${c.cat} (${c.pri})\n*Date:* ${c.date}\n\n*Description (English):*\n${c.desc}${te}\n\nPlease attend immediately.\n_NSR Master Channel_`;}
 function bRes(c){return `Dear *${c.name}*,\n\nYour complaint (*${c.id}*) for _"${c.cat}"_ has been *RESOLVED*.\n\nWe apologise for the inconvenience. Your service has been restored.\n\n*Thank you for choosing NSR Master Channel!*\n_— Support Team, Ibrahimpatnam_\n\n---\n_ప్రియమైన ${c.name} గారు, మీ ఫిర్యాదు (${c.id}) పరిష్కరించబడింది. ధన్యవాదాలు! — NSR Master Channel_`;}
-function waLink(phone,msg){return`https://wa.me/${phone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`;}
+function bAck(c){return `Your complaint has been received.\nComplaint No: ${c.id}\nOur team will contact you shortly.\n\n_NSR Master Channel_`;}function waLink(phone,msg){return`https://wa.me/${String(phone).replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`;}
 
 function renderOwner(){
   document.getElementById('o-tot').textContent=complaints.length;
@@ -1314,7 +1323,7 @@ function renderOwner(){
   document.getElementById('o-prg').textContent=complaints.filter(c=>c.status==='In progress').length;
   document.getElementById('o-res').textContent=complaints.filter(c=>c.status==='Resolved').length;
   document.getElementById('new-alerts').innerHTML=complaints.filter(c=>c.isNew).map(c=>`<div class="alert-row"><span>New: <b>${c.id}</b> — ${c.name} | ${c.cat} ${bP(c.pri)}</span><button class="btn-p" style="font-size:10px;padding:3px 8px;" onclick="dismiss('${c.id}')">Dismiss</button></div>`).join('');
-  document.getElementById('owner-list').innerHTML=complaints.map(c=>`<div class="ticket-item" onclick="openDetail('${c.id}')"><div class="t-av">${ini(c.name)}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${c.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${c.id}</p>${c.isNew?'<span class="badge b-new">New</span>':''}${c.bcSent?'<span class="badge" style="background:#E7FFDB;color:#27500A;">WA</span>':''}${c.resSent?'<span class="badge b-res">Resolved</span>':''}</div><p style="font-size:11px;color:rgba(255,255,255,0.3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${c.stbtype} · ${c.cat} — ${c.desc.slice(0,50)}…</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">${bS(c.status)}${bP(c.pri)}</div></div>`).join('');
+  document.getElementById('owner-list').innerHTML=complaints.map(c=>`<div class="ticket-item" onclick="openDetail('${c.id}')"><div class="t-av">${ini(c.name)}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${c.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${c.id}</p>${c.isNew?'<span class="badge b-new">New</span>':''}${c.bcSent?'<span class="badge" style="background:#E7FFDB;color:#27500A;">WA</span>':''}${c.ackSent?'<span class="badge" style="background:rgba(37,211,102,0.16);color:#25D366;">ACK</span>':''}${c.resSent?'<span class="badge b-res">Resolved</span>':''}</div><p style="font-size:11px;color:rgba(255,255,255,0.3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${c.stbtype} · ${c.cat} — ${c.desc.slice(0,50)}…</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">${bS(c.status)}${bP(c.pri)}</div></div>`).join('');
 }
 function dismiss(id){const c=complaints.find(x=>x.id===id);if(c)c.isNew=false;renderOwner();saveAppState();}
 
@@ -1455,12 +1464,27 @@ function openDetail(id){
   document.getElementById('dp-assign').innerHTML='<option value="">-- assign --</option>'+ac.map(a=>`<option${c.assign===a.name?' selected':''}>${a.name}</option>`).join('');
   document.getElementById('assoc-checks').innerHTML=ac.map(a=>`<div class="assoc-row"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;flex:1;"><input type="checkbox" id="chk-${a.id}" style="width:14px;height:14px;" ${c.bcSent?'checked':''}><div><p style="font-size:12px;font-weight:600;color:#fff;">${a.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${a.title}</p></div></label><a href="${waLink(a.phone,bWA(c))}" target="_blank" style="font-size:10px;background:#E7FFDB;color:#27500A;border:1px solid #C5E8B0;border-radius:5px;padding:3px 9px;text-decoration:none;">Open WA</a></div>`).join('');
   document.getElementById('bc-status').textContent=c.bcSent?'Already broadcast':'';
+  document.getElementById('ack-cust-name').textContent=c.name+' ('+c.acct+')';
+  document.getElementById('ack-msg-preview').textContent=bAck(c);
+  document.getElementById('ack-sent-time').textContent=nowT();
+  document.getElementById('ack-status').textContent=c.ackSent?'Already acknowledged':'';
   if(c.status==='Resolved')showResolved(c);else document.getElementById('resolved-section').style.display='none';
   document.getElementById('detail-panel').style.display='block';document.getElementById('raise-form').style.display='none';
   renderOwner();
 }
 function showResolved(c){document.getElementById('resolved-section').style.display='block';document.getElementById('res-cust-name').textContent=c.name+' ('+c.acct+')';document.getElementById('res-msg-preview').textContent=bRes(c);document.getElementById('res-sent-time').textContent=nowT();document.getElementById('res-status').textContent=c.resSent?'Already sent':'';}
 function onStatusChange(){const c=complaints.find(x=>x.id===activeId);if(!c)return;if(document.getElementById('dp-status').value==='Resolved')showResolved(c);else document.getElementById('resolved-section').style.display='none';}
+function sendCustomerAck(){
+  const c=complaints.find(x=>x.id===activeId);if(!c)return;
+  const msg=bAck(c);
+  c.ackSent=true;
+  waLog.unshift({type:'acknowledgement',id:c.id,name:c.name,to:[c.name+' ('+c.acct+')'],msg,time:new Date().toLocaleString()});
+  const status=document.getElementById('ack-status');if(status)status.textContent='Acknowledgement opened in WhatsApp';
+  const btn=document.getElementById('ack-btn');if(btn){btn.textContent='Acknowledged';setTimeout(()=>{btn.textContent='Acknowledge Customer';},2000);}
+  window.open(waLink(c.acct,msg),'_blank');
+  renderOwner();
+  saveAppState();
+}
 function sendBroadcast(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;
   const sel=contacts.filter(a=>{const el=document.getElementById('chk-'+a.id);return el&&el.checked;});
@@ -1516,9 +1540,9 @@ function renderPkgManager(){
 
 function renderWaLog(){
   const el=document.getElementById('wa-log-list');
-  const broadcasts=waLog.filter(l=>l.type==='broadcast');
-  if(!broadcasts.length){el.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,0.3);">No WhatsApp broadcast messages sent yet.</p>';return;}
-  el.innerHTML=broadcasts.map(l=>`<div style="background:#1C1A17;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;margin-bottom:8px;"><div style="background:#075E54;padding:8px 13px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;font-weight:600;color:#fff;">Team broadcast — ${l.id}</span><span style="font-size:10px;color:#B2DFDB;">${l.time}</span></div><div style="padding:10px 13px;"><p style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:7px;">To: ${l.to.join(', ')}</p><div class="wa-bubble" style="font-size:11px;">${l.msg.replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<b>$1</b>').replace(/_(.*?)_/g,'<i>$1</i>')}</div></div></div>`).join('');
+  const broadcasts=waLog.filter(l=>['broadcast','acknowledgement','resolved'].includes(l.type));
+  if(!broadcasts.length){el.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,0.3);">No WhatsApp messages sent yet.</p>';return;}
+  el.innerHTML=broadcasts.map(l=>`<div style="background:#1C1A17;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;margin-bottom:8px;"><div style="background:#075E54;padding:8px 13px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;font-weight:600;color:#fff;">${l.type==='acknowledgement'?'Customer acknowledgement':l.type==='resolved'?'Resolved message':'Team broadcast'} — ${l.id}</span><span style="font-size:10px;color:#B2DFDB;">${l.time}</span></div><div style="padding:10px 13px;"><p style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:7px;">To: ${l.to.join(', ')}</p><div class="wa-bubble" style="font-size:11px;">${l.msg.replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<b>$1</b>').replace(/_(.*?)_/g,'<i>$1</i>')}</div></div></div>`).join('');
 }
 
 // ── EXCEL EXPORT ──────────────────────────────────────────────────────
