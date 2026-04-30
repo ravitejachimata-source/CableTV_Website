@@ -17,7 +17,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
 ::selection{background:var(--red);color:#fff;}
 
 /* NAV */
@@ -52,12 +52,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:66px;display:flex;ali
 .hero h1 em{color:var(--red);font-style:normal;display:block;}
 .hero-location{font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);margin-bottom:22px;display:flex;align-items:center;gap:6px;}
 .hero-location svg{width:14px;height:14px;}
-.hero-desc{font-size:17px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:40px;max-width:480px;}
+.hero-desc{font-size:17px;font-weight:300;color:var(--muted);line-height:1.78;margin-bottom:40px;max-width:480px;letter-spacing:.02em;}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
 .btn-primary{background:var(--red);color:#fff;padding:15px 30px;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:.5px;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
 .btn-primary:hover{background:var(--red2);transform:translateY(-1px);}
 .btn-outline{background:transparent;color:var(--ink);padding:15px 30px;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:.5px;text-decoration:none;border:1.5px solid var(--border);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
 .btn-outline:hover{border-color:var(--ink);}
+.btn-wa-hero{background:#fff;color:#1a1a1a;padding:15px 24px;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:.3px;text-decoration:none;border:1.5px solid rgba(37,211,102,0.4);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;display:inline-flex;align-items:center;gap:9px;box-shadow:0 2px 12px rgba(37,211,102,0.15);}
+.btn-wa-hero:hover{border-color:#25D366;background:#f0fff4;transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,0.25);}
 .hero-right{background:var(--red);height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 @media(max-width:900px){.hero-right{height:320px;}}
 .hero-pattern{position:absolute;inset:0;opacity:0.07;}
@@ -73,7 +75,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:66px;display:flex;ali
 /* SECTION BASE */
 section{padding:96px 6%;}
 .section-tag{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:900;color:#0B0B0B;line-height:1.08;margin-bottom:14px;letter-spacing:-0.6px;text-shadow:0 1px 0 rgba(255,255,255,0.55);}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:900;color:var(--ink);line-height:1.1;margin-bottom:14px;}
 .section-sub{font-size:16px;font-weight:300;color:var(--muted);line-height:1.7;max-width:520px;margin-bottom:56px;}
 .divider-line{width:48px;height:3px;background:var(--red);border-radius:2px;margin-bottom:20px;}
 
@@ -105,11 +107,11 @@ section{padding:96px 6%;}
 /* WHY */
 #why{background:var(--cream);}
 .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
-.why-card{padding:34px;border:1px solid rgba(14,12,10,0.10);border-radius:16px;background:#fff;transition:all .25s;box-shadow:0 10px 28px rgba(14,12,10,0.08);}
-.why-card:hover{border-color:rgba(200,32,31,0.30);box-shadow:0 16px 42px rgba(0,0,0,0.10);}
-.why-num{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:rgba(192,24,29,0.16);line-height:1;margin-bottom:14px;letter-spacing:-1px;}
-.why-title{font-size:19px;font-weight:800;color:#111;margin-bottom:10px;letter-spacing:-0.2px;}
-.why-desc{font-size:14.5px;font-weight:500;color:#5A5145;line-height:1.75;}
+.why-card{padding:32px;border:1px solid var(--border);border-radius:14px;background:#fff;transition:all .25s;}
+.why-card:hover{border-color:rgba(200,32,31,0.25);box-shadow:0 8px 32px rgba(0,0,0,0.06);}
+.why-num{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:rgba(200,32,31,0.08);line-height:1;margin-bottom:12px;}
+.why-title{font-size:17px;font-weight:600;color:var(--ink);margin-bottom:8px;}
+.why-desc{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7;}
 
 /* COMPLAINT BAND */
 .cta-band{background:var(--red);padding:72px 6%;display:grid;grid-template-columns:1fr auto;align-items:center;gap:32px;}
@@ -134,14 +136,6 @@ section{padding:96px 6%;}
 .qf-input:focus{border-color:var(--red);}
 .qf-submit{width:100%;background:var(--red);color:#fff;border:none;border-radius:8px;padding:14px;font-size:13px;font-weight:600;letter-spacing:.5px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;margin-top:4px;}
 .qf-submit:hover{background:var(--red2);}
-
-
-/* PUBLIC CONTACT PREVIEW */
-.public-contact-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:var(--shadow-md);}
-.public-contact-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:18px;}
-.public-contact-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
-.public-contact-actions a{text-decoration:none;}
-@media(max-width:900px){.contact-layout{grid-template-columns:1fr;gap:28px;}}
 
 /* FOOTER */
 footer{background:var(--ink);padding:48px 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
@@ -248,7 +242,7 @@ footer{background:var(--ink);padding:48px 6%;display:flex;align-items:center;jus
 .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--red);transition:width .25s;}
 .nav-links a:hover::after{width:100%;}
 .hero-left::before{content:'';position:absolute;top:10%;left:-5%;width:320px;height:320px;background:radial-gradient(circle,rgba(192,24,29,0.05),transparent 70%);pointer-events:none;}
-.hero h1{letter-spacing:-1px;animation:fadeUp .6s .1s ease both;}
+.hero h1{letter-spacing:-2px;animation:fadeUp .6s .1s ease both;font-feature-settings:'kern' 1,'liga' 1;}
 .hero-eyebrow{animation:fadeUp .6s ease both;}
 .hero-location{animation:fadeUp .6s .2s ease both;}
 .hero-desc{animation:fadeUp .6s .3s ease both;}
@@ -294,20 +288,16 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .modal-box{box-shadow:0 30px 80px rgba(0,0,0,0.5);}
 /* POSTER GRID */
 .poster-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;width:100%;height:100%;position:relative;z-index:1;gap:3px;padding:3px;}
-.poster-slot{position:relative;overflow:hidden;cursor:default;background:rgba(0,0,0,0.18);transition:background .2s;}
-.poster-slot:hover{background:rgba(0,0,0,0.18);}
+.poster-slot{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.18);transition:background .2s;}
+.poster-slot:hover{background:rgba(0,0,0,0.28);}
 .poster-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
 .poster-placeholder p{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);}
-.poster-owner-overlay{display:none !important;}
-.poster-manager-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-@media(max-width:560px){.poster-manager-grid{grid-template-columns:1fr;}}
-.poster-admin-card{background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px;}
-.poster-admin-thumb{height:120px;border-radius:9px;background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:9px;}
-.poster-admin-thumb img{width:100%;height:100%;object-fit:cover;display:none;}
-.poster-admin-thumb span{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);}
+.poster-owner-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;gap:8px;}
+.owner-mode .poster-slot:hover .poster-owner-overlay{display:flex;}
+.owner-mode .poster-slot .poster-placeholder p::after{content:' (click to upload)';}
 .poster-owner-overlay button{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;border-radius:6px;padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;transition:background .2s;}
 .poster-owner-overlay button:hover{background:rgba(255,255,255,0.22);}
-/* Public poster preview only. Upload controls are inside Owner Dashboard > Info. */
+/* Non-owner: clicking poster does nothing */
 body:not(.owner-mode) .poster-slot{cursor:default;}
 body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
 
@@ -329,12 +319,36 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
 .post-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px;position:relative;transition:all .28s cubic-bezier(.22,1,.36,1);backdrop-filter:blur(4px);}
 .post-card:hover{border-color:rgba(201,153,58,0.4);background:rgba(255,255,255,0.08);transform:translateY(-3px);}
 .post-tag-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 13px;border-radius:20px;margin-bottom:14px;background:rgba(201,153,58,0.12);color:var(--gold);border:1px solid rgba(201,153,58,0.25);}
-.post-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.25;letter-spacing:-.3px;}
+.post-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.2;letter-spacing:-.5px;font-feature-settings:'kern' 1;}
 .post-body{font-size:13px;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.75;}
 .post-date{font-size:10px;color:rgba(255,255,255,0.25);margin-top:16px;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
 .post-date::before{content:'';display:inline-block;width:20px;height:1px;background:rgba(255,255,255,0.15);}
 
 /* ── SCROLL PROGRESS BAR ── */
+
+/* HERO LEFT WHATSAPP CARD */
+.hero-left-wa{display:inline-flex;align-items:center;gap:14px;margin-top:32px;background:#fff;border:1.5px solid rgba(37,211,102,0.25);border-radius:14px;padding:14px 22px 14px 14px;text-decoration:none;max-width:420px;position:relative;overflow:hidden;transition:all .25s cubic-bezier(.22,1,.36,1);box-shadow:0 4px 20px rgba(37,211,102,0.1);animation:fadeUp .6s .5s ease both;}
+.hero-left-wa:hover{border-color:#25D366;box-shadow:0 8px 32px rgba(37,211,102,0.22);transform:translateY(-2px);}
+.hero-left-wa-icon{width:46px;height:46px;border-radius:12px;background:#25D366;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(37,211,102,0.35);transition:transform .2s;}
+.hero-left-wa:hover .hero-left-wa-icon{transform:scale(1.08);}
+.hero-left-wa-label{display:block;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.3px;margin-bottom:4px;}
+.hero-left-wa-num{display:block;font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.3px;font-family:'Playfair Display',serif;}
+.hero-left-wa-pulse{position:absolute;top:12px;right:14px;width:8px;height:8px;border-radius:50%;background:#25D366;animation:waPulse 2s ease-in-out infinite;}
+@media(max-width:640px){.hero-left-wa{max-width:100%;padding:12px 16px 12px 12px;margin-top:24px;}.hero-left-wa-num{font-size:16px;}.hero-left-wa-icon{width:40px;height:40px;border-radius:10px;}}
+
+/* HERO WHATSAPP WIDGET */
+.hero-wa-widget{position:absolute;top:24px;right:24px;z-index:10;text-decoration:none;display:block;}
+.hero-wa-inner{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,0.12);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.22);border-radius:50px;padding:10px 18px 10px 10px;transition:all .25s cubic-bezier(.22,1,.36,1);position:relative;z-index:1;}
+.hero-wa-widget:hover .hero-wa-inner{background:rgba(37,211,102,0.82);border-color:rgba(37,211,102,0.9);transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,0.35);}
+.hero-wa-icon{width:42px;height:42px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 12px rgba(37,211,102,0.4);transition:transform .25s;}
+.hero-wa-widget:hover .hero-wa-icon{transform:scale(1.1);}
+.hero-wa-label{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);line-height:1;}
+.hero-wa-num{display:block;font-size:14px;font-weight:700;color:#fff;margin-top:3px;letter-spacing:.3px;}
+.hero-wa-arrow{font-size:16px;color:rgba(255,255,255,0.5);margin-left:4px;transition:transform .2s;}
+.hero-wa-widget:hover .hero-wa-arrow{transform:translateX(3px);color:#fff;}
+.hero-wa-pulse{position:absolute;top:8px;right:8px;width:10px;height:10px;border-radius:50%;background:#25D366;animation:waPulse 2s ease-in-out infinite;z-index:0;}
+@keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.5);}70%{box-shadow:0 0 0 10px rgba(37,211,102,0);}100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
+@media(max-width:900px){.hero-wa-widget{top:14px;right:14px;}.hero-wa-inner{padding:8px 14px 8px 8px;gap:8px;}.hero-wa-icon{width:36px;height:36px;}.hero-wa-num{font-size:12px;}.hero-wa-label{font-size:9px;}}
 #scroll-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));width:0%;z-index:9999;transition:width .1s linear;}
 
 /* ── MOBILE LAYOUT ── */
@@ -355,6 +369,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   .hero-desc{font-size:15px;}
   .hero-actions{gap:10px;}
   .btn-primary,.btn-outline{padding:13px 20px;font-size:12px;}
+  .btn-wa-hero{padding:12px 18px;font-size:12px;}
   .hero-right{height:260px;}
   .poster-grid{gap:2px;padding:2px;}
 
@@ -469,6 +484,20 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
       </a>
       <button class="btn-outline" onclick="openPortal('customer')">File a Complaint</button>
     </div>
+
+    <!-- WhatsApp Us card in hero-left -->
+    <a href="https://wa.me/919393933473" target="_blank" class="hero-left-wa" id="hero-left-wa">
+      <div class="hero-left-wa-icon">
+        <svg viewBox="0 0 32 32" width="22" height="22" style="display:block">
+            <path fill="#fff" d="M16 2C8.268 2 2 8.268 2 16c0 2.492.655 4.833 1.798 6.858L2 30l7.335-1.775A13.924 13.924 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm7.234 19.674c-.306.861-1.507 1.576-2.474 1.784-.659.14-1.521.252-4.42-.95-3.712-1.522-6.108-5.287-6.294-5.532-.18-.245-1.513-2.014-1.513-3.84s.955-2.72 1.294-3.095c.305-.337.663-.421.884-.421.22 0 .441.002.634.01.204.01.476-.077.745.568.306.713 1.04 2.465 1.13 2.645.091.18.151.39.03.635-.12.245-.18.397-.357.611-.179.214-.376.478-.536.642-.18.18-.367.375-.158.735.21.36.933 1.537 2.003 2.49 1.375 1.227 2.534 1.606 2.893 1.786.36.18.569.15.778-.09.21-.24.9-1.05 1.14-1.41.239-.36.478-.3.808-.18.33.12 2.094.987 2.453 1.167.36.18.6.27.689.42.09.15.09.87-.215 1.73z"/>
+          </svg>
+      </div>
+      <div class="hero-left-wa-text">
+        <span class="hero-left-wa-label">WhatsApp Us — Mon–Sun, 8AM to 8PM</span>
+        <span class="hero-left-wa-num" id="hero-left-wa-num">+91 93939 33473</span>
+      </div>
+      <div class="hero-left-wa-pulse"></div>
+    </a>
   </div>
   <div class="hero-right" id="hero-right">
     <div class="hero-pattern">
@@ -482,7 +511,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
     </div>
     <!-- 4-POSTER GRID -->
     <div class="poster-grid" id="poster-grid">
-      <div class="poster-slot">
+      <div class="poster-slot" onclick="triggerUpload(0)">
         <input type="file" accept="image/*" id="poster-file-0" style="display:none" onchange="handlePosterUpload(0,this)">
         <img id="poster-img-0" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
         <div class="poster-placeholder" id="poster-ph-0">
@@ -500,7 +529,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </button>
         </div>
       </div>
-      <div class="poster-slot">
+      <div class="poster-slot" onclick="triggerUpload(1)">
         <input type="file" accept="image/*" id="poster-file-1" style="display:none" onchange="handlePosterUpload(1,this)">
         <img id="poster-img-1" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
         <div class="poster-placeholder" id="poster-ph-1">
@@ -518,7 +547,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </button>
         </div>
       </div>
-      <div class="poster-slot">
+      <div class="poster-slot" onclick="triggerUpload(2)">
         <input type="file" accept="image/*" id="poster-file-2" style="display:none" onchange="handlePosterUpload(2,this)">
         <img id="poster-img-2" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
         <div class="poster-placeholder" id="poster-ph-2">
@@ -536,7 +565,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </button>
         </div>
       </div>
-      <div class="poster-slot">
+      <div class="poster-slot" onclick="triggerUpload(3)">
         <input type="file" accept="image/*" id="poster-file-3" style="display:none" onchange="handlePosterUpload(3,this)">
         <img id="poster-img-3" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
         <div class="poster-placeholder" id="poster-ph-3">
@@ -600,8 +629,8 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   <h2 class="section-title">Built for Ibrahimpatnam</h2>
   <p class="section-sub">We're not a distant operator — we're your neighbours. Our team lives here, works here, and is always a call away.</p>
   <div class="why-grid">
-    <div class="why-card" style="border-color:rgba(201,153,58,0.45);background:linear-gradient(145deg,#FFF8E8,#fff);">
-      <div class="why-num" style="color:rgba(201,153,58,0.28);">25+</div>
+    <div class="why-card" style="border-color:rgba(201,153,58,0.35);background:linear-gradient(145deg,#FFFDF8,#fff);">
+      <div class="why-num" style="color:rgba(201,153,58,0.15);">25+</div>
       <div class="why-title" style="color:var(--ink);">Years of Trust</div>
       <p class="why-desc">Over 25 years of serving Ibrahimpatnam. A name the community has relied on for generations.</p>
     </div>
@@ -637,59 +666,35 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   <div id="posts-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;"></div>
 </section>
 
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-tag">Get in Touch</div>
   <div class="divider-line"></div>
-  <h2 class="section-title">Request a Callback</h2>
-
-  <div class="contact-layout">
-    <div class="public-contact-card">
-      <p class="public-contact-title">Contact Information</p>
+  <h2 class="section-title">Contact Us</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
       <div class="contact-item">
-        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.11 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg></div>
-        <div><p class="c-label">Phone / WhatsApp</p><p class="c-val" id="public-phone">+91 9393933473</p></div>
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+        <div><div class="c-label">Phone</div><div class="c-val" id="pub-phone">+91 93939 33473</div></div>
       </div>
       <div class="contact-item">
-        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-        <div><p class="c-label">Email</p><p class="c-val" id="public-email">support@nsrmasterchannel.in</p></div>
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+        <div><div class="c-label">Email</div><div class="c-val" id="pub-email">support@nsrmasterchannel.in</div></div>
       </div>
       <div class="contact-item">
-        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <div><p class="c-label">Office Address</p><p class="c-val" id="public-addr">Main Road, Ibrahimpatnam, 501506</p></div>
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="c-label">Office Address</div><div class="c-val" id="pub-addr">Main Road, Ibrahimpatnam — 501506</div></div>
       </div>
-      <div class="contact-item" style="margin-bottom:0;">
-        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div><p class="c-label">Support Hours</p><p class="c-val" id="public-hours">Mon – Sun · 8 AM to 10 PM</p></div>
+      <div class="contact-item">
+        <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><div class="c-label">Support Hours</div><div class="c-val" id="pub-hours">Mon – Sun · 8 AM to 8 PM</div></div>
       </div>
-      <div class="public-contact-actions">
-        <button class="btn-primary" id="public-wa-link" onclick="toggleWhatsAppForm()" type="button">WhatsApp Us</button>
-        <button class="btn-outline" onclick="openPortal('customer')">File Complaint</button>
+      <div class="contact-item">
+        <div class="c-icon" style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);">
+          <svg viewBox="0 0 32 32" width="20" height="20" style="display:block"><path fill="#25D366" d="M16 2C8.268 2 2 8.268 2 16c0 2.492.655 4.833 1.798 6.858L2 30l7.335-1.775A13.924 13.924 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm7.234 19.674c-.306.861-1.507 1.576-2.474 1.784-.659.14-1.521.252-4.42-.95-3.712-1.522-6.108-5.287-6.294-5.532-.18-.245-1.513-2.014-1.513-3.84s.955-2.72 1.294-3.095c.305-.337.663-.421.884-.421.22 0 .441.002.634.01.204.01.476-.077.745.568.306.713 1.04 2.465 1.13 2.645.091.18.151.39.03.635-.12.245-.18.397-.357.611-.179.214-.376.478-.536.642-.18.18-.367.375-.158.735.21.36.933 1.537 2.003 2.49 1.375 1.227 2.534 1.606 2.893 1.786.36.18.569.15.778-.09.21-.24.9-1.05 1.14-1.41.239-.36.478-.3.808-.18.33.12 2.094.987 2.453 1.167.36.18.6.27.689.42.09.15.09.87-.215 1.73z"/></svg>
+        </div>
+        <div><div class="c-label">WhatsApp Us</div><a class="c-val" id="pub-wa-link" href="https://wa.me/919393933473" target="_blank" style="color:#25D366;text-decoration:none;font-weight:700;">+91 93939 33473 →</a></div>
       </div>
-      <div class="quick-form" id="wa-contact-form" style="display:none;margin-top:18px;padding:22px;box-shadow:none;">
-        <p class="qf-title" style="font-size:18px;">WhatsApp Message</p>
-        <p class="qf-sub">Fill details and send a structured WhatsApp complaint.</p>
-        <input class="qf-input" id="wa-name" placeholder="Customer name">
-        <input class="qf-input" id="wa-phone" placeholder="Phone number">
-        <select class="qf-input" id="wa-stbtype" style="appearance:auto;">
-          <option value="">Select set top box type</option>
-        </select>
-        <input class="qf-input" id="wa-stbnum" placeholder="Set top box number">
-        <input class="qf-input" id="wa-issue" placeholder="Issue / problem">
-        <button class="qf-submit" onclick="sendWhatsAppContact()">Send WhatsApp Message</button>
-        <p id="waok" style="display:none;text-align:center;margin-top:12px;font-size:13px;color:var(--green);font-weight:600;"></p>
-      </div>
-    </div>
-
-    <div class="quick-form">
-      <p class="qf-title">Quick Callback Request</p>
-      <p class="qf-sub">Leave your number — we'll call you back within 2 hours.</p>
-      <input class="qf-input" id="qname" placeholder="Your name">
-      <input class="qf-input" id="qphone" placeholder="Phone number">
-      <input class="qf-input" id="qissue" placeholder="Briefly describe your issue">
-      <button class="qf-submit" onclick="quickCB()">Request Callback</button>
-      <p id="qok" style="display:none;text-align:center;margin-top:12px;font-size:13px;color:var(--green);font-weight:600;">✓ Received! We will call you within 2 hours.</p>
-    </div>
   </div>
 </section>
 
@@ -873,13 +878,6 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           <div id="assoc-checks" style="margin-bottom:10px;"></div>
           <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;"><button class="btn-wa" onclick="sendBroadcast()" id="bc-btn">Send via WhatsApp</button><span style="font-size:11px;color:rgba(255,255,255,0.3);" id="bc-status"></span></div>
           <div class="divp"></div>
-          <p style="font-size:11px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:8px;">Customer acknowledgement</p>
-          <div style="border-radius:10px;overflow:hidden;margin-bottom:10px;">
-            <div class="wa-hdr"><div style="width:28px;height:28px;border-radius:50%;background:#075E54;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#E1F5EE;">NSR</div><div><p style="font-size:12px;font-weight:600;color:#fff;">NSR Master Channel</p><p style="font-size:10px;color:#B2DFDB;">to <span id="ack-cust-name"></span></p></div></div>
-            <div class="wa-body"><div style="display:flex;justify-content:flex-end;"><div class="wa-bubble" id="ack-msg-preview"></div></div><div style="display:flex;justify-content:flex-end;font-size:10px;color:#667781;gap:4px;"><span id="ack-sent-time"></span><span style="color:#53bdeb;">✓✓</span></div></div>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;"><button class="btn-wares" onclick="sendCustomerAck()" id="ack-btn">Acknowledge Customer</button><span style="font-size:11px;color:rgba(255,255,255,0.3);" id="ack-status"></span></div>
-          <div class="divp"></div>
           <div class="p-row" style="margin-bottom:10px;">
             <div class="p-field"><p class="p-label">Update status</p><select class="p-sel" id="dp-status" onchange="onStatusChange()"><option>Open</option><option>In progress</option><option>Resolved</option></select></div>
             <div class="p-field"><p class="p-label">Assigned to</p><select class="p-sel" id="dp-assign"></select></div>
@@ -997,15 +995,6 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
             <div id="contacts-list"></div>
           </div>
         </div>
-
-        <div class="divp"></div>
-        <div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap;">
-            <div><p style="font-size:13px;font-weight:600;color:#fff;">Front page poster images</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">Upload, change, or remove hero poster previews shown on the public home page</p></div>
-            <button class="btn-danger" onclick="clearAllPosters()" style="font-size:10px;padding:5px 12px;">Clear all</button>
-          </div>
-          <div class="poster-manager-grid" id="poster-manager-grid"></div>
-        </div>
         <div class="divp"></div>
         <div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
@@ -1060,13 +1049,13 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </div>
           <div id="contact-edit-form" style="display:none;" class="p-card">
             <div class="p-row">
-              <div class="p-field"><p class="p-label">Phone / WhatsApp</p><input class="p-inp" id="ce-phone" placeholder="+91 98480 12345"></div>
+              <div class="p-field"><p class="p-label">Phone / WhatsApp</p><input class="p-inp" id="ce-phone" placeholder="+91 93939 33473"></div>
               <div class="p-field"><p class="p-label">Email</p><input class="p-inp" id="ce-email" placeholder="support@nsrmasterchannel.in"></div>
             </div>
             <div class="p-field"><p class="p-label">Office Address</p><input class="p-inp" id="ce-addr" placeholder="Main Road, Ibrahimpatnam"></div>
             <div class="p-row">
-              <div class="p-field"><p class="p-label">Support Hours</p><input class="p-inp" id="ce-hours" placeholder="Mon – Sun · 8 AM to 10 PM"></div>
-              <div class="p-field"><p class="p-label">WhatsApp Number (for wa.me link)</p><input class="p-inp" id="ce-wa" placeholder="919848012345"></div>
+              <div class="p-field"><p class="p-label">Support Hours</p><input class="p-inp" id="ce-hours" placeholder="Mon – Sun · 8 AM to 8 PM"></div>
+              <div class="p-field"><p class="p-label">WhatsApp Number (for wa.me link)</p><input class="p-inp" id="ce-wa" placeholder="919393933473"></div>
             </div>
             <div style="display:flex;gap:8px;margin-top:4px;">
               <button class="btn-p" onclick="toggleContactEdit()">Cancel</button>
@@ -1075,7 +1064,6 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
           </div>
           <div id="contact-preview" style="display:flex;flex-direction:column;gap:7px;margin-top:6px;">
       </div>
-          <button class="btn-danger" onclick="resetLocalWebsiteData()" style="font-size:10px;padding:6px 12px;margin-top:10px;">Reset saved browser data</button>
 
       <!-- WA LOG -->
       <div id="oview-walog" class="oview">
@@ -1106,7 +1094,7 @@ let packages=[
   {name:'Combo',price:749,period:'HD Cable + 100 Mbps Internet',features:['250+ HD Channels','100 Mbps Broadband','Unlimited Data','Best Value Bundle'],featured:false,btn:'out'},
 ];
 let complaints=[
-  {id:'CMP-1001',name:'Ravi Kumar',acct:'9848012345',addr:'12 MG Road, Ibrahimpatnam',stbtype:'AP Fiber',stbnum:'STB-44821',cat:'Signal / No signal',pri:'High',desc:'No cable signal since 2 days.',desc_te:'రెండు రోజులుగా కేబుల్ సిగ్నల్ లేదు.',status:'Open',notes:[],date:'2026-04-28',isNew:true,bcSent:false,resSent:false,assign:''},
+  {id:'CMP-1001',name:'Ravi Kumar',acct:'9393933473',addr:'12 MG Road, Ibrahimpatnam',stbtype:'AP Fiber',stbnum:'STB-44821',cat:'Signal / No signal',pri:'High',desc:'No cable signal since 2 days.',desc_te:'రెండు రోజులుగా కేబుల్ సిగ్నల్ లేదు.',status:'Open',notes:[],date:'2026-04-28',isNew:true,bcSent:false,resSent:false,assign:''},
   {id:'CMP-1002',name:'Sunita Reddy',acct:'9866543210',addr:'45 Main Road, Ibrahimpatnam',stbtype:'HCL',stbnum:'STB-22310',cat:'Billing issue',pri:'Medium',desc:'Duplicate charge for April.',desc_te:'ఏప్రిల్ నెల బిల్లు రెండుసార్లు తీసుకోబడింది.',status:'In progress',notes:['Escalated to billing'],date:'2026-04-27',isNew:false,bcSent:true,resSent:false,assign:'Lakshmi Devi'},
   {id:'CMP-1003',name:'Prasad Rao',acct:'9701234567',addr:'8 Colony Road, Ibrahimpatnam',stbtype:'BSNL',stbnum:'STB-11093',cat:'Equipment fault',pri:'Low',desc:'Remote not working.',desc_te:'రిమోట్ పని చేయడం లేదు.',status:'Resolved',notes:['New remote dispatched'],date:'2026-04-25',isNew:false,bcSent:true,resSent:true,assign:'Ramu Kumar'},
 ];
@@ -1115,7 +1103,7 @@ let inquiries=[
   {id:'INQ-1002',name:'Kavitha Rao',phone:'9812345678',addr:'Kondapalli Road, Ibrahimpatnam',pkg:'Combo — ₹749/mo',type:'Cable + Broadband Combo',status:'Contacted',date:'2026-04-28',notes:'Call back requested'},
 ];
 let customers=[
-  {id:'CUST-001',name:'Ravi Kumar',phone:'9848012345',wa:'9848012345',addr:'12 MG Road, Ibrahimpatnam',stbtype:'AP Fiber',stbnum:'STB-44821',pkg:'Standard HD',amount:'349',joinDate:'2025-01-15',status:'Active',notes:''},
+  {id:'CUST-001',name:'Ravi Kumar',phone:'9393933473',wa:'9393933473',addr:'12 MG Road, Ibrahimpatnam',stbtype:'AP Fiber',stbnum:'STB-44821',pkg:'Standard HD',amount:'349',joinDate:'2025-01-15',status:'Active',notes:''},
   {id:'CUST-002',name:'Sunita Reddy',phone:'9866543210',wa:'9866543210',addr:'45 Main Road, Ibrahimpatnam',stbtype:'HCL',stbnum:'STB-22310',pkg:'Combo',amount:'749',joinDate:'2025-03-20',status:'Active',notes:''},
   {id:'CUST-003',name:'Prasad Rao',phone:'9701234567',wa:'9701234567',addr:'8 Colony Road, Ibrahimpatnam',stbtype:'BSNL',stbnum:'STB-11093',pkg:'Basic',amount:'199',joinDate:'2024-11-10',status:'Active',notes:''},
 ];
@@ -1124,7 +1112,7 @@ const LL={en:{name:'Full name',phone:'Phone number',addr:'Address',stbtype:'Set 
 
 function setLang(l,el){lang=l;document.querySelectorAll('#lb-en,#lb-te').forEach(b=>b.classList.remove('active'));el.classList.add('active');Object.keys(LL[l]).forEach(k=>{const e=document.getElementById('L-'+k);if(e)e.textContent=LL[l][k];});}
 
-function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype','wa-stbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
+function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
 function populatePkgDropdowns(){['i-pkg','nc-pkg'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.innerHTML=packages.map(p=>`<option>${p.name} — ₹${p.price}/mo</option>`).join('');});}
 
 function renderPackages(){
@@ -1170,9 +1158,7 @@ function savePkgEdit(){
   p.btn=document.getElementById('em-btnstyle').value;
   document.getElementById('pkg-edit-panel').style.display='none';
   renderPackages();renderPkgManager();populatePkgDropdowns();
-  saveAppState();
 }
-
 
 function openPortal(page){document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';showPP(page||'customer');populateSTB();populatePkgDropdowns();}
 function closePortal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
@@ -1231,58 +1217,8 @@ function submitInquiry(){
   const cf=document.getElementById('inq-confirm');cf.style.display='block';
   cf.innerHTML=`<div class="success-box"><p>Inquiry submitted: ${id}</p><p>Our team will contact you at ${phone} shortly to discuss your new connection.</p></div>`;
   ['i-name','i-phone','i-addr','i-notes'].forEach(x=>document.getElementById(x).value='');
-  saveAppState();
 }
-function quickCB(){
-  const name=document.getElementById('qname').value.trim();
-  const phone=document.getElementById('qphone').value.trim();
-  const issue=document.getElementById('qissue').value.trim();
-  if(!name||!phone){alert('Please enter your name and phone number.');return;}
-  const qok=document.getElementById('qok');
-  qok.style.display='block';
-  qok.innerHTML='✓ Received! We will call you within 2 hours.';
-  ['qname','qphone','qissue'].forEach(x=>document.getElementById(x).value='');
-}
-
-function toggleWhatsAppForm(){
-  const form=document.getElementById('wa-contact-form');
-  if(!form)return;
-  form.style.display=form.style.display==='none'?'block':'none';
-  populateSTB();
-  if(form.style.display==='block') form.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-function sendWhatsAppContact(){
-  const name=document.getElementById('wa-name').value.trim();
-  const phone=document.getElementById('wa-phone').value.trim();
-  const stbType=document.getElementById('wa-stbtype').value.trim()||'Not provided';
-  const stbNum=document.getElementById('wa-stbnum').value.trim()||'Not provided';
-  const issue=document.getElementById('wa-issue').value.trim();
-  if(!name||!phone||!issue){alert('Please enter customer name, phone number, and issue.');return;}
-
-  const id='CMP-'+nextCid++;
-  const ticket={
-    id,name,acct:phone,addr:'Submitted from WhatsApp Us form',stbtype:stbType,stbnum:stbNum,
-    cat:'Customer WhatsApp request',pri:'Medium',desc:issue,desc_te:'',status:'Open',
-    notes:['Ticket raised from public WhatsApp Us button'],date:new Date().toISOString().slice(0,10),
-    isNew:true,bcSent:false,ackSent:false,resSent:false,assign:''
-  };
-
-  complaints.unshift(ticket);
-  if(typeof renderOwner==='function') renderOwner();
-  saveAppState();
-
-  const ownerMsg='NSR Master Channel - Complaint\n\nComplaint No: '+id+'\nCustomer Name: '+name+'\nPhone Number: '+phone+'\nSet Top Box: '+stbType+'\nSet Top Box Number: '+stbNum+'\nIssue: '+issue;
-  const ownerWaNumber=String(contactInfo.wa||'919393933473').replace(/\D/g,'');
-  window.open('https://wa.me/'+ownerWaNumber+'?text='+encodeURIComponent(ownerMsg),'_blank');
-
-  const waok=document.getElementById('waok');
-  waok.style.display='block';
-  waok.innerHTML='✓ Ticket raised successfully. Complaint number: <b>'+id+'</b><br><span style="font-size:12px;color:var(--muted);">Owner will acknowledge the customer from Owner Login → Tickets.</span>';
-
-  ['wa-name','wa-phone','wa-stbnum','wa-issue'].forEach(x=>document.getElementById(x).value='');
-  document.getElementById('wa-stbtype').value='';
-}
+function quickCB(){const n=document.getElementById('qname').value.trim();if(!n){alert('Please enter your name.');return;}document.getElementById('qok').style.display='block';['qname','qphone','qissue'].forEach(x=>document.getElementById(x).value='');}
 
 function togglePw(){const i=document.getElementById('lp');const b=document.getElementById('eye-btn');i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'SHOW':'HIDE';}
 function doLogin(){
@@ -1307,7 +1243,7 @@ function doLogout(){
   if(btn){btn.textContent='Edit packages';btn.style.background='';btn.style.color='';btn.style.borderColor='';}
   document.querySelectorAll('.pkg-edit-badge').forEach(b=>b.style.display='');
 }
-function owTab(t,el){document.querySelectorAll('.oview').forEach(x=>x.classList.remove('active'));document.getElementById('oview-'+t).classList.add('active');document.querySelectorAll('.otab').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(t==='info'){renderSTBList();renderContacts();renderPosterManager();renderPkgManager();renderContactPreview();renderPostsOwner();}if(t==='walog')renderWaLog();if(t==='inquiries')renderInquiries();if(t==='customers')renderCustomers();}
+function owTab(t,el){document.querySelectorAll('.oview').forEach(x=>x.classList.remove('active'));document.getElementById('oview-'+t).classList.add('active');document.querySelectorAll('.otab').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(t==='info'){renderSTBList();renderContacts();renderPkgManager();renderContactPreview();renderPostsOwner();}if(t==='walog')renderWaLog();if(t==='inquiries')renderInquiries();if(t==='customers')renderCustomers();}
 
 function ini(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
 function bS(s){if(s==='Open')return`<span class="badge b-open">Open</span>`;if(s==='In progress')return`<span class="badge b-prog">In progress</span>`;return`<span class="badge b-res">Resolved</span>`;}
@@ -1315,7 +1251,7 @@ function bP(p){if(p==='High')return`<span class="badge b-high">High</span>`;if(p
 function nowT(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
 function bWA(c){const te=c.desc_te&&c.desc_te.trim()?`\n\n*వివరణ (Telugu):*\n${c.desc_te}`:'';return `*NSR Master Channel — New Ticket*\n\n*Ticket:* ${c.id}\n*Customer:* ${c.name}\n*Phone:* ${c.acct}\n*Address:* ${c.addr}\n*Set box:* ${c.stbtype} / ${c.stbnum}\n*Issue:* ${c.cat} (${c.pri})\n*Date:* ${c.date}\n\n*Description (English):*\n${c.desc}${te}\n\nPlease attend immediately.\n_NSR Master Channel_`;}
 function bRes(c){return `Dear *${c.name}*,\n\nYour complaint (*${c.id}*) for _"${c.cat}"_ has been *RESOLVED*.\n\nWe apologise for the inconvenience. Your service has been restored.\n\n*Thank you for choosing NSR Master Channel!*\n_— Support Team, Ibrahimpatnam_\n\n---\n_ప్రియమైన ${c.name} గారు, మీ ఫిర్యాదు (${c.id}) పరిష్కరించబడింది. ధన్యవాదాలు! — NSR Master Channel_`;}
-function bAck(c){return `Your complaint has been received.\nComplaint No: ${c.id}\nOur team will contact you shortly.\n\n_NSR Master Channel_`;}function waLink(phone,msg){return`https://wa.me/${String(phone).replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`;}
+function waLink(phone,msg){return`https://wa.me/${phone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`;}
 
 function renderOwner(){
   document.getElementById('o-tot').textContent=complaints.length;
@@ -1323,9 +1259,9 @@ function renderOwner(){
   document.getElementById('o-prg').textContent=complaints.filter(c=>c.status==='In progress').length;
   document.getElementById('o-res').textContent=complaints.filter(c=>c.status==='Resolved').length;
   document.getElementById('new-alerts').innerHTML=complaints.filter(c=>c.isNew).map(c=>`<div class="alert-row"><span>New: <b>${c.id}</b> — ${c.name} | ${c.cat} ${bP(c.pri)}</span><button class="btn-p" style="font-size:10px;padding:3px 8px;" onclick="dismiss('${c.id}')">Dismiss</button></div>`).join('');
-  document.getElementById('owner-list').innerHTML=complaints.map(c=>`<div class="ticket-item" onclick="openDetail('${c.id}')"><div class="t-av">${ini(c.name)}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${c.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${c.id}</p>${c.isNew?'<span class="badge b-new">New</span>':''}${c.bcSent?'<span class="badge" style="background:#E7FFDB;color:#27500A;">WA</span>':''}${c.ackSent?'<span class="badge" style="background:rgba(37,211,102,0.16);color:#25D366;">ACK</span>':''}${c.resSent?'<span class="badge b-res">Resolved</span>':''}</div><p style="font-size:11px;color:rgba(255,255,255,0.3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${c.stbtype} · ${c.cat} — ${c.desc.slice(0,50)}…</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">${bS(c.status)}${bP(c.pri)}</div></div>`).join('');
+  document.getElementById('owner-list').innerHTML=complaints.map(c=>`<div class="ticket-item" onclick="openDetail('${c.id}')"><div class="t-av">${ini(c.name)}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${c.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${c.id}</p>${c.isNew?'<span class="badge b-new">New</span>':''}${c.bcSent?'<span class="badge" style="background:#E7FFDB;color:#27500A;">WA</span>':''}${c.resSent?'<span class="badge b-res">Resolved</span>':''}</div><p style="font-size:11px;color:rgba(255,255,255,0.3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${c.stbtype} · ${c.cat} — ${c.desc.slice(0,50)}…</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">${bS(c.status)}${bP(c.pri)}</div></div>`).join('');
 }
-function dismiss(id){const c=complaints.find(x=>x.id===id);if(c)c.isNew=false;renderOwner();saveAppState();}
+function dismiss(id){const c=complaints.find(x=>x.id===id);if(c)c.isNew=false;renderOwner();}
 
 function renderInquiries(){
   document.getElementById('iq-tot').textContent=inquiries.length;
@@ -1334,7 +1270,7 @@ function renderInquiries(){
   document.getElementById('iq-conv').textContent=inquiries.filter(i=>i.status==='Converted').length;
   document.getElementById('inq-list').innerHTML=inquiries.map(q=>`<div class="ticket-item"><div class="t-av" style="background:rgba(26,82,118,0.15);color:#85B7EB;">${ini(q.name)}</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;">${q.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${q.id}</p></div><p style="font-size:11px;color:rgba(255,255,255,0.3);">${q.pkg} · ${q.type}</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;"><span class="badge ${q.status==='Pending'?'b-pend':q.status==='Contacted'?'b-new':'b-res'}">${q.status}</span><select onchange="updateInqStatus('${q.id}',this.value)" style="font-size:10px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:5px;color:#fff;padding:3px 6px;cursor:pointer;"><option>Pending</option><option${q.status==='Contacted'?' selected':''}>Contacted</option><option${q.status==='Converted'?' selected':''}>Converted</option></select></div></div>`).join('');
 }
-function updateInqStatus(id,val){const q=inquiries.find(x=>x.id===id);if(q)q.status=val;renderInquiries();saveAppState();}
+function updateInqStatus(id,val){const q=inquiries.find(x=>x.id===id);if(q)q.status=val;renderInquiries();}
 
 function renderCustomers(){
   populateSTB();populatePkgDropdowns();
@@ -1348,9 +1284,7 @@ function saveCust(){
   customers.push({id,name,phone,wa:document.getElementById('nc-wa').value||phone,addr:document.getElementById('nc-addr').value||'N/A',stbtype:document.getElementById('nc-stbtype').value||'N/A',stbnum:document.getElementById('nc-stbnum').value||'N/A',pkg:document.getElementById('nc-pkg').value||'N/A',amount:packages.find(p=>document.getElementById('nc-pkg').value.startsWith(p.name))?.price||'0',joinDate:document.getElementById('nc-date').value||new Date().toISOString().slice(0,10),status:'Active',notes:document.getElementById('nc-notes').value});
   ['nc-name','nc-phone','nc-wa','nc-addr','nc-stbnum','nc-notes'].forEach(x=>document.getElementById(x).value='');
   toggleAddCust();renderCustomers();
-  saveAppState();
 }
-
 
 let editCustId=null;
 function openCustEdit(id){
@@ -1391,18 +1325,16 @@ function saveCustEdit(){
   c.notes=document.getElementById('ec-notes').value;
   document.getElementById('cust-detail-panel').style.display='none';editCustId=null;
   renderCustomers();
-  saveAppState();
 }
 function deleteCustomer(){
   if(!confirm('Delete this customer? This cannot be undone.'))return;
   customers=customers.filter(x=>x.id!==editCustId);
   document.getElementById('cust-detail-panel').style.display='none';editCustId=null;
   renderCustomers();
-  saveAppState();
 }
 
 // Contact Us edit
-let contactInfo={phone:'+91 9393933473',email:'support@nsrmasterchannel.in',addr:'Main Road, Ibrahimpatnam, 501506',hours:'Mon – Sun · 8 AM to 10 PM',wa:'919393933473'};
+let contactInfo={phone:'+91 93939 33473',email:'support@nsrmasterchannel.in',addr:'Main Road, Ibrahimpatnam, 501506',hours:'Mon – Sun · 8 AM to 8 PM',wa:'919393933473'};
 function renderContactPreview(){
   document.getElementById('contact-preview').innerHTML=`
     <div class="stb-row"><div style="flex:1;"><p style="font-size:11px;color:rgba(255,255,255,0.3);">Phone</p><p style="font-size:13px;color:#fff;font-weight:500;">${contactInfo.phone}</p></div></div>
@@ -1425,31 +1357,26 @@ function toggleContactEdit(){
   }
   f.style.display=isOpen?'none':'block';
 }
-function renderPublicContactInfo(){
-  const phone=document.getElementById('public-phone');
-  const email=document.getElementById('public-email');
-  const addr=document.getElementById('public-addr');
-  const hours=document.getElementById('public-hours');
-  const wa=document.getElementById('public-wa-link');
-  if(phone)phone.textContent=contactInfo.phone;
-  if(email)email.textContent=contactInfo.email;
-  if(addr)addr.textContent=contactInfo.addr;
-  if(hours)hours.textContent=contactInfo.hours;
-  if(wa)wa.dataset.wa='https://wa.me/'+String(contactInfo.wa||'').replace(/\D/g,'');
-}
 function saveContactInfo(){
   contactInfo.phone=document.getElementById('ce-phone').value.trim()||contactInfo.phone;
   contactInfo.email=document.getElementById('ce-email').value.trim()||contactInfo.email;
   contactInfo.addr=document.getElementById('ce-addr').value.trim()||contactInfo.addr;
   contactInfo.hours=document.getElementById('ce-hours').value.trim()||contactInfo.hours;
   contactInfo.wa=document.getElementById('ce-wa').value.trim()||contactInfo.wa;
+  const ph=document.getElementById('pub-phone'); if(ph) ph.textContent=contactInfo.phone;
+  const em=document.getElementById('pub-email'); if(em) em.textContent=contactInfo.email;
+  const ad=document.getElementById('pub-addr'); if(ad) ad.textContent=contactInfo.addr;
+  const hr=document.getElementById('pub-hours'); if(hr) hr.textContent=contactInfo.hours;
+  const wa=document.getElementById('pub-wa-link'); if(wa){wa.textContent=contactInfo.phone+' →';wa.href='https://wa.me/'+contactInfo.wa;}
+  const hwa=document.getElementById('hero-wa-btn'); if(hwa) hwa.href='https://wa.me/'+contactInfo.wa;
+  const hwaW=document.getElementById('hero-wa-widget'); if(hwaW) hwaW.href='https://wa.me/'+contactInfo.wa;
+  const hwaNum=document.querySelector('.hero-wa-num'); if(hwaNum) hwaNum.textContent=contactInfo.phone;
+  const hwaLNum=document.getElementById('hero-left-wa-num'); if(hwaLNum) hwaLNum.textContent=contactInfo.phone;
+  const hwaL=document.getElementById('hero-left-wa'); if(hwaL) hwaL.href='https://wa.me/'+contactInfo.wa;
   document.getElementById('contact-edit-form').style.display='none';
   document.getElementById('contact-edit-btn').textContent='Edit';
   renderContactPreview();
-  renderPublicContactInfo();
-  saveAppState();
 }
-
 
 function openDetail(id){
   activeId=id;const c=complaints.find(x=>x.id===id);if(!c)return;c.isNew=false;
@@ -1464,27 +1391,12 @@ function openDetail(id){
   document.getElementById('dp-assign').innerHTML='<option value="">-- assign --</option>'+ac.map(a=>`<option${c.assign===a.name?' selected':''}>${a.name}</option>`).join('');
   document.getElementById('assoc-checks').innerHTML=ac.map(a=>`<div class="assoc-row"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;flex:1;"><input type="checkbox" id="chk-${a.id}" style="width:14px;height:14px;" ${c.bcSent?'checked':''}><div><p style="font-size:12px;font-weight:600;color:#fff;">${a.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${a.title}</p></div></label><a href="${waLink(a.phone,bWA(c))}" target="_blank" style="font-size:10px;background:#E7FFDB;color:#27500A;border:1px solid #C5E8B0;border-radius:5px;padding:3px 9px;text-decoration:none;">Open WA</a></div>`).join('');
   document.getElementById('bc-status').textContent=c.bcSent?'Already broadcast':'';
-  document.getElementById('ack-cust-name').textContent=c.name+' ('+c.acct+')';
-  document.getElementById('ack-msg-preview').textContent=bAck(c);
-  document.getElementById('ack-sent-time').textContent=nowT();
-  document.getElementById('ack-status').textContent=c.ackSent?'Already acknowledged':'';
   if(c.status==='Resolved')showResolved(c);else document.getElementById('resolved-section').style.display='none';
   document.getElementById('detail-panel').style.display='block';document.getElementById('raise-form').style.display='none';
   renderOwner();
 }
 function showResolved(c){document.getElementById('resolved-section').style.display='block';document.getElementById('res-cust-name').textContent=c.name+' ('+c.acct+')';document.getElementById('res-msg-preview').textContent=bRes(c);document.getElementById('res-sent-time').textContent=nowT();document.getElementById('res-status').textContent=c.resSent?'Already sent':'';}
 function onStatusChange(){const c=complaints.find(x=>x.id===activeId);if(!c)return;if(document.getElementById('dp-status').value==='Resolved')showResolved(c);else document.getElementById('resolved-section').style.display='none';}
-function sendCustomerAck(){
-  const c=complaints.find(x=>x.id===activeId);if(!c)return;
-  const msg=bAck(c);
-  c.ackSent=true;
-  waLog.unshift({type:'acknowledgement',id:c.id,name:c.name,to:[c.name+' ('+c.acct+')'],msg,time:new Date().toLocaleString()});
-  const status=document.getElementById('ack-status');if(status)status.textContent='Acknowledgement opened in WhatsApp';
-  const btn=document.getElementById('ack-btn');if(btn){btn.textContent='Acknowledged';setTimeout(()=>{btn.textContent='Acknowledge Customer';},2000);}
-  window.open(waLink(c.acct,msg),'_blank');
-  renderOwner();
-  saveAppState();
-}
 function sendBroadcast(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;
   const sel=contacts.filter(a=>{const el=document.getElementById('chk-'+a.id);return el&&el.checked;});
@@ -1492,7 +1404,6 @@ function sendBroadcast(){
   c.bcSent=true;waLog.unshift({type:'broadcast',id:c.id,name:c.name,to:sel.map(a=>a.name),msg:bWA(c),time:new Date().toLocaleString()});
   document.getElementById('bc-status').textContent='Sent to: '+sel.map(a=>a.name).join(', ');
   const btn=document.getElementById('bc-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send via WhatsApp';},2000);renderOwner();
-  saveAppState();
 }
 function sendResolved(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;c.resSent=true;c.status='Resolved';const msg=bRes(c);
@@ -1500,18 +1411,14 @@ function sendResolved(){
   document.getElementById('res-status').textContent='WhatsApp sent';
   const btn=document.getElementById('res-btn');btn.textContent='Sent!';setTimeout(()=>{btn.textContent='Send WhatsApp to customer';},2000);
   window.open(waLink(c.acct,msg),'_blank');renderOwner();
-  saveAppState();
 }
-
 function closeDetail(){document.getElementById('detail-panel').style.display='none';activeId=null;}
 function saveDetail(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;c.status=document.getElementById('dp-status').value;c.assign=document.getElementById('dp-assign').value;
   const note=document.getElementById('dp-note').value.trim();if(note)c.notes.push(note);
   document.getElementById('dp-notes-log').innerHTML=c.notes.map(n=>`<div class="mbox" style="font-size:11px;color:rgba(255,255,255,0.4);">${n}</div>`).join('');
   if(c.status==='Resolved')showResolved(c);renderOwner();
-  saveAppState();
 }
-
 function aiResolve(){const c=complaints.find(x=>x.id===activeId);if(!c)return;alert(`AI Suggestion for ${c.cat}:\n\nStep 1: Check physical cable connections at the set box (${c.stbtype} / ${c.stbnum}).\nStep 2: Power cycle set box — unplug 30 sec, replug.\nStep 3: If signal issue persists, check distribution amplifier at junction.\nStep 4: Send field technician to ${c.addr} if above steps fail.\n\nEstimated resolution: 2–4 hours.`);}
 function toggleRaise(){const f=document.getElementById('raise-form');f.style.display=f.style.display==='none'?'block':'none';document.getElementById('detail-panel').style.display='none';populateSTB();}
 function saveRaise(){
@@ -1519,20 +1426,18 @@ function saveRaise(){
   const id='CMP-'+nextCid++;
   complaints.unshift({id,name,acct:document.getElementById('r-acct').value||'N/A',addr:document.getElementById('r-addr').value||'N/A',stbtype:document.getElementById('r-stbtype').value||'N/A',stbnum:document.getElementById('r-stbnum').value||'N/A',cat:document.getElementById('r-cat').value||'Other',pri:document.getElementById('r-pri').value||'Medium',desc,desc_te:'',status:'Open',notes:[],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,assign:''});
   ['r-name','r-acct','r-addr','r-stbnum','r-desc'].forEach(x=>document.getElementById(x).value='');toggleRaise();renderOwner();
-  saveAppState();
 }
-
 
 function renderSTBList(){document.getElementById('stb-list').innerHTML=stbTypes.map((t,i)=>`<div class="stb-row"><p style="font-size:13px;font-weight:500;color:#fff;">${t}</p><button class="btn-danger" onclick="removeSTB(${i})" style="font-size:10px;padding:3px 9px;">Remove</button></div>`).join('');}
 function showAddSTB(){document.getElementById('add-stb-form').style.display='block';document.getElementById('new-stb').focus();}
-function saveSTB(){const v=document.getElementById('new-stb').value.trim();if(!v)return;if(stbTypes.includes(v)){alert('Already exists.');return;}stbTypes.push(v);document.getElementById('new-stb').value='';document.getElementById('add-stb-form').style.display='none';renderSTBList();populateSTB();saveAppState();}
-function removeSTB(i){if(confirm('Remove?')){stbTypes.splice(i,1);renderSTBList();populateSTB();saveAppState();}}
+function saveSTB(){const v=document.getElementById('new-stb').value.trim();if(!v)return;if(stbTypes.includes(v)){alert('Already exists.');return;}stbTypes.push(v);document.getElementById('new-stb').value='';document.getElementById('add-stb-form').style.display='none';renderSTBList();populateSTB();}
+function removeSTB(i){if(confirm('Remove?')){stbTypes.splice(i,1);renderSTBList();populateSTB();}}
 
 function renderContacts(){document.getElementById('contacts-list').innerHTML=contacts.map(a=>`<div class="stb-row"><div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0;"><div style="width:26px;height:26px;border-radius:50%;background:${a.active?'rgba(46,204,113,0.12)':'rgba(255,255,255,0.05)'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:${a.active?'#2ECC71':'#888'};flex-shrink:0;">${ini(a.name)}</div><div style="min-width:0;"><p style="font-size:12px;font-weight:600;color:#fff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${a.name}</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">${a.title}</p></div></div><div style="display:flex;gap:4px;flex-shrink:0;"><a href="${waLink(a.phone,'Hello '+a.name+', NSR Support here.')}" target="_blank" style="font-size:10px;background:#E7FFDB;color:#27500A;border:1px solid #C5E8B0;border-radius:5px;padding:3px 7px;text-decoration:none;">WA</a><button class="btn-p" style="font-size:10px;padding:3px 7px;" onclick="toggleContact(${a.id})">${a.active?'Off':'On'}</button><button class="btn-danger" style="font-size:10px;padding:3px 7px;" onclick="removeContact(${a.id})">X</button></div></div>`).join('');}
 function showAddContact(){document.getElementById('add-contact-form').style.display='block';}
-function saveContact(){const name=document.getElementById('tm-name').value.trim();const phone=document.getElementById('tm-phone').value.trim();if(!name||!phone){alert('Required.');return;}contacts.push({id:nextContactId++,name,phone,title:document.getElementById('tm-title').value||'Team Member',dept:document.getElementById('tm-dept').value,active:true});['tm-name','tm-phone','tm-title'].forEach(x=>document.getElementById(x).value='');document.getElementById('add-contact-form').style.display='none';renderContacts();saveAppState();}
-function toggleContact(id){const a=contacts.find(x=>x.id===id);if(a)a.active=!a.active;renderContacts();saveAppState();}
-function removeContact(id){if(confirm('Remove?')){contacts=contacts.filter(x=>x.id!==id);renderContacts();saveAppState();}}
+function saveContact(){const name=document.getElementById('tm-name').value.trim();const phone=document.getElementById('tm-phone').value.trim();if(!name||!phone){alert('Required.');return;}contacts.push({id:nextContactId++,name,phone,title:document.getElementById('tm-title').value||'Team Member',dept:document.getElementById('tm-dept').value,active:true});['tm-name','tm-phone','tm-title'].forEach(x=>document.getElementById(x).value='');document.getElementById('add-contact-form').style.display='none';renderContacts();}
+function toggleContact(id){const a=contacts.find(x=>x.id===id);if(a)a.active=!a.active;renderContacts();}
+function removeContact(id){if(confirm('Remove?')){contacts=contacts.filter(x=>x.id!==id);renderContacts();}}
 
 function renderPkgManager(){
   document.getElementById('pkg-manager-list').innerHTML=packages.map((p,i)=>`<div class="stb-row"><div style="flex:1;"><p style="font-size:13px;font-weight:600;color:#fff;">${p.name}</p><p style="font-size:11px;color:rgba(255,255,255,0.3);">₹${p.price}/mo · ${p.features.length} features${p.featured?' · ⭐ Featured':''}</p></div><button class="btn-gold" onclick="openPkgEdit(${i})" style="font-size:10px;padding:5px 12px;">Edit</button></div>`).join('');
@@ -1540,9 +1445,9 @@ function renderPkgManager(){
 
 function renderWaLog(){
   const el=document.getElementById('wa-log-list');
-  const broadcasts=waLog.filter(l=>['broadcast','acknowledgement','resolved'].includes(l.type));
-  if(!broadcasts.length){el.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,0.3);">No WhatsApp messages sent yet.</p>';return;}
-  el.innerHTML=broadcasts.map(l=>`<div style="background:#1C1A17;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;margin-bottom:8px;"><div style="background:#075E54;padding:8px 13px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;font-weight:600;color:#fff;">${l.type==='acknowledgement'?'Customer acknowledgement':l.type==='resolved'?'Resolved message':'Team broadcast'} — ${l.id}</span><span style="font-size:10px;color:#B2DFDB;">${l.time}</span></div><div style="padding:10px 13px;"><p style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:7px;">To: ${l.to.join(', ')}</p><div class="wa-bubble" style="font-size:11px;">${l.msg.replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<b>$1</b>').replace(/_(.*?)_/g,'<i>$1</i>')}</div></div></div>`).join('');
+  const broadcasts=waLog.filter(l=>l.type==='broadcast');
+  if(!broadcasts.length){el.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,0.3);">No WhatsApp broadcast messages sent yet.</p>';return;}
+  el.innerHTML=broadcasts.map(l=>`<div style="background:#1C1A17;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;margin-bottom:8px;"><div style="background:#075E54;padding:8px 13px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;font-weight:600;color:#fff;">Team broadcast — ${l.id}</span><span style="font-size:10px;color:#B2DFDB;">${l.time}</span></div><div style="padding:10px 13px;"><p style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:7px;">To: ${l.to.join(', ')}</p><div class="wa-bubble" style="font-size:11px;">${l.msg.replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<b>$1</b>').replace(/_(.*?)_/g,'<i>$1</i>')}</div></div></div>`).join('');
 }
 
 // ── EXCEL EXPORT ──────────────────────────────────────────────────────
@@ -1575,79 +1480,28 @@ function exportExcel(){
   XLSX.writeFile(wb,`NSR_MasterChannel_Data_${date}.xlsx`);
 }
 
-// ── POSTER UPLOAD / FRONT PAGE PREVIEW ──────────────────────────────
-let posterImages=[null,null,null,null];
-function defaultPosterSrc(idx){return `./images/poster${idx+1}.jpg`;}
-
-function savePostersToStorage(){
-  try{localStorage.setItem('nsrPosterImages',JSON.stringify(posterImages));}catch(e){}
-}
-function loadPostersFromStorage(){
-  try{
-    const saved=JSON.parse(localStorage.getItem('nsrPosterImages')||'null');
-    if(Array.isArray(saved)) posterImages=[0,1,2,3].map(i=>saved[i]||null);
-  }catch(e){}
-}
-function applyPosterPreview(idx){
-  const img=document.getElementById('poster-img-'+idx);
-  const ph=document.getElementById('poster-ph-'+idx);
-  if(!img||!ph) return;
-  const src=posterImages[idx]||defaultPosterSrc(idx);
-  img.onerror=()=>{ if(!posterImages[idx]){img.style.display='none';ph.style.display='flex';} };
-  img.src=src;img.style.display='block';ph.style.display='none';
-}
-function renderAllPosterPreviews(){[0,1,2,3].forEach(applyPosterPreview);}
+// ── POSTER UPLOAD ──────────────────────────────────────────────
 function triggerUpload(idx){
   if(!document.body.classList.contains('owner-mode')) return;
-  const input=document.getElementById('poster-file-'+idx);
-  if(input) input.click();
+  document.getElementById('poster-file-'+idx).click();
 }
 function handlePosterUpload(idx,input){
-  if(!document.body.classList.contains('owner-mode')){ if(input) input.value=''; return; }
   if(!input.files||!input.files[0]) return;
   const reader=new FileReader();
   reader.onload=e=>{
-    posterImages[idx]=e.target.result;
-    applyPosterPreview(idx);
-    savePostersToStorage();
-    renderPosterManager();
+    const img=document.getElementById('poster-img-'+idx);
+    const ph=document.getElementById('poster-ph-'+idx);
+    img.src=e.target.result;
+    img.style.display='block';
+    ph.style.display='none';
   };
   reader.readAsDataURL(input.files[0]);
 }
 function clearPoster(idx){
-  if(!document.body.classList.contains('owner-mode')) return;
-  posterImages[idx]=null;
+  const img=document.getElementById('poster-img-'+idx);
+  const ph=document.getElementById('poster-ph-'+idx);
   const fi=document.getElementById('poster-file-'+idx);
-  if(fi) fi.value='';
-  applyPosterPreview(idx);
-  savePostersToStorage();
-  renderPosterManager();
-}
-function clearAllPosters(){
-  if(!document.body.classList.contains('owner-mode')) return;
-  if(!confirm('Remove uploaded overrides and show default GitHub poster images?')) return;
-  posterImages=[null,null,null,null];
-  [0,1,2,3].forEach(i=>{const fi=document.getElementById('poster-file-'+i); if(fi) fi.value=''; applyPosterPreview(i);});
-  savePostersToStorage();
-  renderPosterManager();
-}
-function renderPosterManager(){
-  const grid=document.getElementById('poster-manager-grid');
-  if(!grid) return;
-  grid.innerHTML=[0,1,2,3].map(i=>`
-    <div class="poster-admin-card">
-      <div class="poster-admin-thumb">
-        <img id="poster-admin-img-${i}" src="${posterImages[i]||defaultPosterSrc(i)}" style="display:block;">
-        <span style="display:none;">Poster ${i+1} preview</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-        <p style="font-size:11px;font-weight:600;color:#fff;letter-spacing:.5px;">Home poster ${i+1}</p>
-        <div style="display:flex;gap:6px;flex-shrink:0;">
-          <button class="btn-gold" onclick="triggerUpload(${i})" style="font-size:10px;padding:4px 10px;">${posterImages[i]?'Change':'Upload override'}</button>
-          <button class="btn-danger" onclick="clearPoster(${i})" style="font-size:10px;padding:4px 10px;">Remove</button>
-        </div>
-      </div>
-    </div>`).join('');
+  img.src='';img.style.display='none';ph.style.display='flex';fi.value='';
 }
 
 // ── PACKAGE EDIT MODE TOGGLE (public page) ─────────────────────
@@ -1694,9 +1548,7 @@ function savePost(){
   cancelAddPost();
   renderPostsOwner();
   renderPostsPublic();
-  saveAppState();
 }
-
 function editPost(id){
   const p=posts.find(x=>x.id===id);if(!p)return;
   // Fill the add form with existing data for editing
@@ -1716,7 +1568,6 @@ function deletePost(id){
   posts=posts.filter(p=>p.id!==id);
   renderPostsOwner();
   renderPostsPublic();
-  saveAppState();
 }
 function renderPostsOwner(){
   const list=document.getElementById('posts-owner-list');
@@ -1760,55 +1611,20 @@ function renderPostsPublic(){
     </div>`).join('');
 }
 
-// ── BROWSER PERSISTENCE (single-file production mode) ─────────────
-const NSR_STATE_KEY='nsr_master_channel_state_v1';
-function saveAppState(){
-  try{
-    localStorage.setItem(NSR_STATE_KEY,JSON.stringify({
-      stbTypes,contacts,packages,complaints,inquiries,customers,contactInfo,posts,nextCid,nextIid,nextCustId,nextContactId,nextPostId,waLog
-    }));
-  }catch(e){console.warn('NSR local save failed',e);}
-}
-function loadAppState(){
-  try{
-    const saved=JSON.parse(localStorage.getItem(NSR_STATE_KEY)||'null');
-    if(!saved) return;
-    if(Array.isArray(saved.stbTypes)) stbTypes=saved.stbTypes;
-    if(Array.isArray(saved.contacts)) contacts=saved.contacts;
-    if(Array.isArray(saved.packages)) packages=saved.packages;
-    if(Array.isArray(saved.complaints)) complaints=saved.complaints;
-    if(Array.isArray(saved.inquiries)) inquiries=saved.inquiries;
-    if(Array.isArray(saved.customers)) customers=saved.customers;
-    if(saved.contactInfo&&typeof saved.contactInfo==='object') contactInfo={...contactInfo,...saved.contactInfo};
-    if(Array.isArray(saved.posts)) posts=saved.posts;
-    if(Number.isFinite(saved.nextCid)) nextCid=saved.nextCid;
-    if(Number.isFinite(saved.nextIid)) nextIid=saved.nextIid;
-    if(Number.isFinite(saved.nextCustId)) nextCustId=saved.nextCustId;
-    if(Number.isFinite(saved.nextContactId)) nextContactId=saved.nextContactId;
-    if(Number.isFinite(saved.nextPostId)) nextPostId=saved.nextPostId;
-    if(Array.isArray(saved.waLog)) waLog=saved.waLog;
-  }catch(e){console.warn('NSR local load failed',e);}
-}
-function resetLocalWebsiteData(){
-  if(!confirm('Reset all saved website data in this browser?')) return;
-  localStorage.removeItem(NSR_STATE_KEY);
-  localStorage.removeItem('nsrPosterImages');
-  location.reload();
-}
-window.addEventListener('beforeunload',saveAppState);
-
 // INIT
-loadAppState();
-if(contactInfo.phone==='+91 98480 12345') contactInfo.phone='+91 9393933473';
-if(contactInfo.wa==='919848012345') contactInfo.wa='919393933473';
-loadPostersFromStorage();
-renderAllPosterPreviews();
 renderPackages();
 populateSTB();
 populatePkgDropdowns();
 renderPostsPublic();
-renderPublicContactInfo();
-saveAppState();
+// Sync contact info to public page on load
+(function syncContact(){
+  const ph=document.getElementById('pub-phone'); if(ph) ph.textContent=contactInfo.phone;
+  const em=document.getElementById('pub-email'); if(em) em.textContent=contactInfo.email;
+  const ad=document.getElementById('pub-addr'); if(ad) ad.textContent=contactInfo.addr;
+  const hr=document.getElementById('pub-hours'); if(hr) hr.textContent=contactInfo.hours;
+  const wa=document.getElementById('pub-wa-link'); if(wa){wa.textContent=contactInfo.phone+' →';wa.href='https://wa.me/'+contactInfo.wa;}
+  const hwa=document.getElementById('hero-wa-btn'); if(hwa) hwa.href='https://wa.me/'+contactInfo.wa;
+})();
 </script>
 
 <!-- SCROLL PROGRESS BAR -->
