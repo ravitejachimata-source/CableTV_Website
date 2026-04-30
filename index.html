@@ -648,7 +648,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
       <p class="public-contact-title">Contact Information</p>
       <div class="contact-item">
         <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.11 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.19a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"/></svg></div>
-        <div><p class="c-label">Phone / WhatsApp</p><p class="c-val" id="public-phone">+91 98480 12345</p></div>
+        <div><p class="c-label">Phone / WhatsApp</p><p class="c-val" id="public-phone">+91 9393933473</p></div>
       </div>
       <div class="contact-item">
         <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
@@ -663,7 +663,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
         <div><p class="c-label">Support Hours</p><p class="c-val" id="public-hours">Mon – Sun · 8 AM to 10 PM</p></div>
       </div>
       <div class="public-contact-actions">
-        <a class="btn-primary" id="public-wa-link" href="https://wa.me/919848012345" target="_blank">WhatsApp Us</a>
+        <a class="btn-primary" id="public-wa-link" href="https://wa.me/919393933473" target="_blank">WhatsApp Us</a>
         <button class="btn-outline" onclick="openPortal('customer')">File Complaint</button>
       </div>
     </div>
@@ -671,11 +671,15 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
     <div class="quick-form">
       <p class="qf-title">Quick Callback Request</p>
       <p class="qf-sub">Leave your number — we'll call you back within 2 hours.</p>
-      <input class="qf-input" id="qname" placeholder="Your name">
+      <input class="qf-input" id="qname" placeholder="Customer name">
       <input class="qf-input" id="qphone" placeholder="Phone number">
+      <select class="qf-input" id="qstbtype" style="appearance:auto;">
+        <option value="">Select set top box type</option>
+      </select>
+      <input class="qf-input" id="qstbnum" placeholder="Set top box number">
       <input class="qf-input" id="qissue" placeholder="Briefly describe your issue">
-      <button class="qf-submit" onclick="quickCB()">Request Callback</button>
-      <p id="qok" style="display:none;text-align:center;margin-top:12px;font-size:13px;color:var(--green);font-weight:600;">✓ Received! We'll call you within 2 hours.</p>
+      <button class="qf-submit" onclick="quickCB()">Raise Ticket on WhatsApp</button>
+      <p id="qok" style="display:none;text-align:center;margin-top:12px;font-size:13px;color:var(--green);font-weight:600;"></p>
     </div>
   </div>
 </section>
@@ -1104,7 +1108,7 @@ const LL={en:{name:'Full name',phone:'Phone number',addr:'Address',stbtype:'Set 
 
 function setLang(l,el){lang=l;document.querySelectorAll('#lb-en,#lb-te').forEach(b=>b.classList.remove('active'));el.classList.add('active');Object.keys(LL[l]).forEach(k=>{const e=document.getElementById('L-'+k);if(e)e.textContent=LL[l][k];});}
 
-function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
+function populateSTB(){['c-stbtype','r-stbtype','nc-stbtype','qstbtype'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const v=el.value;el.innerHTML='<option value="">-- select --</option>'+stbTypes.map(t=>`<option${t===v?' selected':''}>${t}</option>`).join('');});}
 function populatePkgDropdowns(){['i-pkg','nc-pkg'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.innerHTML=packages.map(p=>`<option>${p.name} — ₹${p.price}/mo</option>`).join('');});}
 
 function renderPackages(){
@@ -1213,7 +1217,35 @@ function submitInquiry(){
   ['i-name','i-phone','i-addr','i-notes'].forEach(x=>document.getElementById(x).value='');
   saveAppState();
 }
-function quickCB(){const n=document.getElementById('qname').value.trim();if(!n){alert('Please enter your name.');return;}document.getElementById('qok').style.display='block';['qname','qphone','qissue'].forEach(x=>document.getElementById(x).value='');}
+function quickCB(){
+  const name=document.getElementById('qname').value.trim();
+  const phone=document.getElementById('qphone').value.trim();
+  const stbType=document.getElementById('qstbtype').value.trim()||'Not provided';
+  const stbNum=document.getElementById('qstbnum').value.trim()||'Not provided';
+  const issue=document.getElementById('qissue').value.trim();
+  if(!name||!phone||!issue){alert('Please enter customer name, phone number, and issue.');return;}
+
+  const id='CMP-'+nextCid++;
+  const ticket={
+    id,name,acct:phone,addr:'Submitted from Contact / WhatsApp form',stbtype:stbType,stbnum:stbNum,
+    cat:'Customer WhatsApp request',pri:'Medium',desc:issue,desc_te:'',status:'Open',
+    notes:['Ticket raised from public Contact section'],date:new Date().toISOString().slice(0,10),
+    isNew:true,bcSent:false,resSent:false,assign:''
+  };
+  complaints.unshift(ticket);
+
+  const msg='*NSR Master Channel — Complaint Received*\n\n*Complaint No:* '+id+'\n*Customer Name:* '+name+'\n*Phone Number:* '+phone+'\n*Set Top Box Type:* '+stbType+'\n*Set Top Box Number:* '+stbNum+'\n*Issue:* '+issue+'\n\nYour complaint has been received. Our team will contact you shortly.\n\n_NSR Master Channel_';
+  const waNumber=String(contactInfo.wa||'919393933473').replace(/\D/g,'');
+  window.open('https://wa.me/'+waNumber+'?text='+encodeURIComponent(msg),'_blank');
+
+  const qok=document.getElementById('qok');
+  qok.style.display='block';
+  qok.innerHTML='✓ Complaint received! Your complaint number is <b>'+id+'</b>. WhatsApp message is ready to send.';
+  ['qname','qphone','qstbnum','qissue'].forEach(x=>document.getElementById(x).value='');
+  document.getElementById('qstbtype').value='';
+  if(typeof renderOwner==='function') renderOwner();
+  saveAppState();
+}
 
 function togglePw(){const i=document.getElementById('lp');const b=document.getElementById('eye-btn');i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'SHOW':'HIDE';}
 function doLogin(){
@@ -1333,7 +1365,7 @@ function deleteCustomer(){
 }
 
 // Contact Us edit
-let contactInfo={phone:'+91 98480 12345',email:'support@nsrmasterchannel.in',addr:'Main Road, Ibrahimpatnam, 501506',hours:'Mon – Sun · 8 AM to 10 PM',wa:'919848012345'};
+let contactInfo={phone:'+91 9393933473',email:'support@nsrmasterchannel.in',addr:'Main Road, Ibrahimpatnam, 501506',hours:'Mon – Sun · 8 AM to 10 PM',wa:'919393933473'};
 function renderContactPreview(){
   document.getElementById('contact-preview').innerHTML=`
     <div class="stb-row"><div style="flex:1;"><p style="font-size:11px;color:rgba(255,255,255,0.3);">Phone</p><p style="font-size:13px;color:#fff;font-weight:500;">${contactInfo.phone}</p></div></div>
@@ -1493,6 +1525,7 @@ function exportExcel(){
 
 // ── POSTER UPLOAD / FRONT PAGE PREVIEW ──────────────────────────────
 let posterImages=[null,null,null,null];
+function defaultPosterSrc(idx){return `./images/poster${idx+1}.jpg`;}
 
 function savePostersToStorage(){
   try{localStorage.setItem('nsrPosterImages',JSON.stringify(posterImages));}catch(e){}
@@ -1507,8 +1540,9 @@ function applyPosterPreview(idx){
   const img=document.getElementById('poster-img-'+idx);
   const ph=document.getElementById('poster-ph-'+idx);
   if(!img||!ph) return;
-  if(posterImages[idx]){img.src=posterImages[idx];img.style.display='block';ph.style.display='none';}
-  else{img.src='';img.style.display='none';ph.style.display='flex';}
+  const src=posterImages[idx]||defaultPosterSrc(idx);
+  img.onerror=()=>{ if(!posterImages[idx]){img.style.display='none';ph.style.display='flex';} };
+  img.src=src;img.style.display='block';ph.style.display='none';
 }
 function renderAllPosterPreviews(){[0,1,2,3].forEach(applyPosterPreview);}
 function triggerUpload(idx){
@@ -1539,7 +1573,7 @@ function clearPoster(idx){
 }
 function clearAllPosters(){
   if(!document.body.classList.contains('owner-mode')) return;
-  if(!confirm('Remove all front page poster images?')) return;
+  if(!confirm('Remove uploaded overrides and show default GitHub poster images?')) return;
   posterImages=[null,null,null,null];
   [0,1,2,3].forEach(i=>{const fi=document.getElementById('poster-file-'+i); if(fi) fi.value=''; applyPosterPreview(i);});
   savePostersToStorage();
@@ -1551,13 +1585,13 @@ function renderPosterManager(){
   grid.innerHTML=[0,1,2,3].map(i=>`
     <div class="poster-admin-card">
       <div class="poster-admin-thumb">
-        <img id="poster-admin-img-${i}" src="${posterImages[i]||''}" style="display:${posterImages[i]?'block':'none'};">
-        <span style="display:${posterImages[i]?'none':'block'};">Poster ${i+1} preview</span>
+        <img id="poster-admin-img-${i}" src="${posterImages[i]||defaultPosterSrc(i)}" style="display:block;">
+        <span style="display:none;">Poster ${i+1} preview</span>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
         <p style="font-size:11px;font-weight:600;color:#fff;letter-spacing:.5px;">Home poster ${i+1}</p>
         <div style="display:flex;gap:6px;flex-shrink:0;">
-          <button class="btn-gold" onclick="triggerUpload(${i})" style="font-size:10px;padding:4px 10px;">${posterImages[i]?'Change':'Upload'}</button>
+          <button class="btn-gold" onclick="triggerUpload(${i})" style="font-size:10px;padding:4px 10px;">${posterImages[i]?'Change':'Upload override'}</button>
           <button class="btn-danger" onclick="clearPoster(${i})" style="font-size:10px;padding:4px 10px;">Remove</button>
         </div>
       </div>
@@ -1713,6 +1747,8 @@ window.addEventListener('beforeunload',saveAppState);
 
 // INIT
 loadAppState();
+if(contactInfo.phone==='+91 98480 12345') contactInfo.phone='+91 9393933473';
+if(contactInfo.wa==='919848012345') contactInfo.wa='919393933473';
 loadPostersFromStorage();
 renderAllPosterPreviews();
 renderPackages();
