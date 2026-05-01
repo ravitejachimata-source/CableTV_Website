@@ -3098,6 +3098,975 @@ if(typeof window.startFirebaseSync === 'function') window.startFirebaseSync();
 onAuthStateChanged(auth,()=>{ if(typeof window.startFirebaseSync === 'function') window.startFirebaseSync(); });
 </script>
 
+
+
+<style id="owner-dashboard-v329-layout-telugu-fix">
+/* v3.29 OWNER DASHBOARD: full-width, single outer scroll, desktop two-column detail */
+.overlay.owner-view{
+  overflow-y:auto !important;
+  background:#0b0d12 !important;
+}
+.overlay.owner-view .overlay-bg{
+  background:#0b0d12 !important;
+  backdrop-filter:none !important;
+}
+.overlay.owner-view .overlay-panel{
+  max-width:none !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:18px clamp(12px,2.5vw,34px) 56px !important;
+  overflow:visible !important;
+}
+.overlay.owner-view .overlay-topbar{
+  position:sticky !important;
+  top:10px !important;
+  z-index:50 !important;
+}
+.overlay.owner-view #pp-owner{
+  width:100% !important;
+  max-width:none !important;
+  min-height:auto !important;
+  overflow:visible !important;
+  padding:20px !important;
+  background:linear-gradient(180deg,#10131a,#0d1016) !important;
+}
+.overlay.owner-view #pp-owner > div:first-child{
+  position:sticky !important;
+  top:88px !important;
+  z-index:40 !important;
+  margin-bottom:18px !important;
+}
+.overlay.owner-view #oview-tickets{
+  display:grid !important;
+  grid-template-columns:minmax(360px,.92fr) minmax(520px,1.38fr) !important;
+  grid-auto-rows:auto !important;
+  gap:18px !important;
+  align-items:start !important;
+  overflow:visible !important;
+}
+.overlay.owner-view #oview-tickets > .metric-grid,
+.overlay.owner-view #oview-tickets > #new-alerts,
+.overlay.owner-view #oview-tickets > div[style*="justify-content:space-between"],
+.overlay.owner-view #oview-tickets > #raise-form{
+  grid-column:1 / -1 !important;
+}
+.overlay.owner-view #owner-list{
+  grid-column:1 !important;
+  max-height:none !important;
+  min-height:420px !important;
+  overflow:visible !important;
+  padding:14px !important;
+  margin:0 !important;
+  position:relative !important;
+}
+.overlay.owner-view #detail-panel{
+  grid-column:2 !important;
+  max-height:none !important;
+  overflow:visible !important;
+  margin-top:0 !important;
+  position:sticky !important;
+  top:174px !important;
+  align-self:start !important;
+}
+.overlay.owner-view #detail-panel[style*="display:none"]{
+  display:none !important;
+}
+.overlay.owner-view #owner-list .ticket-filter-bar{
+  position:sticky !important;
+  top:164px !important;
+  z-index:12 !important;
+  background:#0f1117 !important;
+  padding:8px 0 12px !important;
+}
+.overlay.owner-view .ticket-item{
+  min-height:86px !important;
+  cursor:pointer !important;
+}
+.overlay.owner-view .ticket-id-pill{
+  font-size:13px !important;
+  padding:7px 13px !important;
+  border-radius:999px !important;
+}
+.overlay.owner-view .wa-bubble{
+  max-width:100% !important;
+  font-size:12px !important;
+  line-height:1.75 !important;
+}
+.overlay.owner-view #detail-panel .p-row,
+.overlay.owner-view #detail-panel .p-row-3{
+  gap:14px !important;
+}
+.overlay.owner-view #detail-panel .btn-wa,
+.overlay.owner-view #detail-panel .btn-wares,
+.overlay.owner-view #detail-panel .btn-primary-sm,
+.overlay.owner-view #detail-panel .btn-p{
+  white-space:normal !important;
+}
+/* one clean scrollbar on the far right */
+.overlay.owner-view #owner-list::-webkit-scrollbar,
+.overlay.owner-view #detail-panel::-webkit-scrollbar,
+.overlay.owner-view .oview::-webkit-scrollbar{
+  width:0 !important;
+  height:0 !important;
+}
+.overlay.owner-view::-webkit-scrollbar{width:13px !important;}
+.overlay.owner-view::-webkit-scrollbar-track{background:#0b0d12 !important;}
+.overlay.owner-view::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#f25b5f,#c0181d 60%,#8e1115) !important;
+  border-radius:999px !important;
+  border:3px solid #0b0d12 !important;
+}
+/* full owner Telugu toggle polish */
+.overlay.owner-view .owner-lang-toggle{
+  background:#090b10 !important;
+  border-color:rgba(255,255,255,.16) !important;
+}
+.overlay.owner-view .owner-lang-btn.active{
+  background:linear-gradient(135deg,#C0181D,#8e1115) !important;
+}
+@media(max-width:1050px){
+  .overlay.owner-view #oview-tickets{grid-template-columns:1fr !important;}
+  .overlay.owner-view #owner-list,.overlay.owner-view #detail-panel{grid-column:1 !important;position:relative !important;top:auto !important;}
+  .overlay.owner-view #pp-owner > div:first-child{position:relative !important;top:auto !important;}
+  .overlay.owner-view #owner-list .ticket-filter-bar{top:0 !important;}
+}
+@media(max-width:640px){
+  .overlay.owner-view .overlay-panel{padding:10px 8px 48px !important;}
+  .overlay.owner-view #pp-owner{padding:12px !important;}
+  .overlay.owner-view #oview-tickets{gap:12px !important;}
+}
+</style>
+
+<script id="owner-dashboard-v329-layout-telugu-fix">
+(function(){
+  const EXTRA_OWNER_LANG={
+    en:{
+      ticket:'Ticket',phone:'Phone',category:'Category',issue:'Issue',whatsBroadcast:'WhatsApp broadcast to team',sendViaWhatsApp:'Send via WhatsApp',customerAck:'Customer acknowledgement',ackCustomer:'Acknowledge Customer',updateStatus:'Update status',assignedTo:'Assigned to',resolutionNote:'Resolution note',aiSuggestion:'AI suggestion ↗',saveChanges:'Save changes',close:'Close',openWA:'Open WA',alreadyBroadcast:'Already broadcast',alreadyAck:'Already acknowledged',ackOpened:'Acknowledgement opened in WhatsApp',saved:'✓ Saved',toCustomer:'to customer',cableConnect:'CableConnect',selectAssign:'-- assign --',notesPlaceholder:'Add note…'},
+    te:{
+      ticket:'టికెట్',phone:'ఫోన్',category:'వర్గం',issue:'సమస్య',whatsBroadcast:'టీమ్‌కు వాట్సాప్ బ్రాడ్‌కాస్ట్',sendViaWhatsApp:'వాట్సాప్ ద్వారా పంపండి',customerAck:'కస్టమర్ అంగీకారం',ackCustomer:'కస్టమర్‌కు అంగీకారం పంపండి',updateStatus:'స్థితి మార్చండి',assignedTo:'ఎవరికి అప్పగించారు',resolutionNote:'పరిష్కార గమనిక',aiSuggestion:'AI సూచన ↗',saveChanges:'మార్పులు సేవ్ చేయండి',close:'మూసివేయండి',openWA:'WA తెరవండి',alreadyBroadcast:'ఇప్పటికే బ్రాడ్‌కాస్ట్ అయింది',alreadyAck:'ఇప్పటికే అంగీకారం పంపారు',ackOpened:'వాట్సాప్‌లో అంగీకారం తెరవబడింది',saved:'✓ సేవ్ అయింది',toCustomer:'కస్టమర్‌కు',cableConnect:'కేబుల్ కనెక్ట్',selectAssign:'-- ఎంచుకోండి --',notesPlaceholder:'గమనిక జోడించండి…'}
+  };
+  function T(k){
+    const l=(window.ownerLang||localStorage.getItem('nsr_owner_lang')||'en')==='te'?'te':'en';
+    if(window.OWNER_LANG_TEXT && window.OWNER_LANG_TEXT[l] && window.OWNER_LANG_TEXT[l][k]) return window.OWNER_LANG_TEXT[l][k];
+    return (EXTRA_OWNER_LANG[l]&&EXTRA_OWNER_LANG[l][k]) || (EXTRA_OWNER_LANG.en&&EXTRA_OWNER_LANG.en[k]) || k;
+  }
+  function setTxt(sel,key){const el=document.querySelector(sel); if(el) el.textContent=T(key);}
+  function applyExtraOwnerTelugu(){
+    if(!document.getElementById('pp-owner')) return;
+    setTxt('#dp-id.closest .mlbl','ticket');
+    const idBox=document.getElementById('dp-id'); if(idBox){const l=idBox.parentElement&&idBox.parentElement.querySelector('.mlbl'); if(l)l.textContent=T('ticket');}
+    const phBox=document.getElementById('dp-acct'); if(phBox){const l=phBox.parentElement&&phBox.parentElement.querySelector('.mlbl'); if(l)l.textContent=T('phone');}
+    const catBox=document.getElementById('dp-cat'); if(catBox){const l=catBox.parentElement&&catBox.parentElement.querySelector('.mlbl'); if(l)l.textContent=T('category');}
+    const desc=document.getElementById('dp-desc'); if(desc){const l=desc.parentElement&&desc.parentElement.querySelector('.mlbl'); if(l)l.textContent=T('issue');}
+    const dp=document.getElementById('detail-panel');
+    if(dp){
+      [...dp.querySelectorAll('p')].forEach(p=>{
+        const raw=(p.textContent||'').trim();
+        if(raw==='WhatsApp broadcast to team'||raw==='టీమ్‌కు వాట్సాప్ బ్రాడ్‌కాస్ట్') p.textContent=T('whatsBroadcast');
+        if(raw==='Customer acknowledgement'||raw==='కస్టమర్ అంగీకారం') p.textContent=T('customerAck');
+      });
+      const bc=document.getElementById('bc-btn'); if(bc) bc.textContent=T('sendViaWhatsApp');
+      const ack=document.getElementById('ack-btn'); if(ack) ack.textContent=T('ackCustomer');
+      const save=[...dp.querySelectorAll('button')].find(b=>(b.getAttribute('onclick')||'').includes('saveDetail')); if(save) save.textContent=T('saveChanges');
+      const ai=[...dp.querySelectorAll('button')].find(b=>(b.getAttribute('onclick')||'').includes('aiResolve')); if(ai) ai.textContent=T('aiSuggestion');
+      const note=document.getElementById('dp-note'); if(note) note.placeholder=T('notesPlaceholder');
+      const statusSel=document.getElementById('dp-status'); if(statusSel){
+        [...statusSel.options].forEach(o=>{if(o.value==='Open'||o.text==='Open'||o.text==='ఓపెన్')o.text=T('statusOpen'); if(o.value==='In progress'||o.text==='In progress'||o.text==='ప్రగతిలో')o.text=T('statusProgress'); if(o.value==='Resolved'||o.text==='Resolved'||o.text==='పరిష్కరించబడింది')o.text=T('statusResolved');});
+      }
+      const assign=document.getElementById('dp-assign'); if(assign && assign.options.length) assign.options[0].text=T('selectAssign');
+      [...dp.querySelectorAll('.p-label')].forEach(l=>{const raw=(l.textContent||'').trim(); if(raw==='Update status'||raw==='స్థితి మార్చండి')l.textContent=T('updateStatus'); if(raw==='Assigned to'||raw==='ఎవరికి అప్పగించారు')l.textContent=T('assignedTo'); if(raw==='Resolution note'||raw==='పరిష్కార గమనిక')l.textContent=T('resolutionNote');});
+      [...dp.querySelectorAll('a')].forEach(a=>{if((a.textContent||'').trim()==='Open WA'||(a.textContent||'').trim()==='WA తెరవండి')a.textContent=T('openWA');});
+    }
+  }
+  const oldApply=window.applyOwnerLang;
+  window.applyOwnerLang=function(){ if(typeof oldApply==='function') oldApply(); applyExtraOwnerTelugu(); };
+  const oldSet=window.setOwnerLang;
+  window.setOwnerLang=function(lang){ if(typeof oldSet==='function') oldSet(lang); else {window.ownerLang=lang==='te'?'te':'en'; localStorage.setItem('nsr_owner_lang',window.ownerLang);} applyExtraOwnerTelugu(); if(typeof window.renderOwner==='function') window.renderOwner(); };
+
+  window.showTicketList=function(){
+    const detail=document.getElementById('detail-panel'); if(detail) detail.style.display='none';
+    const raise=document.getElementById('raise-form'); if(raise) raise.style.display='none';
+    window.activeId=null;
+  };
+  window.showTicketDetailOnly=function(){
+    const detail=document.getElementById('detail-panel'); if(detail) detail.style.display='block';
+    const status=document.getElementById('dp-save-status'); if(status) status.textContent='';
+    applyExtraOwnerTelugu();
+    if(window.matchMedia('(max-width:1050px)').matches){ setTimeout(()=>detail&&detail.scrollIntoView({behavior:'smooth',block:'start'}),60); }
+  };
+  window.backToTicketLog=function(){
+    const detail=document.getElementById('detail-panel'); if(detail) detail.style.display='none';
+    window.activeId=null;
+    if(typeof window.renderOwner==='function') window.renderOwner();
+  };
+  const priorOpen=window.openDetail;
+  window.openDetail=function(id){ if(typeof priorOpen==='function') priorOpen(id); window.showTicketDetailOnly(); applyExtraOwnerTelugu(); };
+
+  const oldSaveDetail=window.saveDetail;
+  window.saveDetail=function(){
+    if(typeof oldSaveDetail==='function') oldSaveDetail();
+    let s=document.getElementById('dp-save-status');
+    const panel=document.getElementById('detail-panel');
+    if(panel && !s){s=document.createElement('span');s.id='dp-save-status';s.style.cssText='font-size:12px;color:#2ECC71;font-weight:800;margin-left:8px;';const btn=[...panel.querySelectorAll('button')].find(b=>(b.getAttribute('onclick')||'').includes('saveDetail')); if(btn)btn.insertAdjacentElement('afterend',s);}
+    if(s){s.textContent=T('saved'); setTimeout(()=>{if(s)s.textContent='';},2200);}
+    const detail=document.getElementById('detail-panel'); if(detail) detail.style.display='block';
+  };
+
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{if(typeof window.applyOwnerLang==='function')window.applyOwnerLang();},300));
+})();
+</script>
+<style id="owner-dashboard-v330-scroll-and-wa-icon-fix">
+.overlay.owner-view #oview-tickets{grid-template-columns:minmax(390px,.88fr) minmax(560px,1.35fr) !important;gap:22px !important;}
+.overlay.owner-view #owner-list{grid-column:1 !important;max-height:clamp(430px,58vh,720px) !important;overflow-y:auto !important;overflow-x:hidden !important;padding:14px 12px 14px 14px !important;border:1px solid rgba(255,255,255,.12) !important;border-radius:18px !important;background:linear-gradient(180deg,#11151c,#0d1016) !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 18px 42px rgba(0,0,0,.22) !important;scrollbar-width:thin !important;scrollbar-color:#f0b343 #101319 !important;}
+.overlay.owner-view #detail-panel{grid-column:2 !important;max-height:clamp(500px,70vh,820px) !important;overflow-y:auto !important;overflow-x:hidden !important;padding-right:16px !important;border:1px solid rgba(255,255,255,.13) !important;border-radius:18px !important;background:linear-gradient(180deg,#121720,#0f131a) !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 18px 46px rgba(0,0,0,.28) !important;scrollbar-width:thin !important;scrollbar-color:#f0b343 #101319 !important;}
+.overlay.owner-view #owner-list::-webkit-scrollbar,.overlay.owner-view #detail-panel::-webkit-scrollbar{width:12px !important;height:12px !important;}
+.overlay.owner-view #owner-list::-webkit-scrollbar-track,.overlay.owner-view #detail-panel::-webkit-scrollbar-track{background:#101319 !important;border-radius:999px !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08) !important;}
+.overlay.owner-view #owner-list::-webkit-scrollbar-thumb,.overlay.owner-view #detail-panel::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd36a,#f0b343 48%,#c0181d) !important;border-radius:999px !important;border:3px solid #101319 !important;}
+.overlay.owner-view #owner-list::-webkit-scrollbar-thumb:hover,.overlay.owner-view #detail-panel::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#ffe08c,#ffbf3b 48%,#e33a3f) !important;}
+.overlay.owner-view #owner-list .ticket-filter-bar{position:sticky !important;top:0 !important;z-index:20 !important;background:linear-gradient(180deg,#11151c 0%,#11151c 78%,rgba(17,21,28,.86) 100%) !important;border-bottom:1px solid rgba(255,255,255,.08) !important;margin:-2px -2px 12px -2px !important;padding:6px 2px 12px !important;backdrop-filter:blur(8px) !important;}
+.overlay.owner-view #detail-panel .wa-bubble{max-height:260px !important;overflow-y:auto !important;scrollbar-width:thin !important;}
+.overlay.owner-view #detail-panel .wa-bubble::-webkit-scrollbar{width:8px !important;}
+.overlay.owner-view #detail-panel .wa-bubble::-webkit-scrollbar-thumb{background:#128C7E !important;border-radius:999px !important;}
+.overlay.owner-view{overflow-y:auto !important;scrollbar-width:thin !important;scrollbar-color:#f0b343 #0b0d12 !important;}
+.overlay.owner-view::-webkit-scrollbar{width:13px !important;}
+.overlay.owner-view::-webkit-scrollbar-track{background:#0b0d12 !important;}
+.overlay.owner-view::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd36a,#f0b343,#c0181d) !important;border-radius:999px !important;border:3px solid #0b0d12 !important;}
+@media(max-width:1050px){.overlay.owner-view #oview-tickets{grid-template-columns:1fr !important;}.overlay.owner-view #owner-list,.overlay.owner-view #detail-panel{grid-column:1 !important;max-height:58vh !important;position:relative !important;top:auto !important;}}
+.hero-left-wa-icon svg,.contact-wa-real svg{display:block;width:24px;height:24px;}
+#pub-wa-link{display:inline-flex !important;align-items:center;gap:7px;}
+#pub-wa-link .wa-inline-icon{width:18px;height:18px;flex:0 0 18px;}
+</style>
+<script id="owner-dashboard-v330-detail-scroll-wa-icon-script">
+(function(){
+  function waSvg(color){return `<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img"><path fill="${color}" d="M16.02 3.2C9.04 3.2 3.36 8.86 3.36 15.82c0 2.23.59 4.4 1.71 6.31L3.2 28.8l6.86-1.8a12.6 12.6 0 0 0 5.96 1.52h.01c6.97 0 12.65-5.66 12.65-12.63C28.68 8.86 23 3.2 16.02 3.2Zm0 23.18h-.01c-1.9 0-3.76-.51-5.38-1.48l-.39-.23-4.07 1.07 1.09-3.96-.26-.41a10.47 10.47 0 0 1-1.6-5.55c0-5.79 4.73-10.49 10.55-10.49 2.82 0 5.47 1.1 7.46 3.08a10.42 10.42 0 0 1 3.09 7.43c0 5.79-4.73 10.5-10.48 10.5Zm5.76-7.85c-.32-.16-1.88-.93-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.81 1.03-.99 1.24-.18.21-.37.24-.69.08-.32-.16-1.34-.49-2.55-1.57-.94-.84-1.58-1.88-1.76-2.2-.18-.32-.02-.49.14-.65.14-.14.32-.37.48-.55.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.71-1.72-.97-2.35-.26-.62-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.67s1.15 3.1 1.31 3.31c.16.21 2.27 3.46 5.49 4.85.77.33 1.37.53 1.84.68.77.24 1.47.21 2.03.13.62-.09 1.88-.77 2.15-1.51.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37Z"/></svg>`;}
+  function injectRealWhatsAppIcon(){
+    document.querySelectorAll('.hero-left-wa-icon').forEach(el=>{el.innerHTML=waSvg('#fff');el.setAttribute('title','WhatsApp');});
+    const link=document.getElementById('pub-wa-link');
+    if(link){const number=(window.contactInfo&&window.contactInfo.phone)||link.textContent.replace('→','').trim()||'+91 93939 33473';link.innerHTML=`<span class="wa-inline-icon">${waSvg('#25D366')}</span><span>${number} →</span>`;}
+  }
+  window.showTicketDetailOnly=function(){const ownerList=document.getElementById('owner-list');if(ownerList)ownerList.style.display='block';const detail=document.getElementById('detail-panel');if(detail)detail.style.display='block';const status=document.getElementById('dp-save-status');if(status)status.textContent='';if(typeof window.applyOwnerLang==='function')window.applyOwnerLang();};
+  window.backToTicketLog=function(){const ownerList=document.getElementById('owner-list');if(ownerList)ownerList.style.display='block';const detail=document.getElementById('detail-panel');if(detail)detail.style.display='none';window.activeId=null;if(typeof window.renderOwner==='function')window.renderOwner();};
+  const priorOpen=window.openDetail;
+  window.openDetail=function(id){if(typeof priorOpen==='function')priorOpen(id);window.showTicketDetailOnly();};
+  const priorSaveContact=window.saveContactInfo;
+  window.saveContactInfo=function(){if(typeof priorSaveContact==='function')priorSaveContact();setTimeout(injectRealWhatsAppIcon,50);};
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(injectRealWhatsAppIcon,120));
+  setTimeout(injectRealWhatsAppIcon,300);
+})();
+</script>
+
+
+<!-- === v3.31 CLEAN FIX: Owner tab switching + dual vertical scroll + sleek horizontal scroll === -->
+<style id="owner-v331-clean-tab-scroll-fix">
+/* Keep only the selected owner tab visible. This fixes Inquiries/Customers/Info/WA Log stacking under Tickets. */
+.overlay.owner-view #pp-owner .oview:not(.active){
+  display:none !important;
+}
+.overlay.owner-view #pp-owner .oview.active:not(#oview-tickets){
+  display:block !important;
+}
+.overlay.owner-view #pp-owner #oview-tickets:not(.active){
+  display:none !important;
+}
+.overlay.owner-view #pp-owner #oview-tickets.active{
+  display:grid !important;
+  grid-template-columns:minmax(390px,.92fr) minmax(610px,1.35fr) !important;
+  gap:24px !important;
+  align-items:start !important;
+}
+
+/* Main owner screen scroll: vertical on far right + horizontal at bottom for wide dashboard */
+.overlay.owner-view{
+  overflow:auto !important;
+  scrollbar-gutter:stable !important;
+  scrollbar-width:thin !important;
+  scrollbar-color:#f0b343 #0b0d12 !important;
+}
+.overlay.owner-view .overlay-bg{
+  min-width:1380px !important;
+}
+.overlay.owner-view .overlay-panel{
+  width:1380px !important;
+  max-width:none !important;
+  min-width:1380px !important;
+  margin:0 auto !important;
+  overflow:visible !important;
+  max-height:none !important;
+  padding:22px 22px 80px !important;
+}
+.overlay.owner-view::-webkit-scrollbar{width:13px !important;height:10px !important;}
+.overlay.owner-view::-webkit-scrollbar-track{background:#0b0d12 !important;}
+.overlay.owner-view::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#ffd36a,#f0b343 48%,#c0181d) !important;border-radius:999px !important;border:3px solid #0b0d12 !important;}
+.overlay.owner-view::-webkit-scrollbar-thumb:hover{background:linear-gradient(135deg,#ffe28c,#ffbf3b 48%,#e33a3f) !important;}
+
+/* Ticket list left side gets its own clear scrollbar */
+.overlay.owner-view #owner-list{
+  grid-column:1 !important;
+  max-height:clamp(480px,64vh,780px) !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding:14px 12px 14px 14px !important;
+  background:linear-gradient(180deg,#11151c,#0d1016) !important;
+  border:1px solid rgba(255,255,255,.13) !important;
+  border-radius:22px !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 18px 42px rgba(0,0,0,.22) !important;
+  scrollbar-width:thin !important;
+  scrollbar-color:#f0b343 #101319 !important;
+}
+.overlay.owner-view #owner-list::-webkit-scrollbar{width:12px !important;height:12px !important;}
+.overlay.owner-view #owner-list::-webkit-scrollbar-track{background:#101319 !important;border-radius:999px !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08) !important;}
+.overlay.owner-view #owner-list::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd36a,#f0b343 48%,#c0181d) !important;border-radius:999px !important;border:3px solid #101319 !important;}
+
+/* Ticket detail right side gets its own clear scrollbar */
+.overlay.owner-view #detail-panel{
+  grid-column:2 !important;
+  max-height:clamp(560px,76vh,860px) !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  margin-top:0 !important;
+  padding:18px 16px 18px 18px !important;
+  position:sticky !important;
+  top:158px !important;
+  align-self:start !important;
+  background:linear-gradient(180deg,#121720,#0f131a) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  border-radius:22px !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 18px 46px rgba(0,0,0,.28) !important;
+  scrollbar-width:thin !important;
+  scrollbar-color:#f0b343 #101319 !important;
+}
+.overlay.owner-view #detail-panel::-webkit-scrollbar{width:12px !important;height:12px !important;}
+.overlay.owner-view #detail-panel::-webkit-scrollbar-track{background:#101319 !important;border-radius:999px !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08) !important;}
+.overlay.owner-view #detail-panel::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd36a,#f0b343 48%,#c0181d) !important;border-radius:999px !important;border:3px solid #101319 !important;}
+
+/* keep the filter/header inside left list neat */
+.overlay.owner-view #owner-list .ticket-filter-bar{
+  position:sticky !important;
+  top:0 !important;
+  z-index:30 !important;
+  background:linear-gradient(180deg,#11151c 0%,#11151c 78%,rgba(17,21,28,.88) 100%) !important;
+  border-bottom:1px solid rgba(255,255,255,.08) !important;
+  margin:-2px -2px 12px -2px !important;
+  padding:6px 2px 12px !important;
+  backdrop-filter:blur(8px) !important;
+}
+
+/* Better compact look for inactive tab panels */
+.overlay.owner-view #oview-inquiries.active,
+.overlay.owner-view #oview-customers.active,
+.overlay.owner-view #oview-info.active,
+.overlay.owner-view #oview-walog.active{
+  min-height:620px !important;
+  overflow:visible !important;
+}
+
+@media(max-width:1050px){
+  .overlay.owner-view .overlay-bg{min-width:0 !important;}
+  .overlay.owner-view .overlay-panel{width:100% !important;min-width:0 !important;max-width:100% !important;padding:12px 10px 60px !important;}
+  .overlay.owner-view #pp-owner #oview-tickets.active{grid-template-columns:1fr !important;}
+  .overlay.owner-view #owner-list,.overlay.owner-view #detail-panel{grid-column:1 !important;position:relative !important;top:auto !important;max-height:60vh !important;}
+}
+</style>
+<script id="owner-v331-clean-tab-scroll-script">
+(function(){
+  const ownerTabs=['tickets','inquiries','customers','info','walog'];
+  const oldOwTab=window.owTab;
+  window.owTab=function(t,el){
+    ownerTabs.forEach(name=>{
+      const pane=document.getElementById('oview-'+name);
+      if(pane){
+        pane.classList.toggle('active',name===t);
+        pane.style.display=(name===t)?'': 'none';
+      }
+    });
+    document.querySelectorAll('#pp-owner .otab').forEach(b=>b.classList.remove('active'));
+    if(el) el.classList.add('active');
+    // Reset any open ticket detail when leaving Tickets tab so it does not appear below other tabs.
+    if(t!=='tickets'){
+      const detail=document.getElementById('detail-panel');
+      if(detail) detail.style.display='none';
+      window.activeId=null;
+    }
+    if(t==='info'){
+      if(typeof renderSTBList==='function')renderSTBList();
+      if(typeof renderContacts==='function')renderContacts();
+      if(typeof renderPkgManager==='function')renderPkgManager();
+      if(typeof renderPosterAdmin==='function')renderPosterAdmin();
+      if(typeof renderContactPreview==='function')renderContactPreview();
+      if(typeof renderPostsOwner==='function')renderPostsOwner();
+    }
+    if(t==='walog' && typeof renderWaLog==='function')renderWaLog();
+    if(t==='inquiries' && typeof renderInquiries==='function')renderInquiries();
+    if(t==='customers' && typeof renderCustomers==='function')renderCustomers();
+    if(t==='tickets' && typeof renderOwner==='function')renderOwner();
+    if(typeof window.applyOwnerLang==='function')setTimeout(window.applyOwnerLang,0);
+  };
+  // Normalize initial owner view after login/render.
+  const oldShowPP=window.showPP;
+  window.showPP=function(p){
+    if(typeof oldShowPP==='function') oldShowPP(p);
+    if(p==='owner'){
+      setTimeout(()=>{
+        const active=document.querySelector('#pp-owner .otab.active') || document.querySelector('#pp-owner .otab');
+        const label=(active && (active.getAttribute('onclick')||'').match(/owTab\('([^']+)'/));
+        window.owTab(label?label[1]:'tickets',active);
+      },60);
+    }
+  };
+})();
+</script>
+
+
+<style id="v332-final-owner-scroll-lang-date-fix">
+/* v3.32 final owner dashboard cleanup: true page scroll, no header overlap, ticket date pill */
+.overlay.owner-view{overflow-y:auto !important;overflow-x:auto !important;background:#0b0d12 !important;scrollbar-width:thin !important;scrollbar-color:#f0b343 #0b0d12 !important;}
+.overlay.owner-view .overlay-bg{position:fixed !important;background:#0b0d12 !important;backdrop-filter:none !important;}
+.overlay.owner-view .overlay-panel{max-width:1580px !important;min-width:1180px !important;width:92vw !important;margin:24px auto 80px !important;padding:0 18px 80px !important;height:auto !important;min-height:100vh !important;overflow:visible !important;}
+.overlay.owner-view .overlay-topbar,.overlay.owner-view #pp-owner > div:first-child,#pp-owner .ow-tabs{position:relative !important;top:auto !important;z-index:auto !important;backdrop-filter:none !important;}
+.overlay.owner-view #pp-owner{overflow:visible !important;height:auto !important;min-height:auto !important;}
+.overlay.owner-view #oview-tickets{display:grid !important;grid-template-columns:minmax(430px,.82fr) minmax(620px,1.35fr) !important;grid-template-areas:"metrics metrics" "alerts alerts" "head head" "list detail" !important;gap:18px 24px !important;overflow:visible !important;}
+.overlay.owner-view #oview-tickets > .metric-grid{grid-area:metrics !important;}
+.overlay.owner-view #oview-tickets > #new-alerts{grid-area:alerts !important;}
+.overlay.owner-view #oview-tickets > div[style*="justify-content:space-between"]{grid-area:head !important;}
+.overlay.owner-view #raise-form{grid-column:1 / -1 !important;}
+.overlay.owner-view #owner-list{grid-area:list !important;max-height:640px !important;overflow-y:auto !important;overflow-x:hidden !important;padding:14px 14px 18px !important;}
+.overlay.owner-view #detail-panel{grid-area:detail !important;align-self:start !important;max-height:none !important;overflow:visible !important;padding-right:22px !important;}
+.ticket-date-pill{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.12);font-size:10px;font-weight:800;letter-spacing:.5px;white-space:nowrap;}
+.ticket-date-pill::before{content:'📅';font-size:10px;filter:saturate(.8);}
+.overlay.owner-view .ticket-main-line{gap:8px 9px !important;}
+.overlay.owner-view #owner-list::-webkit-scrollbar{width:12px !important;}
+.overlay.owner-view #owner-list::-webkit-scrollbar-track{background:#101319 !important;border-radius:999px !important;}
+.overlay.owner-view #owner-list::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd36a,#f0b343 48%,#c0181d) !important;border-radius:999px !important;border:3px solid #101319 !important;}
+.overlay.owner-view::-webkit-scrollbar{width:14px !important;height:10px !important;}
+.overlay.owner-view::-webkit-scrollbar-track{background:#0b0d12 !important;}
+.overlay.owner-view::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd36a,#f0b343,#c0181d) !important;border-radius:999px !important;border:3px solid #0b0d12 !important;}
+.overlay.owner-view::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#ffe28b,#ffbd35,#e33a3f) !important;}
+@media(max-width:1050px){.overlay.owner-view .overlay-panel{min-width:0 !important;width:96vw !important;padding:0 8px 48px !important;}.overlay.owner-view #oview-tickets{grid-template-columns:1fr !important;grid-template-areas:"metrics" "alerts" "head" "list" "detail" !important;}.overlay.owner-view #owner-list{max-height:52vh !important;}}
+</style>
+<script id="v332-final-owner-lang-date-fix">
+(function(){
+  const PHRASES={
+    en:{'టికెట్లు':'Tickets','విచారణలు':'Inquiries','కస్టమర్లు':'Customers','సమాచారం':'Info','వాట్సాప్ లాగ్':'WA Log','లాగ్ అవుట్':'Logout','యజమాని డ్యాష్‌బోర్డ్':'Owner dashboard','డ్యాష్‌బోర్డ్ భాష':'Dashboard language','మొత్తం':'Total','ఓపెన్':'Open','ప్రగతిలో':'In Progress','పరిష్కరించబడింది':'Resolved','అన్ని ఫిర్యాదులు':'All complaints','ఎక్సెల్ ఎగుమతి':'Export Excel','+ టికెట్ నమోదు':'+ Raise ticket','పెండింగ్':'Pending','సంప్రదించారు':'Contacted','కన్వర్ట్ అయ్యాయి':'Converted','కొత్త కనెక్షన్ విచారణలు':'New connection inquiries','కొత్త కనెక్షన్ కోరిన కస్టమర్లు':'Customers requesting new connections','కస్టమర్ మాస్టర్ జాబితా':'Customer master list','నమోదైన కస్టమర్లు అందరూ':'All registered customers','+ కస్టమర్ జోడించండి':'+ Add customer','సెట్ బాక్స్ రకాలు':'Set box types','కస్టమర్ డ్రాప్‌డౌన్ ఎంపికలు':'Customer dropdown options','టీమ్ కాంటాక్టులు':'Team contacts','వాట్సాప్ బ్రాడ్‌కాస్ట్ జాబితా':'WhatsApp broadcast list','ప్యాకేజీల నిర్వహణ':'Packages manager','వెబ్‌సైట్‌లో కనిపించే ప్యాకేజీలు, ధరలు, ఫీచర్లు మార్చండి':'Edit package names, prices, features shown on website','తాజా అప్‌డేట్లు':'Latest updates','వెబ్‌సైట్‌లో కనిపించే ప్రకటనలు':'Post announcements shown on main website (max 3)','కాంటాక్ట్ వివరాలు':'Contact us details','వెబ్‌సైట్‌లో కనిపించే ఫోన్, ఇమెయిల్, చిరునామా, టైమింగ్స్ మార్చండి':'Edit phone, email, address, hours shown on website','వాట్సాప్ మెసేజ్ లాగ్':'WhatsApp message log','పోస్ట్ లేదు.':'No posts yet.','జోడించండి':'Add','ఎడిట్':'Edit','సేవ్ చేయండి':'Save changes','రద్దు':'Cancel','మూసివేయండి':'Close','పేరు':'Name','ఫోన్':'Phone','చిరునామా':'Address','పూర్తి పేరు':'Full name','సెట్ బాక్స్ రకం':'Set box type','సెట్ బాక్స్ నంబర్':'Set box number','ప్యాకేజ్':'Package','చేరిన తేదీ':'Join date','గమనికలు':'Notes','స్థితి':'Status','వాట్సాప్ నంబర్':'WhatsApp number','కస్టమర్‌కు అంగీకారం పంపండి':'Acknowledge Customer','మార్పులు సేవ్ చేయండి':'Save changes','టీమ్‌కు వాట్సాప్ బ్రాడ్‌కాస్ట్':'WhatsApp broadcast to team','కస్టమర్ అంగీకారం':'Customer acknowledgement','వాట్సాప్ ద్వారా పంపండి':'Send via WhatsApp','స్థితి మార్చండి':'Update status','ఎవరికి అప్పగించారు':'Assigned to','పరిష్కార గమనిక':'Resolution note','AI సూచన ↗':'AI suggestion ↗','టికెట్ జాబితాకు తిరిగి':'Back to Ticket Log','← టికెట్ జాబితాకు తిరిగి':'← Back to Ticket Log'},
+    te:{'Tickets':'టికెట్లు','Inquiries':'విచారణలు','Customers':'కస్టమర్లు','Info':'సమాచారం','WA Log':'వాట్సాప్ లాగ్','Logout':'లాగ్ అవుట్','Owner dashboard':'యజమాని డ్యాష్‌బోర్డ్','Dashboard language':'డ్యాష్‌బోర్డ్ భాష','Total':'మొత్తం','Open':'ఓపెన్','In Progress':'ప్రగతిలో','Resolved':'పరిష్కరించబడింది','All complaints':'అన్ని ఫిర్యాదులు','Export Excel':'ఎక్సెల్ ఎగుమతి','+ Raise ticket':'+ టికెట్ నమోదు','Pending':'పెండింగ్','Contacted':'సంప్రదించారు','Converted':'కన్వర్ట్ అయ్యాయి','New connection inquiries':'కొత్త కనెక్షన్ విచారణలు','Customers requesting new connections':'కొత్త కనెక్షన్ కోరిన కస్టమర్లు','Customer master list':'కస్టమర్ మాస్టర్ జాబితా','All registered customers':'నమోదైన కస్టమర్లు అందరూ','+ Add customer':'+ కస్టమర్ జోడించండి','Set box types':'సెట్ బాక్స్ రకాలు','Customer dropdown options':'కస్టమర్ డ్రాప్‌డౌన్ ఎంపికలు','Team contacts':'టీమ్ కాంటాక్టులు','WhatsApp broadcast list':'వాట్సాప్ బ్రాడ్‌కాస్ట్ జాబితా','Packages manager':'ప్యాకేజీల నిర్వహణ','Edit package names, prices, features shown on website':'వెబ్‌సైట్‌లో కనిపించే ప్యాకేజీలు, ధరలు, ఫీచర్లు మార్చండి','Latest updates':'తాజా అప్‌డేట్లు','Post announcements shown on main website (max 3)':'వెబ్‌సైట్‌లో కనిపించే ప్రకటనలు','Contact us details':'కాంటాక్ట్ వివరాలు','Edit phone, email, address, hours shown on website':'వెబ్‌సైట్‌లో కనిపించే ఫోన్, ఇమెయిల్, చిరునామా, టైమింగ్స్ మార్చండి','WhatsApp message log':'వాట్సాప్ మెసేజ్ లాగ్','No posts yet.':'పోస్ట్ లేదు.','Add':'జోడించండి','Edit':'ఎడిట్','Save changes':'సేవ్ చేయండి','Cancel':'రద్దు','Close':'మూసివేయండి','Name':'పేరు','Phone':'ఫోన్','Address':'చిరునామా','Full name':'పూర్తి పేరు','Set box type':'సెట్ బాక్స్ రకం','Set box number':'సెట్ బాక్స్ నంబర్','Package':'ప్యాకేజ్','Join date':'చేరిన తేదీ','Notes':'గమనికలు','Status':'స్థితి','WhatsApp number':'వాట్సాప్ నంబర్','Acknowledge Customer':'కస్టమర్‌కు అంగీకారం పంపండి','Save Changes':'మార్పులు సేవ్ చేయండి','WhatsApp broadcast to team':'టీమ్‌కు వాట్సాప్ బ్రాడ్‌కాస్ట్','Customer acknowledgement':'కస్టమర్ అంగీకారం','Send via WhatsApp':'వాట్సాప్ ద్వారా పంపండి','Update status':'స్థితి మార్చండి','Assigned to':'ఎవరికి అప్పగించారు','Resolution note':'పరిష్కార గమనిక','AI suggestion ↗':'AI సూచన ↗','Back to Ticket Log':'టికెట్ జాబితాకు తిరిగి','← Back to Ticket Log':'← టికెట్ జాబితాకు తిరిగి'}
+  };
+  function getLang(){return (localStorage.getItem('nsr_owner_lang')||'en')==='te'?'te':'en';}
+  function fmtTicketDate(c){try{let raw=c&&(c.date||c.createdAt||c.updatedAt),d;if(raw&&raw.toDate)d=raw.toDate();else if(raw)d=new Date(raw);else d=new Date();return isNaN(d.getTime())?String(raw||''):d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});}catch(e){return '';}}
+  function translateOwnerDeep(){const root=document.getElementById('pp-owner'); if(!root) return;root.querySelectorAll('[data-owner-key]').forEach(el=>{if(typeof window.ownerT==='function'){const k=el.getAttribute('data-owner-key');el.textContent=window.ownerT(k);}});const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(node){const p=node.parentElement;if(!p||['SCRIPT','STYLE','TEXTAREA','INPUT'].includes(p.tagName))return NodeFilter.FILTER_REJECT;const v=node.nodeValue.trim();if(!v||v.length>90)return NodeFilter.FILTER_REJECT;return PHRASES[getLang()][v]?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;}});const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(n=>{const before=n.nodeValue,leading=before.match(/^\s*/)[0],trailing=before.match(/\s*$/)[0];n.nodeValue=leading+PHRASES[getLang()][before.trim()]+trailing;});const en=document.getElementById('owner-lang-en'),te=document.getElementById('owner-lang-te');if(en&&te){en.classList.toggle('active',getLang()==='en');te.classList.toggle('active',getLang()==='te');}}
+  const prevApply=window.applyOwnerLang;window.applyOwnerLang=function(){if(typeof prevApply==='function')prevApply();translateOwnerDeep();};
+  const prevSet=window.setOwnerLang;window.setOwnerLang=function(l){if(typeof prevSet==='function')prevSet(l);else localStorage.setItem('nsr_owner_lang',l==='te'?'te':'en');translateOwnerDeep();if(typeof window.renderOwner==='function')window.renderOwner();setTimeout(translateOwnerDeep,50);};
+  const prevOw=window.owTab;window.owTab=function(t,el){if(typeof prevOw==='function')prevOw(t,el);setTimeout(translateOwnerDeep,60);};
+  const prevRenderOwner=window.renderOwner;window.renderOwner=function(){if(typeof prevRenderOwner==='function')prevRenderOwner();const list=document.getElementById('owner-list');try{if(list&&Array.isArray(complaints)){list.querySelectorAll('.ticket-item').forEach(row=>{const idEl=row.querySelector('.ticket-id-pill');if(!idEl)return;const id=(idEl.textContent||'').replace('#','').trim();const c=complaints.find(x=>(x.id||'')===id);if(c&&!row.querySelector('.ticket-date-pill'))idEl.insertAdjacentHTML('afterend',`<span class="ticket-date-pill">${fmtTicketDate(c)}</span>`);});}}catch(e){}translateOwnerDeep();};
+  ['renderInquiries','renderCustomers','renderSTBList','renderContacts','renderPkgManager','renderContactPreview','renderWaLog','renderPostsOwner'].forEach(fn=>{const old=window[fn];if(typeof old==='function')window[fn]=function(){old.apply(this,arguments);setTimeout(translateOwnerDeep,0);};});
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{if(typeof window.applyOwnerLang==='function')window.applyOwnerLang();},300));
+})();
+</script>
+
+
+
+<!-- === v3.33 FINAL: Issue selector order + owner layout/scroll/header polish === -->
+<style id="v333-final-issue-owner-polish">
+/* Make page/overlay scrolling obvious and prevent hidden scrollbars */
+html, body{overflow-y:auto !important;background:#0b0d12 !important;}
+.overlay.owner-view{overflow-y:scroll !important;overflow-x:auto !important;background:#0b0d12 !important;scrollbar-gutter:stable both-edges !important;}
+.overlay.owner-view::-webkit-scrollbar{width:16px !important;height:11px !important;}
+.overlay.owner-view::-webkit-scrollbar-track{background:#05070b !important;border-left:1px solid rgba(255,255,255,.08) !important;}
+.overlay.owner-view::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffe08a,#f0b343 44%,#c0181d) !important;border-radius:999px !important;border:3px solid #05070b !important;box-shadow:0 0 18px rgba(240,179,67,.45) !important;}
+.overlay.owner-view::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#fff0b8,#ffc94c 46%,#e2373f) !important;}
+
+/* Stop content from visually sliding underneath headers */
+.overlay.owner-view .overlay-topbar{position:sticky !important;top:0 !important;z-index:200 !important;background:#10141b !important;border:1px solid rgba(255,255,255,.14) !important;box-shadow:0 14px 32px rgba(0,0,0,.52) !important;backdrop-filter:none !important;}
+.overlay.owner-view #pp-owner{margin-top:18px !important;background:#11151c !important;}
+.overlay.owner-view #pp-owner > div:first-child{position:sticky !important;top:82px !important;z-index:160 !important;background:#151a22 !important;box-shadow:0 14px 30px rgba(0,0,0,.48) !important;backdrop-filter:none !important;}
+.overlay.owner-view #owner-list .ticket-filter-bar{background:#0f131a !important;backdrop-filter:none !important;box-shadow:0 10px 20px rgba(0,0,0,.35) !important;}
+
+/* Wider all-complaints/ticket list area + balanced details */
+.overlay.owner-view #pp-owner #oview-tickets.active{grid-template-columns:minmax(560px,1.08fr) minmax(650px,1.12fr) !important;gap:26px !important;align-items:start !important;}
+.overlay.owner-view #owner-list{min-height:590px !important;max-height:calc(100vh - 360px) !important;min-width:0 !important;}
+.overlay.owner-view #detail-panel{max-height:calc(100vh - 300px) !important;min-height:590px !important;}
+.overlay.owner-view #owner-list .ticket-item{padding:17px 18px 17px 20px !important;}
+.overlay.owner-view .ticket-summary-line{max-width:440px !important;}
+.overlay.owner-view .ticket-id-pill{font-size:12px !important;padding:5px 13px !important;}
+.overlay.owner-view .ticket-date-pill{font-size:10.5px !important;padding:5px 10px !important;}
+
+/* Customer issue selector should feel like a required step before text box */
+.issue-picker.issue-before-box{margin:0 0 12px 0 !important;padding:12px !important;border-radius:16px !important;background:rgba(255,255,255,.045) !important;border:1px solid rgba(255,255,255,.10) !important;}
+.issue-picker.issue-before-box .issue-chip.primary.active{background:linear-gradient(135deg,#ff5a5f,#c0181d) !important;color:#fff !important;border-color:rgba(255,255,255,.22) !important;box-shadow:0 8px 20px rgba(192,24,29,.25) !important;}
+.issue-picker.issue-before-box .issue-chip:not(.active){opacity:.78;}
+.issue-picker.issue-before-box .issue-chip:hover{opacity:1;}
+.issue-picker-title{font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.55);margin:0 0 9px 2px;}
+.issue-text-label{display:block;font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.55);margin:12px 0 7px 2px;}
+
+@media(max-width:1050px){
+  .overlay.owner-view #pp-owner > div:first-child{position:relative !important;top:auto !important;}
+  .overlay.owner-view #pp-owner #oview-tickets.active{grid-template-columns:1fr !important;}
+  .overlay.owner-view #owner-list,.overlay.owner-view #detail-panel{min-height:auto !important;max-height:60vh !important;}
+}
+</style>
+<script id="v333-final-issue-owner-polish-script">
+(function(){
+  function ensureIssuePickerBefore(ctx){
+    const picker=document.getElementById(ctx+'-issue-picker');
+    const issue=document.getElementById(ctx+'-issue');
+    if(!picker||!issue||picker.dataset.v333Moved==='1') return;
+    picker.classList.add('issue-before-box');
+    const title=document.createElement('div');
+    title.className='issue-picker-title';
+    title.textContent=ctx==='w'?'1. Select issue / సమస్య ఎంచుకోండి':'1. Select issue / సమస్య ఎంచుకోండి';
+    picker.insertBefore(title,picker.firstChild);
+    const label=document.createElement('label');
+    label.className='issue-text-label';
+    label.setAttribute('for',ctx+'-issue');
+    label.textContent='2. Describe your issue / సమస్య వివరించండి';
+    issue.parentNode.insertBefore(picker,issue);
+    issue.parentNode.insertBefore(label,issue);
+    picker.dataset.v333Moved='1';
+  }
+  function patchIssuePickers(){ensureIssuePickerBefore('c');ensureIssuePickerBefore('w');}
+
+  // Strengthen tab switching so inactive panels never stack below Tickets.
+  const oldOwTab=window.owTab;
+  window.owTab=function(t,el){
+    if(typeof oldOwTab==='function') oldOwTab(t,el);
+    document.querySelectorAll('#pp-owner .oview').forEach(v=>{v.classList.remove('active');v.style.display='none';});
+    const active=document.getElementById('oview-'+t);
+    if(active){active.classList.add('active');active.style.display=(t==='tickets')?'grid':'block';}
+    document.querySelectorAll('#pp-owner .otab').forEach(b=>b.classList.remove('active'));
+    if(el) el.classList.add('active');
+    if(typeof window.applyOwnerLang==='function') setTimeout(window.applyOwnerLang,30);
+  };
+
+  // Ensure selected issue + selected sub-issue are highlighted and text/category are filled.
+  const oldSelect=window.selectIssueType;
+  window.selectIssueType=function(ctx,type,btn){
+    if(typeof oldSelect==='function') oldSelect(ctx,type,btn);
+    document.querySelectorAll('#'+ctx+'-issue-picker .issue-chip.primary').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+  };
+  const oldApply=window.applyIssueSubcategory;
+  window.applyIssueSubcategory=function(ctx,type,index,btn){
+    if(typeof oldApply==='function') oldApply(ctx,type,index,btn);
+    document.querySelectorAll('#'+ctx+'-subchip-row .issue-chip').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+  };
+
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(patchIssuePickers,120));
+  setTimeout(patchIssuePickers,400);
+  const oldOpenPortal=window.openPortal;
+  window.openPortal=function(page){if(typeof oldOpenPortal==='function')oldOpenPortal(page);setTimeout(patchIssuePickers,80);};
+})();
+</script>
+
+
+<!-- === v3.34 PATCH: restore public background + fix owner overlay scrollbar === -->
+<style id="v334-public-bg-owner-scroll-fix">
+/* Restore original public website background */
+html, body{
+  background:var(--cream) !important;
+}
+body:not(.owner-mode){
+  background:var(--cream) !important;
+}
+
+/* Owner overlay keeps solid dark background */
+.overlay.owner-view{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  overflow-y:scroll !important;
+  overflow-x:auto !important;
+  background:#0b0d12 !important;
+  scrollbar-width:thin !important;
+  scrollbar-color:#f0b343 #07090d !important;
+  scrollbar-gutter:stable !important;
+}
+.overlay.owner-view .overlay-bg{
+  position:fixed !important;
+  inset:0 !important;
+  background:#0b0d12 !important;
+  backdrop-filter:none !important;
+}
+.overlay.owner-view .overlay-panel{
+  position:relative !important;
+  max-width:1580px !important;
+  min-width:1180px !important;
+  width:92vw !important;
+  height:auto !important;
+  min-height:120vh !important;
+  max-height:none !important;
+  overflow:visible !important;
+  margin:24px auto 90px !important;
+  padding:0 18px 90px !important;
+}
+.overlay.owner-view::-webkit-scrollbar{
+  width:16px !important;
+  height:11px !important;
+}
+.overlay.owner-view::-webkit-scrollbar-track{
+  background:#07090d !important;
+  border-left:1px solid rgba(255,255,255,.08) !important;
+}
+.overlay.owner-view::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#ffe08a,#f0b343 45%,#c0181d) !important;
+  border-radius:999px !important;
+  border:3px solid #07090d !important;
+  box-shadow:0 0 18px rgba(240,179,67,.45) !important;
+}
+.overlay.owner-view::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(180deg,#fff0b8,#ffc94c 46%,#e2373f) !important;
+}
+
+/* Owner dashboard contents scroll with overlay; ticket list/detail keep readable inner areas */
+.overlay.owner-view #pp-owner{
+  min-height:calc(100vh - 150px) !important;
+  height:auto !important;
+  overflow:visible !important;
+  background:#11151c !important;
+}
+.overlay.owner-view .overlay-topbar{
+  position:relative !important;
+  top:auto !important;
+  z-index:30 !important;
+  background:#10141b !important;
+}
+.overlay.owner-view #pp-owner > div:first-child{
+  position:relative !important;
+  top:auto !important;
+  z-index:25 !important;
+  background:#151a22 !important;
+}
+.overlay.owner-view #pp-owner #oview-tickets.active{
+  display:grid !important;
+  grid-template-columns:minmax(560px,1.05fr) minmax(650px,1.15fr) !important;
+  gap:26px !important;
+  align-items:start !important;
+  overflow:visible !important;
+}
+.overlay.owner-view #owner-list{
+  max-height:650px !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding-right:14px !important;
+}
+.overlay.owner-view #detail-panel{
+  max-height:none !important;
+  min-height:650px !important;
+  overflow:visible !important;
+  padding-right:22px !important;
+}
+
+@media(max-width:1050px){
+  .overlay.owner-view .overlay-panel{
+    min-width:0 !important;
+    width:96vw !important;
+    padding:0 8px 60px !important;
+  }
+  .overlay.owner-view #pp-owner #oview-tickets.active{
+    grid-template-columns:1fr !important;
+  }
+  .overlay.owner-view #owner-list{
+    max-height:58vh !important;
+  }
+  .overlay.owner-view #detail-panel{
+    min-height:auto !important;
+  }
+}
+</style>
+
+
+
+
+<!-- === v3.35 PATCH: owner scroll architecture + AI suggestion panel === -->
+<style id="v335-owner-scroll-ai-final">
+/* Force the Owner Dashboard to use one real main scrollbar on the far right */
+.overlay.open.owner-view{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  overflow-y:scroll !important;
+  overflow-x:auto !important;
+  background:#0b0d12 !important;
+  scrollbar-gutter:stable both-edges !important;
+  overscroll-behavior:contain !important;
+}
+.overlay.open.owner-view .overlay-bg{
+  position:fixed !important;
+  inset:0 !important;
+  background:#0b0d12 !important;
+  pointer-events:none !important;
+}
+.overlay.open.owner-view .overlay-panel{
+  position:relative !important;
+  display:block !important;
+  width:94vw !important;
+  min-width:1240px !important;
+  max-width:1620px !important;
+  height:auto !important;
+  min-height:calc(100vh + 360px) !important;
+  max-height:none !important;
+  overflow:visible !important;
+  margin:22px auto 120px !important;
+  padding:0 22px 140px !important;
+}
+.overlay.open.owner-view::after{
+  content:'';
+  display:block;
+  height:220px;
+}
+.overlay.open.owner-view::-webkit-scrollbar{width:18px !important;height:12px !important;display:block !important;}
+.overlay.open.owner-view::-webkit-scrollbar-track{background:#05070b !important;border-left:1px solid rgba(255,255,255,.12) !important;}
+.overlay.open.owner-view::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#fff0b5 0%,#f0b343 45%,#c0181d 100%) !important;border-radius:999px !important;border:3px solid #05070b !important;box-shadow:0 0 18px rgba(240,179,67,.55) !important;}
+.overlay.open.owner-view::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#fff8cf 0%,#ffc947 45%,#ef343b 100%) !important;}
+.overlay.open.owner-view{scrollbar-width:auto !important;scrollbar-color:#f0b343 #05070b !important;}
+
+/* Make owner headers part of normal layout so page content never slides under them */
+.overlay.open.owner-view .overlay-topbar,
+.overlay.open.owner-view #pp-owner > div:first-child,
+.overlay.open.owner-view #pp-owner .ow-tabs,
+.overlay.open.owner-view #owner-list .ticket-filter-bar{
+  position:relative !important;
+  top:auto !important;
+  z-index:auto !important;
+  transform:none !important;
+  backdrop-filter:none !important;
+}
+.overlay.open.owner-view .overlay-topbar{
+  margin-bottom:16px !important;
+  background:linear-gradient(180deg,#151b24,#10141b) !important;
+  box-shadow:0 14px 35px rgba(0,0,0,.35) !important;
+}
+.overlay.open.owner-view #pp-owner > div:first-child{
+  margin-bottom:20px !important;
+  background:linear-gradient(180deg,#171d27,#111722) !important;
+  border:1px solid rgba(255,255,255,.15) !important;
+  box-shadow:0 16px 34px rgba(0,0,0,.32) !important;
+}
+
+/* Clean two-column tickets view: left list scroll, right details scroll. Both stay below headers. */
+.overlay.open.owner-view #pp-owner #oview-tickets.active{
+  display:grid !important;
+  grid-template-columns:minmax(620px,1.04fr) minmax(720px,1.16fr) !important;
+  grid-template-areas:"metrics metrics" "alerts alerts" "head head" "list detail" !important;
+  gap:20px 28px !important;
+  align-items:start !important;
+  overflow:visible !important;
+}
+.overlay.open.owner-view #oview-tickets > .metric-grid{grid-area:metrics !important;}
+.overlay.open.owner-view #oview-tickets > #new-alerts{grid-area:alerts !important;}
+.overlay.open.owner-view #oview-tickets > div[style*="justify-content:space-between"]{grid-area:head !important;}
+.overlay.open.owner-view #owner-list{
+  grid-area:list !important;
+  min-height:620px !important;
+  max-height:72vh !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding:16px 16px 20px !important;
+  scroll-padding-top:18px !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  border-radius:20px !important;
+  background:linear-gradient(180deg,#111722,#0d1119) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 18px 42px rgba(0,0,0,.24) !important;
+}
+.overlay.open.owner-view #owner-list .ticket-filter-bar{
+  margin:0 0 14px 0 !important;
+  padding:0 0 12px 0 !important;
+  background:transparent !important;
+  border-bottom:1px solid rgba(255,255,255,.08) !important;
+  box-shadow:none !important;
+}
+.overlay.open.owner-view #detail-panel{
+  grid-area:detail !important;
+  align-self:start !important;
+  min-height:620px !important;
+  max-height:72vh !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding:18px 20px 30px !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  border-radius:20px !important;
+  background:linear-gradient(180deg,#121822,#0e131b) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 18px 42px rgba(0,0,0,.24) !important;
+}
+.overlay.open.owner-view #owner-list::-webkit-scrollbar,
+.overlay.open.owner-view #detail-panel::-webkit-scrollbar{width:13px !important;height:13px !important;display:block !important;}
+.overlay.open.owner-view #owner-list::-webkit-scrollbar-track,
+.overlay.open.owner-view #detail-panel::-webkit-scrollbar-track{background:#0b0f16 !important;border-radius:999px !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08) !important;}
+.overlay.open.owner-view #owner-list::-webkit-scrollbar-thumb,
+.overlay.open.owner-view #detail-panel::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd86f,#f0b343 48%,#c0181d) !important;border-radius:999px !important;border:3px solid #0b0f16 !important;}
+.overlay.open.owner-view #owner-list::-webkit-scrollbar-thumb:hover,
+.overlay.open.owner-view #detail-panel::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#ffe898,#ffc343 48%,#e23840) !important;}
+
+/* Allow regular owner tabs to use the full page and not appear below tickets */
+.overlay.open.owner-view #oview-inquiries.active,
+.overlay.open.owner-view #oview-customers.active,
+.overlay.open.owner-view #oview-info.active,
+.overlay.open.owner-view #oview-walog.active{
+  display:block !important;
+  min-height:760px !important;
+  overflow:visible !important;
+}
+
+/* AI suggestion modal: longer, readable, English + Telugu */
+.nsr-ai-modal{position:fixed;inset:0;z-index:3000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);padding:24px;}
+.nsr-ai-modal.open{display:flex;}
+.nsr-ai-card{width:min(920px,94vw);max-height:86vh;overflow-y:auto;background:linear-gradient(180deg,#151b24,#0e131b);border:1px solid rgba(255,255,255,.16);border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.55);padding:24px;}
+.nsr-ai-card::-webkit-scrollbar{width:12px;}.nsr-ai-card::-webkit-scrollbar-track{background:#0b0f16;border-radius:999px;}.nsr-ai-card::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd86f,#f0b343,#c0181d);border-radius:999px;border:3px solid #0b0f16;}
+.nsr-ai-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;}
+.nsr-ai-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#fff;}
+.nsr-ai-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:800;}
+.nsr-ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.nsr-ai-section{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;}
+.nsr-ai-section h4{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#f0b343;margin:0 0 12px;}
+.nsr-ai-section ol{margin:0;padding-left:20px;color:rgba(255,255,255,.82);font-size:13px;line-height:1.75;}
+.nsr-ai-foot{margin-top:16px;padding:12px 14px;border-radius:12px;background:rgba(29,122,74,.12);border:1px solid rgba(29,122,74,.25);color:#2ECC71;font-size:13px;font-weight:700;}
+@media(max-width:1050px){
+  .overlay.open.owner-view .overlay-panel{min-width:0 !important;width:96vw !important;padding:0 10px 120px !important;}
+  .overlay.open.owner-view #pp-owner #oview-tickets.active{grid-template-columns:1fr !important;grid-template-areas:"metrics" "alerts" "head" "list" "detail" !important;}
+  .overlay.open.owner-view #owner-list,.overlay.open.owner-view #detail-panel{min-height:460px !important;max-height:62vh !important;}
+  .nsr-ai-grid{grid-template-columns:1fr;}
+}
+</style>
+<script id="v335-owner-scroll-ai-final-script">
+(function(){
+  // Let the overlay itself scroll smoothly with the mouse wheel; prevent body scroll-lock problems.
+  const oldShowPP=window.showPP;
+  window.showPP=function(p){
+    if(typeof oldShowPP==='function') oldShowPP(p);
+    const overlay=document.getElementById('overlay');
+    if(overlay && p==='owner'){
+      overlay.classList.add('owner-view');
+      overlay.scrollTop=0;
+      document.body.style.overflow='hidden';
+    }
+  };
+
+  function ensureAIModal(){
+    let m=document.getElementById('nsr-ai-modal');
+    if(m) return m;
+    m=document.createElement('div');
+    m.id='nsr-ai-modal';
+    m.className='nsr-ai-modal';
+    m.innerHTML=`<div class="nsr-ai-card">
+      <div class="nsr-ai-head"><div><div class="nsr-ai-title">AI Suggestion / AI సూచన</div><div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:3px;">Recommended troubleshooting steps</div></div><button class="nsr-ai-close" onclick="document.getElementById('nsr-ai-modal').classList.remove('open')">Close</button></div>
+      <div class="nsr-ai-grid"><div class="nsr-ai-section"><h4>English</h4><ol id="nsr-ai-en"></ol></div><div class="nsr-ai-section"><h4>తెలుగు</h4><ol id="nsr-ai-te"></ol></div></div>
+      <div class="nsr-ai-foot">Estimated resolution: 2–4 hours.</div>
+    </div>`;
+    document.body.appendChild(m);
+    m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});
+    return m;
+  }
+  function showAI(en,te){
+    const m=ensureAIModal();
+    document.getElementById('nsr-ai-en').innerHTML=en.map(x=>`<li>${x}</li>`).join('');
+    document.getElementById('nsr-ai-te').innerHTML=te.map(x=>`<li>${x}</li>`).join('');
+    m.classList.add('open');
+  }
+  window.aiResolve=function(){
+    const c=(Array.isArray(window.complaints)?window.complaints:complaints).find(x=>x.id===activeId);
+    if(!c)return;
+    const cat=(c.cat||c.category||'Service issue').toLowerCase();
+    const stb=(c.stbtype||c.setboxName||'Set box');
+    const stbNo=(c.stbnum||c.setboxNo||'N/A');
+    const addr=(c.addr||'customer location');
+    let en=[
+      `Check the cable/input connections and confirm the set box (${stb} / ${stbNo}) is powered on.`,
+      'Restart the set box and wait 2 minutes for signal/service recovery.',
+      `If the issue continues, assign a field technician to ${addr}.`,
+      'Update the ticket after verification and send customer acknowledgement/resolution message.'
+    ];
+    let te=[
+      `కేబుల్/ఇన్‌పుట్ కనెక్షన్లు చెక్ చేసి సెట్ బాక్స్ (${stb} / ${stbNo}) ఆన్‌లో ఉందో లేదో నిర్ధారించండి.`,
+      'సెట్ బాక్స్‌ను రీస్టార్ట్ చేసి సిగ్నల్/సర్వీస్ రావడానికి 2 నిమిషాలు వేచి చూడండి.',
+      `సమస్య కొనసాగితే ${addr} వద్ద ఫీల్డ్ టెక్నీషియన్‌ను పంపండి.`,
+      'వెరిఫికేషన్ తర్వాత టికెట్‌ను అప్డేట్ చేసి కస్టమర్‌కు acknowledgement/resolution మెసేజ్ పంపండి.'
+    ];
+    if(cat.includes('internet')){
+      en=['Check router power, fiber/cable link, and internet plan status.','Restart router and set box if combo connection is used.','Run speed/connection check and verify if package upgrade or outage is involved.',`If unresolved, assign technician to ${addr}.`];
+      te=['రౌటర్ పవర్, ఫైబర్/కేబుల్ లింక్, ఇంటర్నెట్ ప్లాన్ స్టేటస్ చెక్ చేయండి.','కాంబో కనెక్షన్ అయితే రౌటర్ మరియు సెట్ బాక్స్‌ను రీస్టార్ట్ చేయండి.','స్పీడ్/కనెక్షన్ చెక్ చేసి ప్యాకేజ్ అప్‌గ్రేడ్ లేదా అవుటేజ్ ఉందో చూడండి.',`పరిష్కారం కాకపోతే ${addr} వద్ద టెక్నీషియన్‌ను అసైన్ చేయండి.`];
+    } else if(cat.includes('remote')){
+      en=['Check remote batteries and IR sensor visibility.','Try pairing/resetting the remote with the set box.','If still failing, replace the remote or schedule technician visit.','Update customer after action is completed.'];
+      te=['రిమోట్ బ్యాటరీలు మరియు IR సెన్సార్ కనిపించేలా ఉందో చెక్ చేయండి.','రిమోట్‌ను సెట్ బాక్స్‌తో మళ్లీ పెయిర్/రీసెట్ చేయండి.','ఇంకా పని చేయకపోతే రిమోట్ మార్చండి లేదా టెక్నీషియన్ విజిట్ షెడ్యూల్ చేయండి.','పని పూర్తయ్యాక కస్టమర్‌కు అప్డేట్ ఇవ్వండి.'];
+    } else if(cat.includes('channel') || cat.includes('tv')){
+      en=['Check TV input/source and set box output connection.','Refresh channel list or resend signal from operator side if available.','Verify recharge/package status for missing channels.',`If picture/audio issue remains, assign technician to ${addr}.`];
+      te=['టీవీ ఇన్‌పుట్/సోర్స్ మరియు సెట్ బాక్స్ అవుట్‌పుట్ కనెక్షన్ చెక్ చేయండి.','చానల్ లిస్ట్ రిఫ్రెష్ చేయండి లేదా ఆపరేటర్ సైడ్ నుండి సిగ్నల్ రీసెండ్ చేయండి.','చానెల్స్ మిస్ అయితే రీచార్జ్/ప్యాకేజ్ స్టేటస్ చెక్ చేయండి.',`పిక్చర్/ఆడియో సమస్య కొనసాగితే ${addr} వద్ద టెక్నీషియన్‌ను పంపండి.`];
+    }
+    showAI(en,te);
+  };
+})();
+</script>
+
+
+<!-- === v3.38 PATCH: owner-only yellow scroll + raise-ticket issue selector/top/back === -->
+<style id="v338-owner-raise-scroll-fix">
+body:not(.owner-mode)::-webkit-scrollbar{width:initial !important;height:initial !important;}
+body:not(.owner-mode)::-webkit-scrollbar-thumb{background:initial !important;border:initial !important;box-shadow:none !important;}
+body:not(.owner-mode)::-webkit-scrollbar-track{background:initial !important;border:initial !important;}
+body:not(.owner-mode){scrollbar-color:auto !important;}
+.overlay.open.owner-view::-webkit-scrollbar{width:18px !important;height:12px !important;display:block !important;}
+.overlay.open.owner-view::-webkit-scrollbar-track{background:#05070b !important;border-left:1px solid rgba(255,255,255,.12) !important;}
+.overlay.open.owner-view::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#fff0b5 0%,#f0b343 45%,#c0181d 100%) !important;border-radius:999px !important;border:3px solid #05070b !important;box-shadow:0 0 18px rgba(240,179,67,.55) !important;}
+.overlay.open.owner-view{scrollbar-color:#f0b343 #05070b !important;}
+.overlay.open.owner-view #pp-owner #oview-tickets.active{grid-template-areas:"metrics metrics" "alerts alerts" "head head" "raise raise" "list detail" !important;}
+.overlay.open.owner-view #raise-form{grid-area:raise !important;grid-column:1 / -1 !important;margin:0 0 8px 0 !important;padding:20px 22px !important;border-radius:20px !important;border:1px solid rgba(240,179,67,.26) !important;background:linear-gradient(180deg,#151c27,#101620) !important;box-shadow:0 18px 42px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.035) !important;}
+.overlay.open.owner-view #raise-form .p-row{grid-template-columns:repeat(2,minmax(260px,1fr)) !important;}
+.overlay.open.owner-view #raise-form .ai-bar,.overlay.open.owner-view #raise-form .mic-btn,.overlay.open.owner-view #raise-form .mic-lbl{display:none !important;}
+.overlay.open.owner-view #raise-form .mic-wrap{display:block !important;}
+.overlay.open.owner-view #raise-form #r-desc{width:100% !important;min-height:90px !important;margin-top:0 !important;}
+.owner-raise-issue-picker{margin:10px 0 14px;border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:14px;background:rgba(255,255,255,.035);}
+.owner-raise-issue-picker .picker-title{font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px;}
+.owner-raise-issue-picker .issue-chip-row{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:10px;}
+.owner-raise-issue-picker .issue-chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:rgba(255,255,255,.78);border-radius:999px;padding:8px 14px;font-size:12px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s ease;}
+.owner-raise-issue-picker .issue-chip:hover{border-color:rgba(240,179,67,.42);transform:translateY(-1px);}
+.owner-raise-issue-picker .issue-chip.active{background:linear-gradient(135deg,#ff473f,#b81218);color:#fff;border-color:rgba(255,255,255,.18);box-shadow:0 8px 20px rgba(200,24,29,.25);}
+.owner-raise-issue-picker .issue-chip.sub.active{background:linear-gradient(135deg,#f0b343,#c88b24);color:#17120a;}
+.owner-raise-subchips{display:none;margin-top:4px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);}
+.owner-raise-subchips.open{display:block;}
+.overlay.open.owner-view .back-ticket-btn,.overlay.open.owner-view button[data-owner-key="backTicketLog"]{background:rgba(240,179,67,.14) !important;border:1px solid rgba(240,179,67,.32) !important;color:#ffe3a3 !important;border-radius:10px !important;padding:8px 13px !important;}
+</style>
+<script id="v338-owner-raise-scroll-fix-script">
+(function(){
+  function ownerOverlay(){return document.getElementById('overlay');}
+  function scrollOwnerToTopOfRaise(){
+    const ov=ownerOverlay(), form=document.getElementById('raise-form'); if(!ov||!form) return;
+    setTimeout(()=>{const y=Math.max(0, form.offsetTop-150); if(ov.classList.contains('owner-view')) ov.scrollTo({top:y,behavior:'smooth'}); else form.scrollIntoView({behavior:'smooth',block:'start'});},80);
+  }
+  function getIssueTree(){return window.ISSUE_TREE || (typeof ISSUE_TREE!=='undefined'?ISSUE_TREE:{});}
+  function ensureRaiseIssuePicker(){
+    const form=document.getElementById('raise-form'), desc=document.getElementById('r-desc'); if(!form||!desc) return;
+    const micWrap=desc.closest('.mic-wrap');
+    if(micWrap){const micCol=micWrap.querySelector('div[style*="flex-direction"]'); if(micCol) micCol.remove(); if(micWrap.children.length!==1 || micWrap.firstElementChild!==desc){micWrap.innerHTML=''; micWrap.appendChild(desc);}}
+    desc.placeholder='Select issue and sub-issue, or type details here…';
+    const ai=form.querySelector('.ai-bar'); if(ai) ai.style.display='none';
+    if(document.getElementById('r-issue-picker')) return;
+    const picker=document.createElement('div'); picker.id='r-issue-picker'; picker.className='owner-raise-issue-picker';
+    picker.innerHTML=`<div class="picker-title">Select issue / సమస్యను ఎంచుకోండి</div><div class="issue-chip-row"><button type="button" class="issue-chip primary" onclick="selectRaiseIssueType('internet',this)">Internet</button><button type="button" class="issue-chip primary" onclick="selectRaiseIssueType('setbox',this)">Set Box</button><button type="button" class="issue-chip primary" onclick="selectRaiseIssueType('remote',this)">Remote</button><button type="button" class="issue-chip primary" onclick="selectRaiseIssueType('tv',this)">TV / Channels</button></div><div id="r-subchips" class="owner-raise-subchips"><div class="picker-title" style="margin-top:0;">Select exact issue / సరైన సమస్యను ఎంచుకోండి</div><div id="r-subchip-row" class="issue-chip-row"></div></div>`;
+    const descField=desc.closest('.p-field'); if(descField) form.insertBefore(picker, descField);
+  }
+  window.selectRaiseIssueType=function(type,btn){
+    ensureRaiseIssuePicker(); document.querySelectorAll('#r-issue-picker .issue-chip.primary').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active');
+    const box=document.getElementById('r-subchips'), row=document.getElementById('r-subchip-row'); if(!box||!row) return;
+    const items=getIssueTree()[type]||[]; row.innerHTML=items.map((it,i)=>`<button type="button" class="issue-chip sub" onclick="applyRaiseSubIssue('${type}',${i},this)">${it.label}</button>`).join(''); box.classList.add('open');
+  };
+  window.applyRaiseSubIssue=function(type,index,btn){
+    const it=(getIssueTree()[type]||[])[index]; if(!it) return; document.querySelectorAll('#r-subchip-row .issue-chip').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active');
+    const desc=document.getElementById('r-desc'); if(desc) desc.value=it.text; const cat=document.getElementById('r-cat'); if(cat) cat.value=it.cat; const pri=document.getElementById('r-pri'); if(pri) pri.value=it.pri;
+  };
+  const prevToggle=window.toggleRaise;
+  window.toggleRaise=function(){
+    const form=document.getElementById('raise-form'); const wasOpen=form && form.style.display!=='none'; if(typeof prevToggle==='function') prevToggle(); ensureRaiseIssuePicker();
+    const isOpen=form && form.style.display!=='none'; if(isOpen && !wasOpen){const detail=document.getElementById('detail-panel'); if(detail) detail.style.display='none'; const ownerList=document.getElementById('owner-list'); if(ownerList) ownerList.style.display='block'; scrollOwnerToTopOfRaise();}
+  };
+  const prevBack=window.backToTicketLog;
+  window.backToTicketLog=function(){
+    try{const btn=[...document.querySelectorAll('.otab')].find(b=>(b.textContent||'').toLowerCase().includes('ticket') || (b.textContent||'').includes('టికె')); if(btn && typeof window.owTab==='function') window.owTab('tickets',btn);}catch(e){}
+    if(typeof prevBack==='function') prevBack(); const form=document.getElementById('raise-form'); if(form) form.style.display='none'; const list=document.getElementById('owner-list'); if(list) list.style.display='block'; const detail=document.getElementById('detail-panel'); if(detail) detail.style.display='none'; const ov=ownerOverlay(); if(ov && ov.classList.contains('owner-view')) ov.scrollTo({top:260,behavior:'smooth'});
+  };
+  const prevShowPP=window.showPP;
+  window.showPP=function(p){if(typeof prevShowPP==='function') prevShowPP(p); const ov=ownerOverlay(); if(!ov) return; if(p==='owner') ov.classList.add('owner-view'); else ov.classList.remove('owner-view');};
+  setTimeout(ensureRaiseIssuePicker,300);
+})();
+</script>
 <!-- SCROLL PROGRESS BAR -->
 <div id="scroll-bar"></div>
 <script>
