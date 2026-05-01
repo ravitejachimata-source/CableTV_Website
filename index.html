@@ -102,7 +102,8 @@ section{padding:96px 6%;}
 .pkg-btn-out{background:transparent;color:var(--ink);border:1.5px solid var(--border) !important;}
 .pkg-btn-out:hover{border-color:var(--ink) !important;}
 .pkg-edit-badge{position:absolute;top:12px;right:12px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);color:var(--gold2);font-size:10px;font-weight:600;padding:4px 10px;border-radius:12px;letter-spacing:.5px;cursor:pointer;display:none;}
-.owner-mode .pkg-edit-badge{display:block;}
+/* Package edit controls are only in Owner Login → Info tab */
+.owner-mode .pkg-edit-badge{display:none !important;}
 
 /* WHY */
 #why{background:var(--cream);}
@@ -457,6 +458,475 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
   .hero-right{height:220px;}
 }
 
+
+
+/* ── V3.18 VISUAL + ISSUE FLOW UPGRADES ── */
+@media(min-width:901px){
+  .hero{grid-template-columns:minmax(360px,calc(50% - 192px)) minmax(560px,calc(50% + 192px));}
+  .hero-left{padding-right:4%;}
+  .hero-right{min-width:560px;}
+}
+.poster-grid{gap:5px;padding:5px;}
+.poster-slot{border-radius:10px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);}
+.poster-slot img{transition:transform .35s ease, filter .35s ease;}
+.poster-slot:hover img{transform:scale(1.035);filter:saturate(1.08) contrast(1.04);}
+
+.p-title,.qf-title{letter-spacing:-.25px;}
+.p-label{letter-spacing:1.6px;color:rgba(255,255,255,.48);}
+.p-inp,.p-sel,.p-ta{border-radius:11px;background:linear-gradient(180deg,#111,#0c0c0c);border-color:rgba(255,255,255,.13);}
+.p-inp:focus,.p-sel:focus,.p-ta:focus{border-color:rgba(201,153,58,.62);box-shadow:0 0 0 3px rgba(201,153,58,.08);}
+.ow-tabs{background:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.08);padding:5px;border-radius:13px;}
+.otab{border-radius:10px;padding:9px 15px;font-weight:800;letter-spacing:.9px;}
+.otab.active{background:linear-gradient(135deg,rgba(192,24,29,.92),rgba(150,18,22,.95));border-color:rgba(255,255,255,.14);box-shadow:0 6px 18px rgba(192,24,29,.22);}
+.ltab.active{background:linear-gradient(135deg,var(--red),var(--red2));box-shadow:0 4px 14px rgba(192,24,29,.25);}
+.btn-p,.btn-primary-sm,.btn-gold,.btn-excel,.btn-wa,.btn-wares,.btn-danger{border-radius:10px;font-weight:800;letter-spacing:.4px;}
+.ticket-item,.customer-row,.stb-row{border-radius:13px;}
+.ticket-item:hover,.customer-row:hover{transform:translateY(-1px);}
+
+.issue-picker{margin-top:9px;}
+.issue-chip-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;}
+.issue-chip{border:none;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:800;letter-spacing:.25px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s ease;background:rgba(255,255,255,.07);color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.10);}
+.issue-chip:hover{transform:translateY(-1px);background:rgba(201,153,58,.12);border-color:rgba(201,153,58,.28);color:#fff;}
+.issue-chip.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;border-color:rgba(255,255,255,.16);box-shadow:0 6px 18px rgba(201,153,58,.22);}
+.issue-chip.primary{background:rgba(192,24,29,.10);border-color:rgba(192,24,29,.22);color:#fff;}
+.issue-subchips{display:none;margin-top:10px;padding:10px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);}
+.issue-subchips.open{display:block;animation:fadeUp .22s ease both;}
+.issue-sub-title{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:8px;}
+.issue-help{font-size:10px;color:rgba(255,255,255,.38);line-height:1.55;margin-top:7px;}
+
+@media(max-width:900px){.hero-right{min-width:0;}.poster-slot{border-radius:7px;}}
+
+
+/* v3.20 fixes: dark dropdowns, clean complaint AI row, owner scroll, bilingual suggestion */
+.p-sel option{background:#111;color:#fff;}
+.p-sel optgroup{background:#111;color:#fff;}
+#pp-customer .ai-bar{display:none !important;}
+.overlay{overflow-y:auto !important;scrollbar-width:thin;scrollbar-color:rgba(201,153,58,.65) rgba(255,255,255,.08);}
+.overlay::-webkit-scrollbar{width:10px;}
+.overlay::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:10px;}
+.overlay::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold),var(--red));border-radius:10px;}
+.overlay-panel{padding-bottom:140px !important;}
+#pp-owner{min-height:calc(100vh - 120px);}
+#pp-owner .ow-tabs{position:sticky;top:76px;z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.22);}
+@media(max-width:640px){#pp-owner .ow-tabs{position:relative;top:auto;}}
+.ai-suggestion-box{background:rgba(201,153,58,.08);border:1px solid rgba(201,153,58,.25);border-radius:11px;padding:12px 14px;margin-top:10px;}
+.ai-suggestion-box p{font-size:12px;color:rgba(255,255,255,.72);line-height:1.55;margin:3px 0;}
+.ai-suggestion-box b{color:var(--gold);}
+
+/* OWNER LOGIN VISUAL UPGRADE */
+#pp-login .login-shell{max-width:420px;margin:36px auto;}
+#pp-login .login-box{position:relative;overflow:hidden;border-radius:24px;padding:42px 32px 34px;background:radial-gradient(circle at 20% 0%, rgba(201,153,58,.16), transparent 35%),radial-gradient(circle at 90% 10%, rgba(192,24,29,.20), transparent 35%),linear-gradient(145deg,#221f1b 0%,#11100f 100%);border:1px solid rgba(255,255,255,.12);box-shadow:0 28px 80px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.05);}
+#pp-login .login-box::before{content:'';position:absolute;inset:-1px;pointer-events:none;background:linear-gradient(135deg,rgba(201,153,58,.22),transparent 32%,rgba(192,24,29,.16));opacity:.55;}
+#pp-login .login-box > *{position:relative;z-index:1;}
+#pp-login .login-icon{width:68px;height:68px;border-radius:20px;background:linear-gradient(135deg,rgba(192,24,29,.28),rgba(201,153,58,.14));border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 34px rgba(192,24,29,.22);}
+#pp-login .p-label{color:rgba(255,255,255,.55);}
+#pp-login .p-inp{min-height:48px;border-radius:12px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.13);}
+#pp-login .p-inp:focus{border-color:rgba(201,153,58,.72);box-shadow:0 0 0 4px rgba(201,153,58,.10);}
+#pp-login .p-submit{margin-top:12px;min-height:48px;border-radius:12px;background:linear-gradient(135deg,var(--red),#7e0d12);box-shadow:0 14px 34px rgba(192,24,29,.35);}
+.login-chip-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:18px 0 22px;}
+.login-chip{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.05);border-radius:999px;padding:6px 10px;}
+.login-title-up{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;text-align:center;margin-bottom:4px;letter-spacing:-.3px;}
+.login-sub-up{font-size:12px;color:rgba(255,255,255,.42);text-align:center;line-height:1.6;margin-bottom:0;}
+
+
+
+/* === v3.21 targeted owner dashboard polish: visible scroll + stronger ticket IDs === */
+.overlay.open{overflow-y:auto !important;}
+.overlay.open .overlay-panel{
+  max-height:calc(100vh - 22px);
+  overflow-y:auto !important;
+  scrollbar-gutter:stable both-edges;
+  padding-right:20px;
+}
+.overlay.open .overlay-panel::-webkit-scrollbar,
+#owner-list::-webkit-scrollbar,
+#detail-panel::-webkit-scrollbar{
+  width:12px;
+}
+.overlay.open .overlay-panel::-webkit-scrollbar-track,
+#owner-list::-webkit-scrollbar-track,
+#detail-panel::-webkit-scrollbar-track{
+  background:rgba(255,255,255,.08);
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.06);
+}
+.overlay.open .overlay-panel::-webkit-scrollbar-thumb,
+#owner-list::-webkit-scrollbar-thumb,
+#detail-panel::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#ff5a5f,#c0181d 55%,#8e1115);
+  border-radius:999px;
+  border:2px solid rgba(22,18,15,.9);
+  box-shadow:0 0 18px rgba(192,24,29,.35);
+}
+.overlay.open .overlay-panel::-webkit-scrollbar-thumb:hover,
+#owner-list::-webkit-scrollbar-thumb:hover,
+#detail-panel::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(180deg,#ff7377,#e21d24,#a91217);
+}
+#pp-owner{
+  padding-bottom:34px;
+}
+#pp-owner > div:first-child{
+  background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 18px 45px rgba(0,0,0,.22);
+}
+#pp-owner .metric-grid .mbox{
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.115);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 10px 24px rgba(0,0,0,.16);
+}
+#pp-owner .metric-grid .mnum{font-size:31px;letter-spacing:-.5px;}
+#pp-owner .ow-tabs{
+  background:rgba(0,0,0,.28);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+#pp-owner .otab{
+  border:1px solid transparent;
+  transition:transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+}
+#pp-owner .otab:hover{transform:translateY(-1px);color:#fff;background:rgba(255,255,255,.07);}
+#pp-owner .otab.active{
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  border-color:rgba(255,255,255,.16);
+  box-shadow:0 8px 18px rgba(192,24,29,.28);
+}
+#owner-list{
+  max-height:58vh;
+  overflow-y:auto !important;
+  padding-right:10px;
+  margin-right:-4px;
+}
+#owner-list .ticket-filter-bar{
+  position:sticky;
+  top:0;
+  z-index:6;
+  background:linear-gradient(180deg,rgba(28,26,23,.96),rgba(28,26,23,.82));
+  backdrop-filter:blur(12px);
+  padding:8px 0 10px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.ticket-filter-btn{
+  font-size:10px !important;
+  padding:6px 12px !important;
+  border-radius:999px !important;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+.ticket-filter-btn.active{
+  background:linear-gradient(135deg,var(--red),var(--red2)) !important;
+  border-color:rgba(255,255,255,.18) !important;
+  color:#fff !important;
+  box-shadow:0 8px 18px rgba(192,24,29,.28);
+}
+#owner-list .ticket-item{
+  position:relative;
+  overflow:hidden;
+  border-radius:16px;
+  padding:14px 14px;
+  background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.028));
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 10px 22px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.05);
+}
+#owner-list .ticket-item::before{
+  content:'';
+  position:absolute;
+  left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--red),var(--gold));
+  opacity:.9;
+}
+#owner-list .ticket-item:hover{
+  transform:translateY(-2px);
+  border-color:rgba(201,153,58,.35);
+  box-shadow:0 14px 30px rgba(0,0,0,.22), 0 0 0 1px rgba(201,153,58,.08);
+}
+.ticket-main-line{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap;}
+.ticket-customer-name{font-size:13px;font-weight:800;color:#fff;letter-spacing:.1px;}
+.ticket-id-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-family:'DM Sans',sans-serif;
+  font-size:11px;
+  font-weight:900;
+  color:#fff;
+  letter-spacing:.9px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#C9993A,#8c651a);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 6px 14px rgba(201,153,58,.24), inset 0 1px 0 rgba(255,255,255,.25);
+}
+.ticket-id-pill::before{content:'#';opacity:.75;font-size:10px;}
+.ticket-summary-line{
+  font-size:11px;
+  color:rgba(255,255,255,.58);
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  line-height:1.45;
+}
+#detail-panel{
+  max-height:66vh;
+  overflow-y:auto !important;
+  padding-right:18px;
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(28,26,23,.98),rgba(24,22,19,.96));
+  border-color:rgba(255,255,255,.12);
+}
+@media(max-width:760px){
+  .overlay.open .overlay-panel{max-height:calc(100vh - 8px);padding-right:10px;}
+  #owner-list{max-height:55vh;}
+  #detail-panel{max-height:62vh;}
+}
+
+
+/* === v3.23 owner dashboard solid expanded layout === */
+.overlay.owner-view .overlay-bg{
+  background:#101217 !important;
+  backdrop-filter:none !important;
+}
+.overlay.owner-view .overlay-panel{
+  max-width:min(1180px,96vw) !important;
+  margin:0 auto !important;
+  padding:22px 18px 90px !important;
+  max-height:calc(100vh - 10px) !important;
+  overflow-y:auto !important;
+  scrollbar-gutter:stable both-edges;
+}
+.overlay.owner-view .overlay-panel::-webkit-scrollbar,
+.overlay.owner-view #owner-list::-webkit-scrollbar,
+.overlay.owner-view #detail-panel::-webkit-scrollbar,
+.overlay.owner-view .oview::-webkit-scrollbar{
+  width:13px !important;
+}
+.overlay.owner-view .overlay-panel::-webkit-scrollbar-track,
+.overlay.owner-view #owner-list::-webkit-scrollbar-track,
+.overlay.owner-view #detail-panel::-webkit-scrollbar-track,
+.overlay.owner-view .oview::-webkit-scrollbar-track{
+  background:#151820 !important;
+  border-radius:999px !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+}
+.overlay.owner-view .overlay-panel::-webkit-scrollbar-thumb,
+.overlay.owner-view #owner-list::-webkit-scrollbar-thumb,
+.overlay.owner-view #detail-panel::-webkit-scrollbar-thumb,
+.overlay.owner-view .oview::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#f25b5f,#c0181d 55%,#8e1115) !important;
+  border-radius:999px !important;
+  border:3px solid #151820 !important;
+  box-shadow:0 0 18px rgba(192,24,29,.42) !important;
+}
+.overlay.owner-view .overlay-topbar{
+  background:#151820 !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  border-radius:20px !important;
+  padding:14px 16px !important;
+  box-shadow:0 18px 44px rgba(0,0,0,.32) !important;
+}
+.overlay.owner-view #pp-owner{
+  background:#111317 !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  border-radius:26px !important;
+  padding:18px !important;
+  box-shadow:0 26px 70px rgba(0,0,0,.42) !important;
+  min-height:calc(100vh - 140px) !important;
+}
+.overlay.owner-view #pp-owner > div:first-child{
+  background:#171a22 !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  border-radius:22px !important;
+  padding:16px 18px !important;
+  box-shadow:0 18px 40px rgba(0,0,0,.28) !important;
+}
+.overlay.owner-view #pp-owner .ow-tabs{
+  background:#0c0e13 !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  padding:5px !important;
+  border-radius:16px !important;
+}
+.overlay.owner-view #pp-owner .otab{
+  min-height:36px !important;
+  padding:8px 16px !important;
+  border-radius:12px !important;
+  font-size:11px !important;
+}
+.overlay.owner-view #pp-owner .otab.active{
+  background:linear-gradient(135deg,#df242b,#8f1015) !important;
+  color:#fff !important;
+  box-shadow:0 12px 24px rgba(192,24,29,.34) !important;
+}
+.overlay.owner-view #pp-owner .metric-grid{
+  gap:14px !important;
+  margin:18px 0 !important;
+}
+.overlay.owner-view #pp-owner .metric-grid .mbox{
+  background:#171a22 !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  border-radius:20px !important;
+  padding:18px 18px !important;
+  box-shadow:0 16px 34px rgba(0,0,0,.25) !important;
+}
+.overlay.owner-view #pp-owner .metric-grid .mnum{
+  font-size:38px !important;
+  line-height:1 !important;
+}
+.overlay.owner-view #pp-owner .metric-grid .mlbl{
+  margin-top:6px !important;
+  color:rgba(255,255,255,.50) !important;
+}
+.overlay.owner-view #oview-tickets,
+.overlay.owner-view #oview-inquiries,
+.overlay.owner-view #oview-customers,
+.overlay.owner-view #oview-info,
+.overlay.owner-view #oview-walog{
+  background:#13161d !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  border-radius:24px !important;
+  padding:18px !important;
+  box-shadow:0 18px 46px rgba(0,0,0,.30) !important;
+}
+.overlay.owner-view #owner-list{
+  max-height:68vh !important;
+  overflow-y:auto !important;
+  padding:12px 14px 12px 12px !important;
+  margin-right:0 !important;
+  background:#0f1117 !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  border-radius:22px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04) !important;
+}
+.overlay.owner-view #owner-list .ticket-filter-bar{
+  top:0 !important;
+  background:#0f1117 !important;
+  border-bottom:1px solid rgba(255,255,255,.10) !important;
+  padding:6px 0 12px !important;
+}
+.overlay.owner-view #owner-list .ticket-item{
+  background:#171a22 !important;
+  border:1px solid rgba(255,255,255,.11) !important;
+  border-radius:18px !important;
+  padding:16px 16px 16px 18px !important;
+  margin-bottom:12px !important;
+  box-shadow:0 14px 28px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.04) !important;
+}
+.overlay.owner-view #owner-list .ticket-item:hover{
+  background:#1c202a !important;
+  border-color:rgba(201,153,58,.36) !important;
+  transform:translateY(-2px) !important;
+}
+.overlay.owner-view .ticket-id-pill{
+  color:#1b1204 !important;
+  background:linear-gradient(135deg,#ffe08a,#C9993A 58%,#9f741e) !important;
+  border:1px solid rgba(255,255,255,.28) !important;
+  box-shadow:0 10px 18px rgba(201,153,58,.24), inset 0 1px 0 rgba(255,255,255,.38) !important;
+  font-size:12px !important;
+  padding:5px 12px !important;
+  letter-spacing:1px !important;
+}
+.overlay.owner-view .ticket-customer-name{
+  font-size:14px !important;
+  font-weight:900 !important;
+}
+.overlay.owner-view .ticket-summary-line{
+  color:rgba(255,255,255,.66) !important;
+  font-size:12px !important;
+}
+.overlay.owner-view .t-av,
+.overlay.owner-view .c-av{
+  width:40px !important;
+  height:40px !important;
+  border-radius:14px !important;
+  background:linear-gradient(135deg,rgba(192,24,29,.35),rgba(201,153,58,.16)) !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  color:#fff !important;
+}
+.overlay.owner-view #detail-panel{
+  max-height:72vh !important;
+  overflow-y:auto !important;
+  background:#151820 !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  border-radius:24px !important;
+  padding:22px !important;
+  box-shadow:0 22px 58px rgba(0,0,0,.34) !important;
+}
+.overlay.owner-view .p-card,
+.overlay.owner-view .mbox,
+.overlay.owner-view .stb-row,
+.overlay.owner-view .customer-row{
+  background:#171a22 !important;
+  border-color:rgba(255,255,255,.11) !important;
+}
+.overlay.owner-view .btn-primary-sm,
+.overlay.owner-view .btn-danger,
+.overlay.owner-view .btn-excel,
+.overlay.owner-view .btn-gold,
+.overlay.owner-view .btn-wa,
+.overlay.owner-view .btn-wares,
+.overlay.owner-view .btn-p{
+  border-radius:12px !important;
+  min-height:34px !important;
+}
+.overlay.owner-view .p-inp,
+.overlay.owner-view .p-sel,
+.overlay.owner-view .p-ta{
+  background:#0d1016 !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  border-radius:13px !important;
+}
+@media(max-width:900px){
+  .overlay.owner-view .overlay-panel{max-width:98vw !important;padding:10px 8px 80px !important;}
+  .overlay.owner-view #pp-owner{padding:12px !important;border-radius:20px !important;}
+  .overlay.owner-view #pp-owner .metric-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .overlay.owner-view #owner-list{max-height:58vh !important;}
+}
+
+
+
+/* OWNER LANGUAGE TOGGLE - EN / TELUGU */
+.owner-lang-toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:4px;
+  border-radius:999px;
+  background:#161616;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 24px rgba(0,0,0,.18);
+}
+.owner-lang-toggle .owner-lang-btn{
+  min-width:46px;
+  padding:7px 12px;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  color:rgba(255,255,255,.72);
+  font-family:'DM Sans','Noto Sans Telugu',sans-serif;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.7px;
+  cursor:pointer;
+  transition:all .18s ease;
+}
+.owner-lang-toggle .owner-lang-btn:hover{color:#fff;background:rgba(255,255,255,.07);}
+.owner-lang-toggle .owner-lang-btn.active{
+  color:#fff;
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  box-shadow:0 6px 18px rgba(192,24,29,.34);
+}
+.owner-lang-note{
+  font-size:10px;
+  color:rgba(255,255,255,.42);
+  margin-left:4px;
+  letter-spacing:.3px;
+  white-space:nowrap;
+}
+@media(max-width:720px){.owner-lang-note{display:none}.owner-lang-toggle .owner-lang-btn{min-width:40px;padding:6px 9px}}
+
 </style>
 </head>
 <body>
@@ -614,7 +1084,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
       <div class="divider-line"></div>
       <h2 class="section-title" style="margin-bottom:0;">Our Packages</h2>
     </div>
-    <button class="btn-outline owner-only-btn" id="pkg-edit-toggle-btn" style="font-size:12px;padding:10px 18px;display:none;" onclick="togglePkgEditMode()">Edit packages</button>
+    <!-- Package editing moved to Owner Login → Info tab -->
   </div>
   <div class="pkg-grid" id="pkg-grid"></div>
 </section>
@@ -759,13 +1229,20 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
         </div>
         <div class="p-field">
           <p class="p-label" id="L-issue">Describe your issue</p>
-          <div class="mic-wrap">
-            <textarea class="p-ta" id="c-issue" placeholder="Type or tap mic to speak…" style="flex:1;margin-top:0;"></textarea>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-              <button class="mic-btn" id="mic-btn-c" onclick="toggleMic('c')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
-              <span class="mic-lbl" id="mic-status-c">mic</span>
+          <textarea class="p-ta" id="c-issue" placeholder="మీ సమస్యను టైప్ చేయండి... or select issue type below" style="margin-top:0;" oninput="detectComplaintLanguage()"></textarea>
+          <div class="issue-picker" id="c-issue-picker">
+            <div class="issue-chip-row">
+              <button type="button" class="issue-chip primary" onclick="selectIssueType('c','internet',this)">Internet</button>
+              <button type="button" class="issue-chip primary" onclick="selectIssueType('c','setbox',this)">Set Box</button>
+              <button type="button" class="issue-chip primary" onclick="selectIssueType('c','remote',this)">Remote</button>
+              <button type="button" class="issue-chip primary" onclick="selectIssueType('c','tv',this)">TV / Channels</button>
+            </div>
+            <div class="issue-subchips" id="c-subchips">
+              <div class="issue-sub-title">Select exact issue / సమస్య ఎంచుకోండి</div>
+              <div class="issue-chip-row" id="c-subchip-row"></div>
             </div>
           </div>
+          <p id="c-lang-hint" class="issue-help">Detected language will appear after typing.</p>
         </div>
         <div class="ai-bar">
           <button class="btn-ai" onclick="runCustAI()" id="cai-btn">Analyze with AI</button>
@@ -807,44 +1284,40 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
     <div id="pp-whatsapp" style="display:none;">
       <div class="p-card">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
-          <p class="p-title" style="margin:0;">WhatsApp Us</p>
+          <p class="p-title" style="margin:0;">WhatsApp Us <span style="font-family:'Noto Sans Telugu',sans-serif;color:var(--gold);font-size:15px;">/ వాట్సాప్ ఫిర్యాదు</span></p>
           <button class="btn-p" onclick="showPP('customer')" style="font-size:10px;">← Back</button>
         </div>
-        <p style="font-size:12px;color:rgba(255,255,255,0.42);line-height:1.6;margin-bottom:14px;">Fill the details below. A ticket number will be generated automatically and WhatsApp will open with a ready-to-send bilingual message to the owner.</p>
-        <div class="ai-bar" style="margin:0 0 14px 0;background:rgba(37,211,102,0.08);border-color:rgba(37,211,102,0.22);">
-          <div class="ai-result" style="color:rgba(255,255,255,0.62);">
-            Use the mic or type the issue. Works best in Chrome. Telugu-first voice input is enabled; English/Hindi typing is also supported. Owner draft will always show English + Telugu.
-          </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.48);line-height:1.7;margin-bottom:14px;font-family:'Noto Sans Telugu','DM Sans',sans-serif;">
+          వివరాలు నమోదు చేయండి. ఫిర్యాదు నంబర్ ఆటోమేటిక్‌గా తయారవుతుంది. WhatsApp లో owner కి పంపడానికి English + తెలుగు మెసేజ్ రెడీ అవుతుంది.
+        </p>
+        <div class="p-row">
+          <div class="p-field"><p class="p-label">Customer Name / పేరు</p><input class="p-inp" id="w-name" placeholder="మీ పేరు / Your name"></div>
+          <div class="p-field"><p class="p-label">Phone Number / ఫోన్ నంబర్</p><input class="p-inp" id="w-phone" placeholder="9876543210"></div>
         </div>
         <div class="p-row">
-          <div class="p-field"><p class="p-label">Customer Name</p><input class="p-inp" id="w-name" placeholder="Your name"></div>
-          <div class="p-field"><p class="p-label">Phone Number</p><input class="p-inp" id="w-phone" placeholder="9876543210"></div>
-        </div>
-        <div class="p-row">
-          <div class="p-field"><p class="p-label">Setbox Name</p><select class="p-sel" id="w-stbtype"></select></div>
-          <div class="p-field"><p class="p-label">Setbox No</p><input class="p-inp" id="w-stbnum" placeholder="STB-00000"></div>
+          <div class="p-field"><p class="p-label">Setbox Name / సెట్ బాక్స్ పేరు</p><select class="p-sel" id="w-stbtype"></select></div>
+          <div class="p-field"><p class="p-label">Setbox No / సెట్ బాక్స్ నంబర్</p><input class="p-inp" id="w-stbnum" placeholder="STB-00000"></div>
         </div>
         <div class="p-field">
-          <p class="p-label">Issue</p>
-          <div class="mic-wrap">
-            <textarea class="p-ta" id="w-issue" placeholder="మీ సమస్యను టైప్ చేయండి లేదా మైక్ నొక్కి మాట్లాడండి... Example: Signal రావడం లేదు / No signal" style="flex:1;margin-top:0;" oninput="updateWaTranslationPreview()"></textarea>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-              <button class="mic-btn" id="mic-btn-w" onclick="toggleWaMic()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
-              <span class="mic-lbl" id="mic-status-w">mic</span>
+          <p class="p-label">Issue / సమస్య</p>
+          <textarea class="p-ta" id="w-issue" placeholder="మీ సమస్యను టైప్ చేయండి... ఉదా: సిగ్నల్ రావడం లేదు / Internet slow" style="margin-top:0;font-family:'Noto Sans Telugu','DM Sans',sans-serif;" oninput="updateWaTranslationPreview()"></textarea>
+          <div class="issue-picker" id="w-issue-picker">
+            <div class="issue-chip-row">
+              <button type="button" class="issue-chip primary" onclick="selectIssueType('w','internet',this)">Internet</button>
+              <button type="button" class="issue-chip primary" onclick="selectIssueType('w','setbox',this)">Set Box</button>
+              <button type="button" class="issue-chip primary" onclick="selectIssueType('w','remote',this)">Remote</button>
+              <button type="button" class="issue-chip primary" onclick="selectIssueType('w','tv',this)">TV / Channels</button>
             </div>
-          </div>
-          <p style="font-size:10px;color:rgba(255,255,255,0.34);line-height:1.5;margin-top:6px;">Speak in Telugu first. If mic does not capture correctly, type in Telugu/English/Hindi or tap a quick issue below.</p>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
-            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Signal రావడం లేదు')">No Signal</button>
-            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Channels రావడం లేదు')">Channels</button>
-            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Set box పని చేయడం లేదు')">Set Box</button>
-            <button type="button" class="btn-p" style="font-size:10px;padding:6px 9px;" onclick="setWaQuickIssue('Internet slow గా ఉంది')">Internet Slow</button>
+            <div class="issue-subchips" id="w-subchips">
+              <div class="issue-sub-title">Select exact issue / సమస్య ఎంచుకోండి</div>
+              <div class="issue-chip-row" id="w-subchip-row"></div>
+            </div>
           </div>
         </div>
         <div class="ai-bar" style="margin-top:6px;">
-          <div class="ai-result" id="w-translate-preview">AI preview appears after you type or speak the issue.</div>
+          <div class="ai-result" id="w-translate-preview">Preview appears after you type/select the issue. / సమస్య టైప్ చేసిన తర్వాత preview కనిపిస్తుంది.</div>
         </div>
-        <button class="p-submit" onclick="submitWhatsAppComplaint()" style="background:#25D366;box-shadow:0 4px 16px rgba(37,211,102,.25);">Create Ticket & Open WhatsApp</button>
+        <button class="p-submit" onclick="submitWhatsAppComplaint()" style="background:#25D366;box-shadow:0 4px 16px rgba(37,211,102,.25);">Create Ticket & Open WhatsApp / ఫిర్యాదు పంపండి</button>
         <div id="wa-form-confirm" style="display:none;margin-top:12px;"></div>
       </div>
     </div>
@@ -854,8 +1327,9 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
       <div class="login-shell">
         <div class="login-box">
           <div class="login-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C8201F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-          <p style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;text-align:center;margin-bottom:4px;">Owner Login</p>
-          <p style="font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin-bottom:22px;letter-spacing:.5px;">Authorised staff only</p>
+          <p class="login-title-up">Owner Login</p>
+          <p class="login-sub-up">Secure access for tickets, customers, packages, posters and WhatsApp operations.</p>
+          <div class="login-chip-row"><span class="login-chip">Tickets</span><span class="login-chip">Customers</span><span class="login-chip">Posters</span></div>
           <div class="p-field"><p class="p-label">Username</p><input class="p-inp" id="lu" placeholder="Username" onkeydown="if(event.key==='Enter')doLogin()"></div>
           <div class="p-field" style="margin-bottom:14px;">
             <p class="p-label">Password</p>
@@ -873,38 +1347,43 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
         <div style="display:flex;align-items:center;gap:10px;">
           <div style="width:34px;height:34px;border-radius:50%;background:rgba(200,32,31,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--red);" id="ow-av">OW</div>
-          <div><p style="font-size:13px;font-weight:600;color:#fff;" id="ow-name">Owner</p><p style="font-size:10px;color:rgba(255,255,255,0.3);">Owner dashboard</p></div>
+          <div><p style="font-size:13px;font-weight:600;color:#fff;" id="ow-name">Owner</p><p style="font-size:10px;color:rgba(255,255,255,0.3);" data-owner-key="ownerDashboard">Owner dashboard</p></div>
         </div>
         <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap;">
-          <div class="ow-tabs">
-            <button class="otab active" onclick="owTab('tickets',this)">Tickets</button>
-            <button class="otab" onclick="owTab('inquiries',this)">Inquiries</button>
-            <button class="otab" onclick="owTab('customers',this)">Customers</button>
-            <button class="otab" onclick="owTab('info',this)">Info</button>
-            <button class="otab" onclick="owTab('walog',this)">WA Log</button>
+          <div class="owner-lang-toggle" title="Change owner dashboard language">
+            <button type="button" class="owner-lang-btn" id="owner-lang-en" onclick="setOwnerLang('en')">EN</button>
+            <button type="button" class="owner-lang-btn" id="owner-lang-te" onclick="setOwnerLang('te')">తెలుగు</button>
           </div>
-          <button class="btn-danger" onclick="doLogout()">Logout</button>
+          <span class="owner-lang-note" data-owner-key="languageNote">Dashboard language</span>
+          <div class="ow-tabs">
+            <button class="otab active" onclick="owTab('tickets',this)" data-owner-key="tabTickets">Tickets</button>
+            <button class="otab" onclick="owTab('inquiries',this)" data-owner-key="tabInquiries">Inquiries</button>
+            <button class="otab" onclick="owTab('customers',this)" data-owner-key="tabCustomers">Customers</button>
+            <button class="otab" onclick="owTab('info',this)" data-owner-key="tabInfo">Info</button>
+            <button class="otab" onclick="owTab('walog',this)" data-owner-key="tabWaLog">WA Log</button>
+          </div>
+          <button class="btn-danger" onclick="doLogout()" data-owner-key="logout">Logout</button>
         </div>
       </div>
 
       <!-- TICKETS TAB -->
       <div id="oview-tickets" class="oview active">
         <div class="metric-grid">
-          <div class="mbox"><div class="mnum" style="color:#fff;" id="o-tot">0</div><div class="mlbl">Total</div></div>
-          <div class="mbox"><div class="mnum" style="color:#E74C3C;" id="o-opn">0</div><div class="mlbl">Open</div></div>
-          <div class="mbox"><div class="mnum" style="color:#D4A843;" id="o-prg">0</div><div class="mlbl">In Progress</div></div>
-          <div class="mbox"><div class="mnum" style="color:#2ECC71;" id="o-res">0</div><div class="mlbl">Resolved</div></div>
+          <div class="mbox"><div class="mnum" style="color:#fff;" id="o-tot">0</div><div class="mlbl" data-owner-key="metricTotal">Total</div></div>
+          <div class="mbox"><div class="mnum" style="color:#E74C3C;" id="o-opn">0</div><div class="mlbl" data-owner-key="metricOpen">Open</div></div>
+          <div class="mbox"><div class="mnum" style="color:#D4A843;" id="o-prg">0</div><div class="mlbl" data-owner-key="metricProgress">In Progress</div></div>
+          <div class="mbox"><div class="mnum" style="color:#2ECC71;" id="o-res">0</div><div class="mlbl" data-owner-key="metricResolved">Resolved</div></div>
         </div>
         <div id="new-alerts" style="margin-bottom:10px;"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
-          <p style="font-size:14px;font-weight:600;color:#fff;">All complaints</p>
+          <p style="font-size:14px;font-weight:600;color:#fff;" data-owner-key="allComplaints">All complaints</p>
           <div style="display:flex;gap:7px;">
-            <button class="btn-excel" onclick="exportExcel()">Export Excel</button>
-            <button class="btn-primary-sm" onclick="toggleRaise()">+ Raise ticket</button>
+            <button class="btn-excel" onclick="exportExcel()" data-owner-key="exportExcel">Export Excel</button>
+            <button class="btn-primary-sm" onclick="toggleRaise()" data-owner-key="raiseTicket">+ Raise ticket</button>
           </div>
         </div>
         <div id="raise-form" style="display:none;margin-bottom:12px;" class="p-card">
-          <p style="font-size:14px;font-weight:600;color:#fff;margin-bottom:12px;">Raise ticket — owner</p>
+          <p style="font-size:14px;font-weight:600;color:#fff;margin-bottom:12px;" data-owner-key="raiseTicketOwner">Raise ticket — owner</p>
           <div class="p-row">
             <div class="p-field"><p class="p-label">Customer name</p><input class="p-inp" id="r-name" placeholder="Name"></div>
             <div class="p-field"><p class="p-label">Phone</p><input class="p-inp" id="r-acct" placeholder="9876543210"></div>
@@ -927,7 +1406,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
         </div>
         <div id="owner-list"></div>
         <div id="detail-panel" style="display:none;margin-top:12px;" class="p-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><p style="font-size:13px;font-weight:600;color:#fff;" id="dp-title"></p><button class="btn-p" onclick="closeDetail()" style="font-size:10px;">Close</button></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap;"><p style="font-size:13px;font-weight:600;color:#fff;" id="dp-title"></p><button class="btn-p" onclick="backToTicketLog()" style="font-size:10px;" data-owner-key="backTicketLog">← Back to Ticket Log</button></div>
           <div class="p-row-3" style="margin-bottom:10px;">
             <div class="mbox"><p class="mlbl">Ticket</p><p style="font-size:12px;font-weight:600;color:#fff;margin-top:3px;" id="dp-id"></p></div>
             <div class="mbox"><p class="mlbl">Phone</p><p style="font-size:12px;font-weight:600;color:#fff;margin-top:3px;" id="dp-acct"></p></div>
@@ -967,7 +1446,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
             <div style="display:flex;gap:8px;align-items:center;"><button class="btn-wares" onclick="sendResolved()" id="res-btn">Send WhatsApp to customer</button><span style="font-size:11px;color:rgba(255,255,255,0.3);" id="res-status"></span></div>
           </div>
           <div class="divp"></div>
-          <div style="display:flex;justify-content:space-between;"><button class="btn-ai" onclick="aiResolve()">AI suggestion ↗</button><button class="btn-primary-sm" onclick="saveDetail()">Save changes</button></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;"><button class="btn-ai" onclick="aiResolve()">AI suggestion ↗</button><div style="display:flex;align-items:center;gap:8px;"><span id="dp-save-status" style="font-size:11px;color:#2ECC71;"></span><button class="btn-primary-sm" onclick="saveDetail()">Save changes</button></div></div>
         </div>
       </div>
 
@@ -975,10 +1454,10 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
       <div id="oview-inquiries" class="oview">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
           <div><p style="font-size:14px;font-weight:600;color:#fff;">New connection inquiries</p><p style="font-size:11px;color:rgba(255,255,255,0.3);">Customers requesting new connections</p></div>
-          <button class="btn-excel" onclick="exportExcel()">Export Excel</button>
+          <button class="btn-excel" onclick="exportExcel()" data-owner-key="exportExcel">Export Excel</button>
         </div>
         <div class="metric-grid">
-          <div class="mbox"><div class="mnum" style="color:#fff;" id="iq-tot">0</div><div class="mlbl">Total</div></div>
+          <div class="mbox"><div class="mnum" style="color:#fff;" id="iq-tot">0</div><div class="mlbl" data-owner-key="metricTotal">Total</div></div>
           <div class="mbox"><div class="mnum" style="color:#D4A843;" id="iq-pend">0</div><div class="mlbl">Pending</div></div>
           <div class="mbox"><div class="mnum" style="color:#85B7EB;" id="iq-cont">0</div><div class="mlbl">Contacted</div></div>
           <div class="mbox"><div class="mnum" style="color:#2ECC71;" id="iq-conv">0</div><div class="mlbl">Converted</div></div>
@@ -990,7 +1469,7 @@ body:not(.owner-mode) .poster-slot .poster-placeholder p{display:none;}
       <div id="oview-customers" class="oview">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
           <div><p style="font-size:14px;font-weight:600;color:#fff;">Customer master list</p><p style="font-size:11px;color:rgba(255,255,255,0.3);">All registered customers</p></div>
-          <div style="display:flex;gap:7px;"><button class="btn-excel" onclick="exportExcel()">Export Excel</button><button class="btn-primary-sm" onclick="toggleAddCust()">+ Add customer</button></div>
+          <div style="display:flex;gap:7px;"><button class="btn-excel" onclick="exportExcel()" data-owner-key="exportExcel">Export Excel</button><button class="btn-primary-sm" onclick="toggleAddCust()">+ Add customer</button></div>
         </div>
         <div id="add-cust-form" style="display:none;margin-bottom:12px;" class="p-card">
           <p style="font-size:14px;font-weight:600;color:#fff;margin-bottom:12px;">Add new customer</p>
@@ -1243,8 +1722,8 @@ function savePkgEdit(){
 }
 
 function openPortal(page){document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';showPP(page||'customer');populateSTB();populatePkgDropdowns();}
-function closePortal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
-function showPP(p){['pp-customer','pp-inquiry','pp-whatsapp','pp-login','pp-owner'].forEach(x=>document.getElementById(x).style.display='none');document.getElementById('pp-'+p).style.display='block';const subs={customer:'CableConnect Customer Complaint Portal',inquiry:'New Connection Inquiry',whatsapp:'WhatsApp Complaint Form',login:'Owner Login',owner:'Owner Dashboard'};document.getElementById('ot-sub').textContent=subs[p]||'';}
+function closePortal(){const overlayEl=document.getElementById('overlay');if(overlayEl){overlayEl.classList.remove('open','owner-view');}document.body.style.overflow='';}
+function showPP(p){['pp-customer','pp-inquiry','pp-whatsapp','pp-login','pp-owner'].forEach(x=>document.getElementById(x).style.display='none');document.getElementById('pp-'+p).style.display='block';const overlayEl=document.getElementById('overlay');if(overlayEl){overlayEl.classList.toggle('owner-view',p==='owner');}const subs={customer:'CableConnect Customer Complaint Portal',inquiry:'New Connection Inquiry',whatsapp:'WhatsApp Complaint Form',login:'Owner Login',owner:'Owner Dashboard'};document.getElementById('ot-sub').textContent=subs[p]||''; if(p==='owner' && typeof applyOwnerLang==='function') applyOwnerLang();}
 
 function toggleMic(which){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -1292,7 +1771,7 @@ function submitComplaint(){
   addTicketToFirestore(ticket);
   const cf=document.getElementById('cust-confirm');cf.style.display='block';
   cf.innerHTML=`<div class="success-box"><p>Complaint registered: ${id}</p><p>${lang==='te'?'మీ ఫిర్యాదు నమోదైంది. మా బృందానికి WhatsApp అలర్ట్ పంపబడుతుంది.':'Complaint logged. Our team will be WhatsApp-alerted and will contact you the same day.'}</p></div>`;
-  ['c-name','c-phone','c-addr','c-stbnum','c-issue'].forEach(x=>document.getElementById(x).value='');document.getElementById('c-stbtype').value='';document.getElementById('c-cat').value='';document.getElementById('c-pri').value='';
+  ['c-name','c-phone','c-addr','c-stbnum','c-issue'].forEach(x=>document.getElementById(x).value='');document.getElementById('c-stbtype').value='';document.getElementById('c-cat').value='';document.getElementById('c-pri').value='';document.querySelectorAll('#c-issue-picker .issue-chip').forEach(b=>b.classList.remove('active'));const cSub=document.getElementById('c-subchips'); if(cSub)cSub.classList.remove('open');detectComplaintLanguage();
   saveComplaintsToStorage();
 }
 function submitInquiry(){
@@ -1316,7 +1795,7 @@ async function doLogin(){
     showPP('owner');renderOwner();populateSTB();
     document.getElementById('lerr').style.display='none';
     document.body.classList.add('owner-mode');
-    document.getElementById('pkg-edit-toggle-btn').style.setProperty('display','inline-flex','important');
+    const pkgBtn=document.getElementById('pkg-edit-toggle-btn'); if(pkgBtn) pkgBtn.style.setProperty('display','none','important');
   } else {
     const e=document.getElementById('lerr');e.style.display='block';e.textContent='Incorrect username or password.';document.getElementById('lp').value='';
   }
@@ -1325,7 +1804,7 @@ function doLogout(){
   firebaseOwnerLogout();
   showPP('customer');
   document.body.classList.remove('owner-mode');
-  document.getElementById('pkg-edit-toggle-btn').style.removeProperty('display');
+  const pkgBtn2=document.getElementById('pkg-edit-toggle-btn'); if(pkgBtn2) pkgBtn2.style.removeProperty('display');
   pkgEditMode=false;
   const btn=document.getElementById('pkg-edit-toggle-btn');
   if(btn){btn.textContent='Edit packages';btn.style.background='';btn.style.color='';btn.style.borderColor='';}
@@ -1334,8 +1813,8 @@ function doLogout(){
 function owTab(t,el){document.querySelectorAll('.oview').forEach(x=>x.classList.remove('active'));document.getElementById('oview-'+t).classList.add('active');document.querySelectorAll('.otab').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(t==='info'){renderSTBList();renderContacts();renderPkgManager();renderPosterAdmin();renderContactPreview();renderPostsOwner();}if(t==='walog')renderWaLog();if(t==='inquiries')renderInquiries();if(t==='customers')renderCustomers();}
 
 function ini(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
-function bS(s){if(s==='Open')return`<span class="badge b-open">Open</span>`;if(s==='In progress')return`<span class="badge b-prog">In progress</span>`;return`<span class="badge b-res">Resolved</span>`;}
-function bP(p){if(p==='High')return`<span class="badge b-high">High</span>`;if(p==='Medium')return`<span class="badge b-med">Medium</span>`;return`<span class="badge b-low">Low</span>`;}
+function bS(s){if(s==='Open')return`<span class="badge b-open">${typeof ownerT==='function'?ownerT('statusOpen'):'Open'}</span>`;if(s==='In progress')return`<span class="badge b-prog">${typeof ownerT==='function'?ownerT('statusProgress'):'In progress'}</span>`;return`<span class="badge b-res">${typeof ownerT==='function'?ownerT('statusResolved'):'Resolved'}</span>`;}
+function bP(p){if(p==='High')return`<span class="badge b-high">${typeof ownerT==='function'?ownerT('high'):'High'}</span>`;if(p==='Medium')return`<span class="badge b-med">${typeof ownerT==='function'?ownerT('medium'):'Medium'}</span>`;return`<span class="badge b-low">${typeof ownerT==='function'?ownerT('low'):'Low'}</span>`;}
 function nowT(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
 function bWA(c){const te=c.desc_te&&c.desc_te.trim()?`\n\n*వివరణ (Telugu):*\n${c.desc_te}`:'';return `*NSR Master Channel — New Ticket*\n\n*Ticket:* ${c.id}\n*Customer:* ${c.name}\n*Phone:* ${c.acct}\n*Address:* ${c.addr}\n*Set box:* ${c.stbtype} / ${c.stbnum}\n*Issue:* ${c.cat} (${c.pri})\n*Date:* ${c.date}\n\n*Description (English):*\n${c.desc}${te}\n\nPlease attend immediately.\n_NSR Master Channel_`;}
 function bRes(c){return `Dear *${c.name}*,\n\nYour complaint (*${c.id}*) for _"${c.cat}"_ has been *RESOLVED*.\n\nWe apologise for the inconvenience. Your service has been restored.\n\n*Thank you for choosing NSR Master Channel!*\n_— Support Team, Ibrahimpatnam_\n\n---\n_ప్రియమైన ${c.name} గారు, మీ ఫిర్యాదు (${c.id}) పరిష్కరించబడింది. ధన్యవాదాలు! — NSR Master Channel_`;}
@@ -1511,7 +1990,68 @@ function saveDetail(){
   document.getElementById('dp-notes-log').innerHTML=c.notes.map(n=>`<div class="mbox" style="font-size:11px;color:rgba(255,255,255,0.4);">${n}</div>`).join('');
   if(c.status==='Resolved')showResolved(c);renderOwner();
 }
-function aiResolve(){const c=complaints.find(x=>x.id===activeId);if(!c)return;alert(`AI Suggestion for ${c.cat}:\n\nStep 1: Check physical cable connections at the set box (${c.stbtype} / ${c.stbnum}).\nStep 2: Power cycle set box — unplug 30 sec, replug.\nStep 3: If signal issue persists, check distribution amplifier at junction.\nStep 4: Send field technician to ${c.addr} if above steps fail.\n\nEstimated resolution: 2–4 hours.`);}
+function aiResolve(){
+  const c=complaints.find(x=>x.id===activeId);
+  if(!c)return;
+  const cat=(c.cat||c.category||'Service issue').toLowerCase();
+  const stb=(c.stbtype||c.setboxName||'Set box');
+  const stbNo=(c.stbnum||c.setboxNo||'N/A');
+  const addr=(c.addr||'customer location');
+  let en=[
+    `Check the cable/input connections and confirm the set box (${stb} / ${stbNo}) is powered on.`,
+    'Restart the set box and wait 2 minutes for signal/service recovery.',
+    `If the issue continues, assign a field technician to ${addr}.`,
+    'Update the ticket after verification and send customer acknowledgement/resolution message.'
+  ];
+  let te=[
+    `కేబుల్/ఇన్‌పుట్ కనెక్షన్లు చెక్ చేసి సెట్ బాక్స్ (${stb} / ${stbNo}) ఆన్‌లో ఉందో లేదో నిర్ధారించండి.`,
+    'సెట్ బాక్స్‌ను రీస్టార్ట్ చేసి సిగ్నల్/సర్వీస్ రావడానికి 2 నిమిషాలు వేచి చూడండి.',
+    `సమస్య కొనసాగితే ${addr} వద్ద ఫీల్డ్ టెక్నీషియన్‌ను పంపండి.`,
+    'వెరిఫికేషన్ తర్వాత టికెట్‌ను అప్డేట్ చేసి కస్టమర్‌కు అcknowledgement/resolution మెసేజ్ పంపండి.'
+  ];
+  if(cat.includes('internet')){
+    en=[
+      'Check router power, fiber/cable link, and internet plan status.',
+      'Restart router and set box if combo connection is used.',
+      'Run speed/connection check and verify if package upgrade or outage is involved.',
+      `If unresolved, assign technician to ${addr}.`
+    ];
+    te=[
+      'రౌటర్ పవర్, ఫైబర్/కేబుల్ లింక్, ఇంటర్నెట్ ప్లాన్ స్టేటస్ చెక్ చేయండి.',
+      'కాంబో కనెక్షన్ అయితే రౌటర్ మరియు సెట్ బాక్స్‌ను రీస్టార్ట్ చేయండి.',
+      'స్పీడ్/కనెక్షన్ చెక్ చేసి ప్యాకేజ్ అప్‌గ్రేడ్ లేదా అవుటేజ్ ఉందో చూడండి.',
+      `పరిష్కారం కాకపోతే ${addr} వద్ద టెక్నీషియన్‌ను అసైన్ చేయండి.`
+    ];
+  } else if(cat.includes('remote')){
+    en=[
+      'Check remote batteries and IR sensor visibility.',
+      'Try pairing/resetting the remote with the set box.',
+      'If still failing, replace the remote or schedule technician visit.',
+      'Update customer after action is completed.'
+    ];
+    te=[
+      'రిమోట్ బ్యాటరీలు మరియు IR సెన్సార్ కనిపించేలా ఉందో చెక్ చేయండి.',
+      'రిమోట్‌ను సెట్ బాక్స్‌తో మళ్లీ పెయిర్/రీసెట్ చేయండి.',
+      'ఇంకా పని చేయకపోతే రిమోట్ మార్చండి లేదా టెక్నీషియన్ విజిట్ షెడ్యూల్ చేయండి.',
+      'పని పూర్తయ్యాక కస్టమర్‌కు అప్డేట్ ఇవ్వండి.'
+    ];
+  } else if(cat.includes('channel') || cat.includes('tv')){
+    en=[
+      'Check TV input/source and set box output connection.',
+      'Refresh channel list or resend signal from operator side if available.',
+      'Verify recharge/package status for missing channels.',
+      `If picture/audio issue remains, assign technician to ${addr}.`
+    ];
+    te=[
+      'టీవీ ఇన్‌పుట్/సోర్స్ మరియు సెట్ బాక్స్ అవుట్‌పుట్ కనెక్షన్ చెక్ చేయండి.',
+      'చానల్ లిస్ట్ రిఫ్రెష్ చేయండి లేదా ఆపరేటర్ సైడ్ నుండి సిగ్నల్ రీసెండ్ చేయండి.',
+      'చానెల్స్ మిస్ అయితే రీచార్జ్/ప్యాకేజ్ స్టేటస్ చెక్ చేయండి.',
+      `పిక్చర్/ఆడియో సమస్య కొనసాగితే ${addr} వద్ద టెక్నీషియన్‌ను పంపండి.`
+    ];
+  }
+  const msg=`AI Suggestion / AI సూచన\n\nEnglish:\n1. ${en.join('\n2. ')}\n\nTelugu:\n1. ${te.join('\n2. ')}\n\nEstimated resolution: 2–4 hours.`;
+  alert(msg);
+}
 function toggleRaise(){const f=document.getElementById('raise-form');f.style.display=f.style.display==='none'?'block':'none';document.getElementById('detail-panel').style.display='none';populateSTB();}
 function saveRaise(){
   const name=document.getElementById('r-name').value.trim();const desc=document.getElementById('r-desc').value.trim();if(!name||!desc){alert('Name and description required.');return;}
@@ -1611,7 +2151,7 @@ function togglePkgEditMode(){
   if(pkgEditMode){
     btn.textContent='Done editing';
     btn.style.background='var(--red)';btn.style.color='#fff';btn.style.borderColor='var(--red)';
-    document.querySelectorAll('.pkg-edit-badge').forEach(b=>b.style.display='block');
+    document.querySelectorAll('.pkg-edit-badge').forEach(b=>b.style.display='none');
   } else {
     btn.textContent='Edit packages';
     btn.style.background='';btn.style.color='';btn.style.borderColor='';
@@ -1721,8 +2261,6 @@ function openWhatsAppUs(){
   populateSTB();
   const cf=document.getElementById('wa-form-confirm');
   if(cf){cf.style.display='none';cf.innerHTML='';}
-  const status=document.getElementById('mic-status-w');
-  if(status) status.textContent='mic';
   updateWaTranslationPreview();
 }
 
@@ -1875,7 +2413,7 @@ function updateWaTranslationPreview(){
   const issueEl=document.getElementById('w-issue');
   if(!el||!issueEl) return;
   const issue=issueEl.value.trim();
-  if(!issue){el.textContent='AI preview appears after you type or speak the issue.';return;}
+  if(!issue){el.textContent='Preview appears after you type/select the issue. / సమస్య టైప్ చేసిన తర్వాత preview కనిపిస్తుంది.';return;}
   const t=translateIssueToEnglishTelugu(issue);
   const d=t.lang==='te'?'Telugu':(t.lang==='hi'?'Hindi':'English');
   el.innerHTML=`<span class="badge b-pend" style="margin-right:4px;">Detected: ${d}</span><br><span class="badge b-new" style="margin-right:4px;margin-top:6px;">English</span> ${t.english}<br><span class="badge b-cat" style="margin-right:4px;margin-top:6px;">Telugu</span> <span style="font-family:'Noto Sans Telugu',sans-serif;">${t.telugu}</span>`;
@@ -1908,7 +2446,7 @@ function submitWhatsAppComplaint(){
   if(!name||!phone||!stbtype||!stbnum||!issue){alert('Please fill Name, Phone, Setbox Name, Setbox No, and Issue.');return;}
   const id='CMP-'+nextCid++;
   const converted=translateIssueToEnglishTelugu(issue);
-  const ticket={id,name,acct:phone,addr:'Submitted via WhatsApp Us form',stbtype,stbnum,cat:'WhatsApp complaint',pri:'Medium',desc:converted.english,desc_te:converted.telugu,issueOriginal:issue,issueEnglish:converted.english,issueTelugu:converted.telugu,issueInputLang:converted.lang,status:'Open',notes:['Ticket raised from WhatsApp Us form'],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
+  const ticket={id,name,acct:phone,addr:'Submitted via WhatsApp Us form',stbtype,stbnum,cat:(waSelectedIssueMeta.cat||'WhatsApp complaint'),pri:(waSelectedIssueMeta.pri||'Medium'),desc:converted.english,desc_te:converted.telugu,issueOriginal:issue,issueEnglish:converted.english,issueTelugu:converted.telugu,issueInputLang:converted.lang,status:'Open',notes:['Ticket raised from WhatsApp Us form'],date:new Date().toISOString().slice(0,10),isNew:true,bcSent:false,resSent:false,ackSent:false,assign:''};
   complaints.unshift(ticket);
   saveComplaintsToStorage();
   addTicketToFirestore(ticket);
@@ -1920,6 +2458,9 @@ function submitWhatsAppComplaint(){
   cf.innerHTML=`<div class="success-box"><p>Ticket created: ${id}</p><p>WhatsApp is opening with a bilingual draft message to the owner. Please press Send in WhatsApp.</p></div>`;
   ['w-name','w-phone','w-stbnum','w-issue'].forEach(x=>document.getElementById(x).value='');
   document.getElementById('w-stbtype').value='';
+  waSelectedIssueMeta={cat:'WhatsApp complaint',pri:'Medium'};
+  document.querySelectorAll('#w-issue-picker .issue-chip').forEach(b=>b.classList.remove('active'));
+  const wSub=document.getElementById('w-subchips'); if(wSub) wSub.classList.remove('open');
   updateWaTranslationPreview();
   window.open(`https://wa.me/${ownerWa}?text=${encodeURIComponent(msg)}`,'_blank');
 }
@@ -2210,11 +2751,12 @@ submitComplaint = async function(){
   const desc=document.getElementById('c-issue').value.trim();
   if(!name||!desc){alert('Please enter name and describe the issue.');return;}
   const id='CMP-'+nextCid++;
-  const ticket={id,name,phone:document.getElementById('c-phone').value||'N/A',address:document.getElementById('c-addr').value||'N/A',setboxName:document.getElementById('c-stbtype').value||'N/A',setboxNo:document.getElementById('c-stbnum').value||'N/A',issueOriginal:desc,issueEnglish:desc,issueTelugu:window._lastSummaryTe||'',category:document.getElementById('c-cat').value||_categoryFromText(desc),priority:document.getElementById('c-pri').value||_priorityFromText(desc),status:'Open',notes:['Ticket raised from File Complaint form'],source:'file-complaint-form',ackSent:false,bcSent:false,resSent:false,assignedTo:'',isNew:true,date:_today()};
+  const converted=translateIssueToEnglishTelugu(desc);
+  const ticket={id,name,phone:document.getElementById('c-phone').value||'N/A',address:document.getElementById('c-addr').value||'N/A',setboxName:document.getElementById('c-stbtype').value||'N/A',setboxNo:document.getElementById('c-stbnum').value||'N/A',issueOriginal:desc,issueEnglish:converted.english,issueTelugu:converted.telugu,issueInputLang:converted.lang,category:document.getElementById('c-cat').value||_categoryFromText(desc),priority:document.getElementById('c-pri').value||_priorityFromText(desc),status:'Open',notes:['Ticket raised from File Complaint form'],source:'file-complaint-form',ackSent:false,bcSent:false,resSent:false,assignedTo:'',isNew:true,date:_today()};
   const ui=fromFirestoreTicket(ticket);complaints.unshift(ui);saveComplaintsToStorage();renderOwner();
   await addTicketToFirestore(ticket);
   const cf=document.getElementById('cust-confirm');cf.style.display='block';cf.innerHTML=`<div class="success-box"><p>Complaint registered: ${id}</p><p>Complaint logged. Our team will contact you shortly.</p></div>`;
-  ['c-name','c-phone','c-addr','c-stbnum','c-issue'].forEach(x=>document.getElementById(x).value='');document.getElementById('c-stbtype').value='';document.getElementById('c-cat').value='';document.getElementById('c-pri').value='';
+  ['c-name','c-phone','c-addr','c-stbnum','c-issue'].forEach(x=>document.getElementById(x).value='');document.getElementById('c-stbtype').value='';document.getElementById('c-cat').value='';document.getElementById('c-pri').value='';document.querySelectorAll('#c-issue-picker .issue-chip').forEach(b=>b.classList.remove('active'));const cSub=document.getElementById('c-subchips'); if(cSub)cSub.classList.remove('open');detectComplaintLanguage();
 };
 submitInquiry = async function(){
   const name=document.getElementById('i-name').value.trim();const phone=document.getElementById('i-phone').value.trim();
@@ -2270,11 +2812,19 @@ submitWhatsAppComplaint = async function(){
   window.open(`https://wa.me/${ownerWa}?text=${encodeURIComponent(msg)}`,'_blank');
 };
 saveDetail = async function(){
-  const c=complaints.find(x=>x.id===activeId);if(!c)return;c.status=document.getElementById('dp-status').value;c.assign=document.getElementById('dp-assign').value;c.assignedTo=c.assign;
-  const note=document.getElementById('dp-note').value.trim();if(note)c.notes.push(note);
-  await updateTicketInFirestore(c.id,{status:c.status,assignedTo:c.assign,notes:c.notes});
+  const c=complaints.find(x=>x.id===activeId);if(!c)return;
+  c.status=document.getElementById('dp-status').value;
+  c.assign=document.getElementById('dp-assign').value;
+  c.assignedTo=c.assign;
+  const noteEl=document.getElementById('dp-note');
+  const note=noteEl.value.trim();
+  if(note){c.notes.push(note); noteEl.value='';}
+  const statusEl=document.getElementById('dp-save-status');
+  if(statusEl) statusEl.textContent='Saving...';
+  await updateTicketInFirestore(c.id,{status:c.status,assignedTo:c.assign,notes:c.notes,updatedAt:new Date().toISOString()});
   document.getElementById('dp-notes-log').innerHTML=c.notes.map(n=>`<div class="mbox" style="font-size:11px;color:rgba(255,255,255,0.4);">${n}</div>`).join('');
-  if(c.status==='Resolved')showResolved(c);renderOwner();
+  if(c.status==='Resolved')showResolved(c); else document.getElementById('resolved-section').style.display='none';
+  if(statusEl){statusEl.textContent='✓ Saved'; setTimeout(()=>{const s=document.getElementById('dp-save-status'); if(s) s.textContent='';},2200);}
 };
 sendBroadcast = async function(){
   const c=complaints.find(x=>x.id===activeId);if(!c)return;
@@ -2302,6 +2852,194 @@ sendCustomerAck = async function(){
   renderOwner();window.open(waLink(c.acct,msg),'_blank');
 };
 
+
+
+// ── V3.18 SMART ISSUE CATEGORIES ─────────────────────────────────────
+const ISSUE_TREE={
+  internet:[
+    {label:'Internet slow', text:'Internet slow గా ఉంది', cat:'Slow internet', pri:'Medium'},
+    {label:'Internet not working', text:'Internet పని చేయడం లేదు', cat:'Slow internet', pri:'High'},
+    {label:'Package upgrade', text:'Internet package upgrade కావాలి', cat:'Internet package upgrade', pri:'Low'},
+    {label:'Wi-Fi range issue', text:'Wi-Fi range సరిగా రావడం లేదు', cat:'Slow internet', pri:'Medium'},
+    {label:'Router issue', text:'Router issue ఉంది', cat:'Equipment fault', pri:'Medium'}
+  ],
+  setbox:[
+    {label:'Set box not working', text:'Set box పని చేయడం లేదు', cat:'Equipment fault', pri:'Medium'},
+    {label:'No signal', text:'Set box లో signal రావడం లేదు', cat:'Signal / No signal', pri:'High'},
+    {label:'Restarting again', text:'Set box restart అవుతోంది', cat:'Equipment fault', pri:'Medium'},
+    {label:'Adapter / power issue', text:'Set box power రావడం లేదు', cat:'Equipment fault', pri:'High'},
+    {label:'Need set box change', text:'Set box change కావాలి', cat:'Equipment fault', pri:'Medium'}
+  ],
+  remote:[
+    {label:'Remote not working', text:'Remote పని చేయడం లేదు', cat:'Equipment fault', pri:'Low'},
+    {label:'Button issue', text:'Remote buttons పని చేయడం లేదు', cat:'Equipment fault', pri:'Low'},
+    {label:'Battery issue', text:'Remote battery issue ఉంది', cat:'Equipment fault', pri:'Low'},
+    {label:'Need new remote', text:'New remote కావాలి', cat:'Equipment fault', pri:'Low'}
+  ],
+  tv:[
+    {label:'Channels missing', text:'TV లో channels రావడం లేదు', cat:'Channel missing', pri:'Medium'},
+    {label:'TV no picture', text:'TV లో picture రావడం లేదు', cat:'Signal / No signal', pri:'High'},
+    {label:'Audio issue', text:'TV లో sound రావడం లేదు', cat:'Channel missing', pri:'Medium'},
+    {label:'Recharge / package issue', text:'TV package channels రావడం లేదు', cat:'Billing issue', pri:'Medium'},
+    {label:'HD channels issue', text:'HD channels రావడం లేదు', cat:'Channel missing', pri:'Medium'}
+  ]
+};
+let waSelectedIssueMeta={cat:'WhatsApp complaint',pri:'Medium'};
+function clearIssueTypeActive(ctx){
+  document.querySelectorAll(`#${ctx}-issue-picker .issue-chip.primary`).forEach(b=>b.classList.remove('active'));
+}
+function selectIssueType(ctx,type,btn){
+  clearIssueTypeActive(ctx);
+  if(btn) btn.classList.add('active');
+  const box=document.getElementById(`${ctx}-subchips`);
+  const row=document.getElementById(`${ctx}-subchip-row`);
+  if(!box||!row) return;
+  const items=ISSUE_TREE[type]||[];
+  row.innerHTML=items.map((it,i)=>`<button type="button" class="issue-chip" onclick="applyIssueSubcategory('${ctx}','${type}',${i},this)">${it.label}</button>`).join('');
+  box.classList.add('open');
+}
+function applyIssueSubcategory(ctx,type,index,btn){
+  const it=(ISSUE_TREE[type]||[])[index]; if(!it) return;
+  document.querySelectorAll(`#${ctx}-subchip-row .issue-chip`).forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  if(ctx==='c'){
+    const issue=document.getElementById('c-issue'); if(issue){issue.value=it.text; detectComplaintLanguage();}
+    const cat=document.getElementById('c-cat'); if(cat) cat.value=it.cat;
+    const pri=document.getElementById('c-pri'); if(pri) pri.value=it.pri;
+  }else{
+    waSelectedIssueMeta={cat:it.cat,pri:it.pri};
+    const issue=document.getElementById('w-issue'); if(issue) issue.value=it.text;
+    updateWaTranslationPreview();
+  }
+}
+
+// ── UI HELPERS: common issues + ticket detail navigation ──────────────
+function detectTextLanguage(text){
+  const t=(text||'').trim();
+  if(/[\u0C00-\u0C7F]/.test(t)) return 'Telugu';
+  if(/[\u0900-\u097F]/.test(t)) return 'Hindi';
+  if(t) return 'English / Telugu-English';
+  return '';
+}
+function detectComplaintLanguage(){
+  const el=document.getElementById('c-issue');
+  const hint=document.getElementById('c-lang-hint');
+  if(!el||!hint) return;
+  const detected=detectTextLanguage(el.value);
+  hint.textContent=detected ? `Detected language: ${detected}. We will keep the issue as typed.` : 'Detected language will appear after typing.';
+}
+function setComplaintQuickIssue(text,cat,pri){
+  const issue=document.getElementById('c-issue'); if(issue){issue.value=text; detectComplaintLanguage();}
+  const ccat=document.getElementById('c-cat'); if(ccat && cat) ccat.value=cat;
+  const cpri=document.getElementById('c-pri'); if(cpri && pri) cpri.value=pri;
+}
+function showTicketList(){
+  const ownerList=document.getElementById('owner-list'); if(ownerList) ownerList.style.display='block';
+  const detail=document.getElementById('detail-panel'); if(detail) detail.style.display='none';
+  const raise=document.getElementById('raise-form'); if(raise) raise.style.display='none';
+  activeId=null;
+}
+function showTicketDetailOnly(){
+  const ownerList=document.getElementById('owner-list'); if(ownerList) ownerList.style.display='none';
+  const detail=document.getElementById('detail-panel'); if(detail) detail.style.display='block';
+  const status=document.getElementById('dp-save-status'); if(status) status.textContent='';
+}
+function backToTicketLog(){
+  showTicketList();
+  renderOwner();
+}
+const _baseOpenDetailForSingleView = typeof openDetail==='function' ? openDetail : null;
+openDetail = function(id){
+  if(_baseOpenDetailForSingleView) _baseOpenDetailForSingleView(id);
+  showTicketDetailOnly();
+};
+closeDetail = function(){ backToTicketLog(); };
+
+
+
+// === v3.21 targeted owner dashboard polish: final renderOwner override ===
+function renderOwner(){
+  const total=complaints.length;
+  const tot=document.getElementById('o-tot'); if(tot) tot.textContent=total;
+  const opn=document.getElementById('o-opn'); if(opn) opn.textContent=complaints.filter(c=>c.status==='Open').length;
+  const prg=document.getElementById('o-prg'); if(prg) prg.textContent=complaints.filter(c=>c.status==='In progress').length;
+  const res=document.getElementById('o-res'); if(res) res.textContent=complaints.filter(c=>c.status==='Resolved').length;
+  const alerts=document.getElementById('new-alerts');
+  if(alerts){
+    alerts.innerHTML=complaints.filter(c=>c.isNew).map(c=>`<div class="alert-row"><span>New: <b>${c.id}</b> — ${c.name} | ${c.cat||c.category||'Other'} ${bP(c.pri||c.priority||'Medium')}</span><button class="btn-p" style="font-size:10px;padding:3px 8px;" onclick="dismiss('${c.id}')">Dismiss</button></div>`).join('');
+  }
+  const list=document.getElementById('owner-list');
+  if(!list) return;
+  const filtered=complaints.filter(c=>ticketStatusFilter==='All' || c.status===ticketStatusFilter);
+  const filterBar=`<div class="ticket-filter-bar" style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;align-items:center;">
+    ${['All','Open','In progress','Resolved'].map(s=>{const label=s==='All'?ownerT('filterAll'):(s==='Open'?ownerT('filterOpen'):(s==='In progress'?ownerT('filterProgress'):ownerT('filterResolved')));return `<button class="btn-p ticket-filter-btn ${ticketStatusFilter===s?'active':''}" onclick="setTicketFilter('${s}')">${label}</button>`;}).join('')}
+    <span style="font-size:11px;color:rgba(255,255,255,.46);align-self:center;margin-left:4px;">${ownerT('showing')} <b style="color:#fff;">${filtered.length}</b> ${ownerT('of')} ${total}</span>
+  </div>`;
+  if(!filtered.length){
+    list.innerHTML=filterBar+`<div class="p-card" style="text-align:center;color:rgba(255,255,255,.45);padding:28px;border-style:dashed;">${ownerT('noTickets')}</div>`;
+    return;
+  }
+  list.innerHTML=filterBar + filtered.map(c=>{
+    const id=c.id||'CMP';
+    const name=c.name||'Customer';
+    const setbox=c.stbtype||c.setboxName||'Set box';
+    const cat=c.cat||c.category||'Other';
+    const desc=(c.desc||c.issueEnglish||c.issueOriginal||'').slice(0,86);
+    const pri=c.pri||c.priority||'Medium';
+    return `<div class="ticket-item" onclick="openDetail('${id}')">
+      <div class="t-av">${ini(name||'NA')}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="ticket-main-line">
+          <span class="ticket-customer-name">${name}</span>
+          <span class="ticket-id-pill">${id}</span>
+          ${c.isNew?`<span class="badge b-new">${ownerT('new')}</span>`:''}
+          ${c.ackSent?`<span class="badge b-res">${ownerT('ack')}</span>`:''}
+          ${c.bcSent?`<span class="badge" style="background:#E7FFDB;color:#27500A;">${ownerT('teamWa')}</span>`:''}
+          ${c.resSent?`<span class="badge b-res">${ownerT('resolvedMsg')}</span>`:''}
+        </div>
+        <div class="ticket-summary-line">${setbox} · ${cat} — ${desc}${desc.length>=86?'…':''}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;">${bS(c.status||'Open')}${bP(pri)}</div>
+    </div>`;
+  }).join('');
+}
+
+
+
+// ── OWNER DASHBOARD LANGUAGE TOGGLE (EN / TELUGU) ─────────────────────
+const OWNER_LANG_TEXT={
+  en:{
+    ownerDashboard:'Owner dashboard',languageNote:'Dashboard language',tabTickets:'Tickets',tabInquiries:'Inquiries',tabCustomers:'Customers',tabInfo:'Info',tabWaLog:'WA Log',logout:'Logout',
+    metricTotal:'Total',metricOpen:'Open',metricProgress:'In Progress',metricResolved:'Resolved',allComplaints:'All complaints',exportExcel:'Export Excel',raiseTicket:'+ Raise ticket',
+    raiseTicketOwner:'Raise ticket — owner',backTicketLog:'← Back to Ticket Log',filterAll:'All',filterOpen:'Open',filterProgress:'In progress',filterResolved:'Resolved',showing:'Showing',of:'of',noTickets:'No tickets in this view.',
+    new:'New',ack:'Ack',teamWa:'Team WA',resolvedMsg:'Resolved Msg',statusOpen:'Open',statusProgress:'In progress',statusResolved:'Resolved',high:'High',medium:'Medium',low:'Low'
+  },
+  te:{
+    ownerDashboard:'యజమాని డ్యాష్‌బోర్డ్',languageNote:'డ్యాష్‌బోర్డ్ భాష',tabTickets:'టికెట్లు',tabInquiries:'విచారణలు',tabCustomers:'కస్టమర్లు',tabInfo:'సమాచారం',tabWaLog:'వాట్సాప్ లాగ్',logout:'లాగ్ అవుట్',
+    metricTotal:'మొత్తం',metricOpen:'ఓపెన్',metricProgress:'ప్రగతిలో',metricResolved:'పరిష్కరించబడింది',allComplaints:'అన్ని ఫిర్యాదులు',exportExcel:'ఎక్సెల్ ఎగుమతి',raiseTicket:'+ టికెట్ నమోదు',
+    raiseTicketOwner:'యజమాని ద్వారా టికెట్ నమోదు',backTicketLog:'← టికెట్ జాబితాకు తిరిగి',filterAll:'అన్నీ',filterOpen:'ఓపెన్',filterProgress:'ప్రగతిలో',filterResolved:'పరిష్కరించబడింది',showing:'చూపిస్తున్నవి',of:'లో',noTickets:'ఈ వీక్షణలో టికెట్లు లేవు.',
+    new:'కొత్తది',ack:'అంగీకారం',teamWa:'టీమ్ WA',resolvedMsg:'పరిష్కారం మెసేజ్',statusOpen:'ఓపెన్',statusProgress:'ప్రగతిలో',statusResolved:'పరిష్కరించబడింది',high:'అధిక',medium:'మధ్యస్థ',low:'తక్కువ'
+  }
+};
+let ownerLang=localStorage.getItem('nsr_owner_lang')||'en';
+function ownerT(k){return (OWNER_LANG_TEXT[ownerLang]&&OWNER_LANG_TEXT[ownerLang][k]) || OWNER_LANG_TEXT.en[k] || k;}
+function setOwnerLang(lang){ownerLang=lang==='te'?'te':'en';localStorage.setItem('nsr_owner_lang',ownerLang);applyOwnerLang();if(typeof renderOwner==='function')renderOwner();}
+function applyOwnerLang(){
+  document.querySelectorAll('[data-owner-key]').forEach(el=>{const k=el.getAttribute('data-owner-key'); if(ownerT(k)) el.textContent=ownerT(k);});
+  const en=document.getElementById('owner-lang-en'), te=document.getElementById('owner-lang-te');
+  if(en&&te){en.classList.toggle('active',ownerLang==='en');te.classList.toggle('active',ownerLang==='te');}
+}
+function ownerStatusLabel(status){
+  if(status==='Resolved')return ownerT('statusResolved');
+  if(status==='In progress')return ownerT('statusProgress');
+  return ownerT('statusOpen');
+}
+function ownerPriorityLabel(pri){
+  if(pri==='High')return ownerT('high');
+  if(pri==='Low')return ownerT('low');
+  return ownerT('medium');
+}
+
 // ── LOCAL STORAGE FOR FALLBACK TICKETS + POSTERS ───────────────────────
 function saveComplaintsToStorage(){try{localStorage.setItem('nsr_complaints',JSON.stringify(complaints));localStorage.setItem('nsr_nextCid',String(nextCid));}catch(e){}}
 function loadComplaintsFromStorage(){try{const saved=localStorage.getItem('nsr_complaints');if(saved){complaints=JSON.parse(saved);}const n=parseInt(localStorage.getItem('nsr_nextCid'),10);if(n)nextCid=n;}catch(e){}}
@@ -2321,6 +3059,7 @@ renderPackages();
 populateSTB();
 populatePkgDropdowns();
 renderPostsPublic();
+if(typeof applyOwnerLang==='function') applyOwnerLang();
 // Sync contact info to public page on load
 (function syncContact(){
   const ph=document.getElementById('pub-phone'); if(ph) ph.textContent=contactInfo.phone;
